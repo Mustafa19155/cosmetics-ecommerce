@@ -1,18 +1,36 @@
+import defaultTheme from "tailwindcss/defaultTheme";
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      screens: {
+        xs: "450px",
+        sm: "576px",
+        md: "768px",
+        lg: "992px",
+        xl: "1201px",
+        "2xl": "1401px",
+      },
+      fontFamily: {
+        sans: ["Manrope", ...defaultTheme.fontFamily.sans],
+      },
+      colors: {
+        primary: "#FB6B90",
+        secondary: "#1D1D1DB0",
+        "gray-1": "#F8F9FA",
+      },
+      boxShadow: {
+        "custom-1": "0px 2px 8px 0px #99999933",
+        "custom-2":
+          "-5.784615516662598px 2.892307758331299px 11.569231033325195px 0px #99999933",
       },
     },
   },
   plugins: [],
-}
+};
