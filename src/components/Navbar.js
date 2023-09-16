@@ -31,7 +31,7 @@ export default function Navbar() {
       <Image src={HamIcon} />
       <div className="hidden lg:block">
         <div className="flex gap-12">
-          <div className="flex gap-10">
+          <div className="flex gap-14">
             <Link
               href={"/"}
               className={`${pathname == "/" ? "text-primary" : ""}`}
@@ -82,7 +82,7 @@ export default function Navbar() {
               </svg>
             </div>
           </div>
-          <div className="flex gap-5">
+          <div className="flex gap-8">
             <Image src={SearchIcon} />
             <Image src={ProfileIcon} />
             <Image src={HeartIcon} />
