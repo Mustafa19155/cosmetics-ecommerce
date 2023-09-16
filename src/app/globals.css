@@ -8,12 +8,14 @@
 @layer utilities {
   @variants responsive {
     /* Hide scrollbar for Chrome, Safari and Opera */
-    .home-pro-wrapper::-webkit-scrollbar {
+    .home-pro-wrapper::-webkit-scrollbar,
+    .image-gallery-bot::-webkit-scrollbar {
       display: none;
     }
 
     /* Hide scrollbar for IE, Edge and Firefox */
-    .home-pro-wrapper {
+    .home-pro-wrapper,
+    .image-gallery-bot {
       -ms-overflow-style: none; /* IE and Edge */
       scrollbar-width: none; /* Firefox */
     }

@@ -30,6 +30,8 @@ module.exports = {
         "custom-2":
           "-5.784615516662598px 2.892307758331299px 11.569231033325195px 0px #99999933",
         "dropdown-shadow": "0px 4px 14px 0px #0000001A",
+        "select-input": "0px 2px 8px 0px #99999933",
+        "review-box": "0px 4px 4px 0px #00000040",
       },
     },
   },

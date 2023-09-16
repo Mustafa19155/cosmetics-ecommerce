@@ -13,7 +13,7 @@ export default function PrimaryInput({
       onChange={changeHandler}
       type={type}
       placeholder={placeholder}
-      className={`bg-gray-1 shadow-custom-1 py-2 outline-none ${
+      className={`bg-gray-1 shadow-custom-1 py-2 outline-none px-2  rounded-md ${
         className ? className : ""
       }`}
     />
