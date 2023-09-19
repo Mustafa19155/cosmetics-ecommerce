@@ -4,7 +4,6 @@ import SectionOne from "@/components/Home/SectionOne";
 import SpecialOffers from "@/components/Home/SpecialOffers";
 import Testimonials from "@/components/Home/Testimonials";
 import TrendingProducts from "@/components/Home/TrendingProducts";
-import Image from "next/image";
 
 export default function Home() {
   return (
