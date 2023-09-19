@@ -54,3 +54,9 @@
 .home-sec-1 .carousel-status {
   display: none;
 }
+
+/* checkout phone input */
+.phone-input input {
+  background: none;
+  outline: none;
+}

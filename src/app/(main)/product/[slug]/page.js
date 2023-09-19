@@ -70,7 +70,6 @@ const Page = async () => {
   return (
     <div className="mt-16 p-5 md:p-0 flex flex-col gap-16">
       <ProductTop product={product} />
-
       <ProductDetails product={product} />
       <p className="font-bold text-3xl text-center">Customer Reviews</p>
       <AddReview />

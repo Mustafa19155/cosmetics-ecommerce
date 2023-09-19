@@ -3,8 +3,11 @@ import React from "react";
 import HeartIcon from "../../assets/icons/heart.svg";
 import PinkButton from "../buttons/PinkButton";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const ProductCard = ({ product }) => {
+  const router = useRouter();
+
   return (
     <div className="sm:w-[44%] lg:w-[23%] relative mt-16">
       <div className="absolute top-0 right-0 bg-primary w-[50%] px-3 py-2 text-center min-w-fit">
@@ -26,7 +29,10 @@ const ProductCard = ({ product }) => {
             ${product.originalPrice}
           </p>
         </div>
-        <PinkButton text={"Buy Now"} />
+        <PinkButton
+          text={"Buy Now"}
+          clickHandler={() => router.push(`/product/${1}`)}
+        />
       </div>
     </div>
   );

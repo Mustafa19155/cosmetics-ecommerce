@@ -6,9 +6,11 @@ export default function PrimaryInput({
   changeHandler,
   placeholder,
   className,
+  name,
 }) {
   return (
     <input
+      name={name}
       value={value}
       onChange={changeHandler}
       type={type}

@@ -32,6 +32,8 @@ module.exports = {
         "dropdown-shadow": "0px 4px 14px 0px #0000001A",
         "select-input": "0px 2px 8px 0px #99999933",
         "review-box": "0px 4px 4px 0px #00000040",
+        "cart-wrapper": "0px 4px 26px 0px #0000000F",
+        "input-2": "0px 1.7529879808425903px 7.011951923370361px 0px #99999933",
       },
     },
   },
