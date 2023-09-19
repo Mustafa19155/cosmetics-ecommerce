@@ -2,12 +2,12 @@
 import PrimaryInput from "@/components/Inputs/PrimaryInput";
 import PinkButton from "@/components/buttons/PinkButton";
 import React from "react";
-import FacebookIcon from "../../assets/icons/footer/facebook.svg";
-import TwitterIcon from "../../assets/icons/footer/twitter.svg";
-import LinkedInIcon from "../../assets/icons/footer/linkedIn.svg";
-import LocationIcon from "../../assets/icons/footer/location.svg";
-import PhoneIcon from "../../assets/icons/footer/phone.svg";
-import EmailIcon from "../../assets/icons/email.svg";
+import FacebookIcon from "../../../assets/icons/footer/facebook.svg";
+import TwitterIcon from "../../../assets/icons/footer/twitter.svg";
+import LinkedInIcon from "../../../assets/icons/footer/linkedIn.svg";
+import LocationIcon from "../../../assets/icons/footer/location.svg";
+import PhoneIcon from "../../../assets/icons/footer/phone.svg";
+import EmailIcon from "../../../assets/icons/email.svg";
 import Image from "next/image";
 
 const Page = () => {

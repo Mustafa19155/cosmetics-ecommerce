@@ -1,10 +1,6 @@
 "use client";
 import PinkButton from "@/components/buttons/PinkButton";
-import TransparentButton from "@/components/buttons/TransparentButton";
 import React, { useState } from "react";
-import GoogleIcon from "../../assets/icons/google.svg";
-import Link from "next/link";
-import Image from "next/image";
 import LoginMainImg from "../../assets/images/profile-reset-password.png";
 import PrimaryInput from "@/components/Inputs/PrimaryInput";
 
