@@ -14,7 +14,10 @@ const Dropdown = ({ show, setshow, options, className }) => {
       } ${className ? className : ""}`}
     >
       {options.map((opt) => (
-        <div className="text-secondary p-3 cursor-pointer whitespace-nowrap">
+        <div
+          className="text-secondary p-3 cursor-pointer whitespace-nowrap"
+          onClick={() => setshow(false)}
+        >
           <p>{opt.name}</p>
         </div>
       ))}

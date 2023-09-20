@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import HeartIcon from "../../assets/icons/heart.svg";
+import HeartFillIcon from "../../assets/icons/heart-fill.svg";
 import PinkButton from "../buttons/PinkButton";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -21,7 +22,10 @@ const ProductCard = ({ product }) => {
       <div className="flex flex-col gap-2">
         <div className="flex justify-between">
           <p className="text-xl font-semibold">{product.name}</p>
-          <Image src={HeartIcon} className="cursor-pointer" />
+          <Image
+            src={product.isFavourite ? HeartFillIcon : HeartIcon}
+            className="cursor-pointer"
+          />
         </div>
         <div className="flex items-end gap-3">
           <p className="font-semibold">${product.discountedPrice}</p>

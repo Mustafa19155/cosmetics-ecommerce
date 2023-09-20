@@ -8,7 +8,7 @@ const SelectInput = ({ options }) => {
   return (
     <div className="relative">
       <Dropdown
-        className={"top-14"}
+        className={"top-16"}
         options={options}
         show={showDropdown}
         setshow={setshowDropdown}
