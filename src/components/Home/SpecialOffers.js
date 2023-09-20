@@ -5,6 +5,20 @@ import MainImg from "../../assets/images/home/section1.png";
 
 const SpecialOffers = () => {
   const [images, setimages] = useState([MainImg, MainImg, MainImg]);
+  const settings = {
+    showArrows: false,
+    // interval: 3500,
+    // dynamicHeight: false,
+    // stopOnHover: false,
+    infiniteLoop: true,
+    showStatus: false,
+    // transitionTime: 500,
+    showThumbs: false,
+    // showIndicators: true,
+    swipeable: true,
+    emulateTouch: true,
+    // autoPlay: true,
+  };
   return (
     <div>
       <div className="text-center">
@@ -16,6 +30,7 @@ const SpecialOffers = () => {
       <div>
         <div className="custom-full-width-child home-sec-1 mt-8">
           <Carousel
+            {...settings}
             showArrows={false}
             renderIndicator={(onClickHandler, isSelected, index, label) => {
               return (

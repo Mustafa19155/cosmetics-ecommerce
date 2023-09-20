@@ -7,7 +7,7 @@ import TrendingProducts from "@/components/Home/TrendingProducts";
 
 export default function Home() {
   return (
-    <div className=" relative top-[-65px] ">
+    <div className=" relative top-[-74px] ">
       <SectionOne />
       <div className="flex flex-col gap-20 mt-12">
         <Categories />

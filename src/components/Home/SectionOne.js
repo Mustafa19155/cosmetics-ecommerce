@@ -6,10 +6,25 @@ import { Carousel } from "react-responsive-carousel";
 const SectionOne = () => {
   const [images, setimages] = useState([MainImg, MainImg, MainImg]);
 
+  const settings = {
+    showArrows: false,
+    // interval: 3500,
+    // dynamicHeight: false,
+    // stopOnHover: false,
+    infiniteLoop: true,
+    showStatus: false,
+    // transitionTime: 500,
+    showThumbs: false,
+    // showIndicators: true,
+    swipeable: true,
+    emulateTouch: true,
+    // autoPlay: true,
+  };
+
   return (
     <div className="custom-full-width-child home-sec-1">
       <Carousel
-        showArrows={false}
+        {...settings}
         renderIndicator={(onClickHandler, isSelected, index, label) => {
           return (
             <div
@@ -33,11 +48,11 @@ const SectionOne = () => {
       >
         {images.map((image) => (
           <div
-            className="h-[35vw] min-h-[350px] max-h-[600px] w-[100%] rounded-lg"
+            className="h-[102vh] lg:h-[100vh] w-[100%] rounded-lg"
             style={{
               backgroundImage: `url(${image.src})`,
               backgroundRepeat: "no-repeat",
-              backgroundSize: "100% 100%",
+              backgroundSize: "cover",
               backgroundPosition: "center center",
             }}
           />

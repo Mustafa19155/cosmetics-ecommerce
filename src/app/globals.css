@@ -60,3 +60,20 @@
   background: none;
   outline: none;
 }
+
+/* navbar */
+@media (max-width: 991px) {
+  .nav-show-search {
+    width: 100% !important;
+    left: 0 !important;
+    margin-left: 0 !important;
+  }
+}
+@media (max-width: 1200px) {
+  .nav-show-search {
+    position: relative;
+    left: 50%;
+    width: 100vw;
+    margin-left: -50vw;
+  }
+}
