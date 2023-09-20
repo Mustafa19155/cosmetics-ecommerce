@@ -18,10 +18,10 @@ const Testimonials = () => {
       <p className="text-3xl font-bold text-center">
         What Our People Has To Say About Us
       </p>
-      <div className="container bg-primary mx-auto mt-8">
-        <div className="p-12 flex flex-wrap">
+      <div className="w-[90%] bg-primary mx-auto mt-8">
+        <div className="p-6 sm:p-12 flex flex-wrap">
           <div className="w-[100%] md:w-[40%] flex justify-center">
-            <Image src={TestImg} className="w-full max-w-[400px]" />
+            <Image src={TestImg} className="w-full" />
           </div>
           <div className="md:w-[60%] text-xl text-white flex flex-col justify-center py-8 sm:p-8 xl:p-12 relative">
             <div>

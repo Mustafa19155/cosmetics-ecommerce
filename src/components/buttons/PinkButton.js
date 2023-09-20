@@ -11,9 +11,9 @@ export default function PinkButton({
   return (
     <button
       type={type}
-      className={`${
+      className={`pink-btn ${
         className ? className : ""
-      } w-full h-[48px] rounded-md bg-primary text-white flex justify-center items-center gap-2`}
+      } w-full h-[48px] rounded-md bg-primary text-white flex justify-center items-center gap-2 hover:shadow-pink-btn duration-150`}
       onClick={clickHandler}
     >
       {icon && <Image src={icon} />}

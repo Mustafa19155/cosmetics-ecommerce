@@ -35,6 +35,8 @@ module.exports = {
         "cart-wrapper": "0px 4px 26px 0px #0000000F",
         "input-2": "0px 1.7529879808425903px 7.011951923370361px 0px #99999933",
         "admin-navbar": "0px 4px 10px 0px #0000001A",
+        "pink-btn": "4px 4px 6px rgba(251, 107, 144, 0.5)",
+        "trans-btn": "4px 4px 6px rgba(0,0,0,0.2)",
       },
     },
   },

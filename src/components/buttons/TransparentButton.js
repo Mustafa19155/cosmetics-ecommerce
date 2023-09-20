@@ -12,7 +12,7 @@ export default function TransparentButton({
     <button
       className={`${
         className ? className : ""
-      } w-full h-[48px] rounded-md border border-primary flex justify-center items-center gap-2`}
+      } w-full h-[48px] rounded-md border border-primary flex justify-center items-center gap-2 hover:shadow-trans-btn duration-150`}
       onClick={clickHandler}
     >
       {icon && <Image src={icon} />}

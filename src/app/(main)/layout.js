@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import { Inter } from "next/font/google";
 import Footer from "@/components/Footer";
+import WhatsappIcon from "@/components/WhatsappIcon";
 
 export default function RootLayout({ children }) {
   return (
@@ -14,11 +15,10 @@ export default function RootLayout({ children }) {
         ></link>
       </head>
       <body className="overflow-x-hidden">
-        <div className="container mx-auto">
-          <Navbar />
-          {children}
-          <Footer />
-        </div>
+        <WhatsappIcon />
+        <Navbar />
+        <div className="container mx-auto">{children}</div>
+        <Footer />
       </body>
     </html>
   );
