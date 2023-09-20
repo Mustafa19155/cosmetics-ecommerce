@@ -8,8 +8,10 @@ import Link from "next/link";
 import Image from "next/image";
 import LoginMainImg from "../../assets/images/login.png";
 import PrimaryInput from "@/components/Inputs/PrimaryInput";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
+  const router = useRouter();
   return (
     <div className="flex h-screen">
       <div className="w-[100%] md:w-[50%] flex flex-col justify-center items-center px-8 sm:px-16 py-8">
@@ -38,7 +40,12 @@ export default function Page() {
               />
             </div>
 
-            <PinkButton text={"LOGIN"} />
+            <PinkButton
+              text={"LOGIN"}
+              clickHandler={() => {
+                router.push("/");
+              }}
+            />
             <TransparentButton
               text={"Continue with Google"}
               icon={GoogleIcon}
