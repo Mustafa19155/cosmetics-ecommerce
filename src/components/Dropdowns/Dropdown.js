@@ -17,7 +17,6 @@ const Dropdown = ({ show, setshow, options, className, handleClick }) => {
         <div
           className="text-secondary p-3 cursor-pointer whitespace-nowrap"
           onClick={(e) => {
-            console.log("A");
             setshow(false);
             handleClick ? handleClick() : null;
           }}

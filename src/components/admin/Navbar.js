@@ -6,7 +6,7 @@ import Image from "next/image";
 
 const Navbar = () => {
   return (
-    <div className="shadow-admin-navbar w-full flex justify-between p-4">
+    <div className="shadow-admin-navbar w-full flex justify-between p-4 bg-white">
       <div className="flex items-center gap-2">
         <p className="font-bold text-2xl">Hello Admin</p>
         <div className="relative">

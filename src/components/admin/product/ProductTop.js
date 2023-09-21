@@ -1,0 +1,43 @@
+import React, { useState } from "react";
+import PinkButton from "@/components/buttons/PinkButton";
+import Link from "next/link";
+
+const ProductTop = ({ showProducts, setshowProducts }) => {
+  return (
+    <>
+      <div className="flex flex-col gap-5 lg:gap-0 lg:flex-row justify-between lg:items-center">
+        <div className="bg-white flex gap-2 shadow-admin-navbar p-2 rounded-lg">
+          <PinkButton
+            text={"Products"}
+            className={`px-16 w-[48.5%] ${
+              !showProducts
+                ? "!bg-gray-1 !text-primary hover:!shadow-trans-btn"
+                : ""
+            }`}
+            clickHandler={() => setshowProducts(true)}
+          />
+          <PinkButton
+            text={"Category"}
+            className={`px-16 w-[48.5%] ${
+              showProducts
+                ? "!bg-gray-1 !text-primary hover:!shadow-trans-btn"
+                : ""
+            }`}
+            clickHandler={() => setshowProducts(false)}
+          />
+        </div>
+        <div className="self-end">
+          {showProducts ? (
+            <Link href={"product/add"}>
+              <PinkButton text={"ADD PRODUCT"} className={"px-16 !w-fit"} />
+            </Link>
+          ) : (
+            <PinkButton text={"ADD CATEGORY"} className={"px-16 !w-fit"} />
+          )}
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default ProductTop;

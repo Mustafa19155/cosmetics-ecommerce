@@ -20,6 +20,10 @@ export default function RootLayout({ children }) {
           href="https://fonts.googleapis.com/css2?family=Manrope&display=swap"
           rel="stylesheet"
         ></link>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter&display=swap"
+          rel="stylesheet"
+        ></link>
       </head>
       <body className="overflow-x-hidden">
         {/* <div className="container mx-auto"> */}

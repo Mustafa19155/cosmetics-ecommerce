@@ -19,11 +19,13 @@ module.exports = {
       },
       fontFamily: {
         sans: ["Manrope", ...defaultTheme.fontFamily.sans],
+        inter: ["Inter"],
       },
       colors: {
         primary: "#FB6B90",
         secondary: "#1D1D1DB0",
         "gray-1": "#F8F9FA",
+        "gray-2": "#EAEAEA",
       },
       boxShadow: {
         "custom-1": "0px 2px 8px 0px #99999933",

@@ -3,24 +3,20 @@ import ArrowIcon from "../../assets/icons/arrow.svg";
 import Image from "next/image";
 import Dropdown from "../Dropdowns/Dropdown";
 
-const SelectInput = ({ options }) => {
+const SelectInput = ({ options, className, dropdownClassName }) => {
   const [showDropdown, setshowDropdown] = useState(false);
   return (
     <div className="relative">
-      <Dropdown
-        className={"!top-16"}
-        options={options}
-        show={showDropdown}
-        setshow={setshowDropdown}
-      />
       <div
-        className="bg-white shadow-select-input flex justify-between items-center p-4 rounded-lg gap-4"
+        className={`bg-white shadow-select-input flex justify-between items-center p-4 rounded-lg gap-4 cursor-pointer ${
+          className ? className : ""
+        }`}
         onClick={() => setshowDropdown(!showDropdown)}
       >
         <p className="whitespace-nowrap">{options[0].name}</p>
         <svg
-          width="20"
-          height="20"
+          width="14"
+          height="14"
           viewBox="0 0 12 7"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -31,6 +27,12 @@ const SelectInput = ({ options }) => {
           />
         </svg>
       </div>
+      <Dropdown
+        className={`top-16 ${dropdownClassName ? dropdownClassName : ""}`}
+        options={options}
+        show={showDropdown}
+        setshow={setshowDropdown}
+      />
     </div>
   );
 };

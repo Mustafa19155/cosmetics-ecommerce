@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 export default function PrimaryInput({
@@ -7,17 +8,23 @@ export default function PrimaryInput({
   placeholder,
   className,
   name,
+  icon,
 }) {
   return (
-    <input
-      name={name}
-      value={value}
-      onChange={changeHandler}
-      type={type}
-      placeholder={placeholder}
-      className={`bg-gray-1 shadow-custom-1 py-2 outline-none px-2  rounded-md ${
+    <div
+      className={`bg-gray-1 shadow-custom-1 py-2 px-2 rounded-md flex gap-2 items-center ${
         className ? className : ""
       }`}
-    />
+    >
+      {icon && <Image src={icon} className="h-[20px] w-[20px]" />}
+      <input
+        name={name}
+        value={value}
+        onChange={changeHandler}
+        type={type}
+        placeholder={placeholder}
+        className="h-full w-full !bg-gray-1 outline-none"
+      />
+    </div>
   );
 }
