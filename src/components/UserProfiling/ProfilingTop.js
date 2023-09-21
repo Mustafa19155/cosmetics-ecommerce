@@ -46,6 +46,7 @@ const ProfilingTop = () => {
           text={"Logout"}
           icon={WhiteArrow}
           className={"justify-between flex-row-reverse px-8"}
+          clickHandler={() => router.push("/login")}
         />
       </div>
     </div>

@@ -240,12 +240,17 @@ export default function Navbar() {
           <Image
             src={HamIcon}
             className="block lg:hidden"
-            onClick={() => setshowNavDrop(!showNavDrop)}
+            onClick={() => {
+              setshowNavDrop(!showNavDrop);
+            }}
           />
+
           {showNavDrop && (
             <div
-              className="flex lg:hidden flex-col absolute bg-white w-full p-4 rounded-lg shadow-2xl max-w-screen left-0 top-16"
-              ref={navbarRef}
+              className={
+                "flex lg:hidden flex-col absolute bg-white w-full p-4 rounded-lg shadow-2xl max-w-screen left-0 top-14"
+              }
+              // ref={navbarRef}
             >
               <div className="flex flex-col gap-12">
                 <div className="flex flex-col gap-5">
