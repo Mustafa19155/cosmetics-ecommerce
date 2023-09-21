@@ -2,8 +2,10 @@
 import React from "react";
 import AboutImg from "../../assets/images/home/about.png";
 import TransparentButton from "../buttons/TransparentButton";
+import { useRouter } from "next/navigation";
 
 const AboutProduct = () => {
+  const router = useRouter();
   return (
     <div className="custom-full-width-child bg-primary">
       <div className="flex flex-col md:flex-row gap-8 md:gap-0 py-8 px-5 sm:p-10 max-w-[1700px] mx-auto">
@@ -28,7 +30,11 @@ const AboutProduct = () => {
             reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
             pariatur.
           </p>
-          <TransparentButton text={"BUY NOW"} className={"bg-white border-0"} />
+          <TransparentButton
+            text={"BUY NOW"}
+            className={"bg-white border-0"}
+            clickHandler={() => router.push("/product/1")}
+          />
         </div>
       </div>
     </div>

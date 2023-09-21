@@ -4,8 +4,11 @@ import FoundationImg from "../../assets/images/home/foundation.png";
 import Image from "next/image";
 import HeartIcon from "../../assets/icons/heart.svg";
 import PinkButton from "../buttons/PinkButton";
+import { useRouter } from "next/navigation";
 
 const TrendingProducts = () => {
+  const router = useRouter();
+
   const [products, setproducts] = useState([
     {
       name: "Nars Foundation",
@@ -103,7 +106,10 @@ const TrendingProducts = () => {
                   ${pro.originalPrice}
                 </p>
               </div>
-              <PinkButton text={"Buy Now"} />
+              <PinkButton
+                text={"Buy Now"}
+                clickHandler={() => router.push("/product/1")}
+              />
             </div>
           </div>
         ))}

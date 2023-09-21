@@ -6,8 +6,10 @@ import TransparentButton from "../buttons/TransparentButton";
 import PlusIcon from "../../assets/icons/plus.svg";
 import MinusIcon from "../../assets/icons/minus.svg";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const ProductTop = ({ product }) => {
+  const router = useRouter();
   const [quantity, setquantity] = useState(1);
 
   const handleDecrement = () => {
@@ -58,8 +60,15 @@ const ProductTop = ({ product }) => {
           />
         </div>
         <div className="flex gap-6 sm:pr-20">
-          <TransparentButton text={"BUY NOW"} className={"text-primary"} />
-          <PinkButton text={"ADD TO CART"} />
+          <TransparentButton
+            text={"BUY NOW"}
+            className={"text-primary"}
+            clickHandler={() => router.push("/checkout")}
+          />
+          <PinkButton
+            text={"ADD TO CART"}
+            clickHandler={() => router.push("/cart")}
+          />
         </div>
       </div>
     </div>

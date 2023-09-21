@@ -1,7 +1,11 @@
+"use client";
 import React from "react";
 import PinkButton from "../buttons/PinkButton";
+import { useRouter } from "next/navigation";
 
 const CartRight = ({ data }) => {
+  const router = useRouter();
+
   return (
     <div className="flex flex-col gap-2">
       <div className="flex justify-between items-center">
@@ -24,7 +28,10 @@ const CartRight = ({ data }) => {
         <p>Grand Total</p>
         <p>${data.finalTotal}</p>
       </div>
-      <PinkButton text={"CHECKOUT NOW"} />
+      <PinkButton
+        text={"CHECKOUT NOW"}
+        clickHandler={() => router.push("/checkout")}
+      />
     </div>
   );
 };
