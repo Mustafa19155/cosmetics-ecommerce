@@ -4,10 +4,13 @@ import DeleteIcon from "@/assets/icons/delete-gray.svg";
 import EditIcon from "@/assets/icons/edit-gray.svg";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import DeleteModal from "@/components/Modals/DeleteModal";
 
 const ProductsTable = ({ mainPros, setmainPros }) => {
   const router = useRouter();
   const [allChecked, setallChecked] = useState(false);
+  const [deleteModalOpen, setdeleteModalOpen] = useState(false);
+  const [activeModalData, setactiveModalData] = useState(null);
 
   const handleCheckPro = (index) => {
     setmainPros(
@@ -39,6 +42,10 @@ const ProductsTable = ({ mainPros, setmainPros }) => {
     }
   };
 
+  const handleDeleteProduct = () => {
+    setdeleteModalOpen(false);
+  };
+
   useEffect(() => {
     if (mainPros.length > 0) {
       mainPros.filter((pro) => !pro.selected).length == 0
@@ -51,6 +58,12 @@ const ProductsTable = ({ mainPros, setmainPros }) => {
 
   return (
     <div class="relative overflow-x-auto">
+      <DeleteModal
+        onclose={() => setdeleteModalOpen(false)}
+        onconfirm={handleDeleteProduct}
+        type={"Product"}
+        open={deleteModalOpen}
+      />
       <table class="w-full text-left">
         <thead>
           <tr class="bg-white border-b-2 border-gray-2">
@@ -105,7 +118,14 @@ const ProductsTable = ({ mainPros, setmainPros }) => {
                 <td class="px-3 py-4">${item.price}</td>
                 <td class="px-3 py-4">
                   <div className="flex items-center gap-4">
-                    <Image src={DeleteIcon} />
+                    <Image
+                      src={DeleteIcon}
+                      className="cursor-pointer"
+                      onClick={() => {
+                        setactiveModalData(item);
+                        setdeleteModalOpen(true);
+                      }}
+                    />
                     <Link href={"product/edit/1"}>
                       <Image src={EditIcon} />
                     </Link>

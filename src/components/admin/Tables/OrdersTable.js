@@ -4,10 +4,25 @@ import React, { useEffect, useState } from "react";
 import DeleteIcon from "@/assets/icons/delete-gray.svg";
 import EditIcon from "@/assets/icons/edit-gray.svg";
 import moment from "moment";
+import Link from "next/link";
+import DeleteModal from "@/components/Modals/DeleteModal";
 
 const OrdersTable = ({ mainPros, setmainPros }) => {
+  const [activeModalData, setactiveModalData] = useState(null);
+  const [deleteModalOpen, setdeleteModalOpen] = useState(false);
+
+  const handleDelete = () => {
+    setdeleteModalOpen(false);
+  };
+
   return (
     <div class="relative overflow-x-auto">
+      <DeleteModal
+        onclose={() => setdeleteModalOpen(false)}
+        onconfirm={handleDelete}
+        open={deleteModalOpen}
+        type={"Order"}
+      />
       <table class="w-full text-left">
         <thead>
           <tr class="bg-white border-b-2 border-gray-2">
@@ -44,8 +59,17 @@ const OrdersTable = ({ mainPros, setmainPros }) => {
                 <td class="px-3 py-4 text-[#FDCC0D]">{item.status}</td>
                 <td class="px-3 py-4">
                   <div className="flex items-center gap-4">
-                    <Image src={DeleteIcon} />
-                    <Image src={EditIcon} />
+                    <Image
+                      src={DeleteIcon}
+                      className="cursor-pointer"
+                      onClick={() => {
+                        setactiveModalData(item);
+                        setdeleteModalOpen(true);
+                      }}
+                    />
+                    <Link href={"order/1"}>
+                      <Image src={EditIcon} />
+                    </Link>
                   </div>
                 </td>
               </tr>

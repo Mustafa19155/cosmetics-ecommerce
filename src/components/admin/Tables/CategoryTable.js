@@ -2,9 +2,14 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import DeleteIcon from "@/assets/icons/delete-gray.svg";
 import EditIcon from "@/assets/icons/edit-gray.svg";
+import DeleteModal from "@/components/Modals/DeleteModal";
+import CategoryModal from "@/components/Modals/CategoryModal";
 
 const CategoryTable = ({ mainPros, setmainPros }) => {
   const [allChecked, setallChecked] = useState(false);
+  const [deleteModalOpen, setdeleteModalOpen] = useState(false);
+  const [editModalOpen, seteditModalOpen] = useState(false);
+  const [activeModalData, setactiveModalData] = useState(null);
 
   const handleCheckPro = (index) => {
     setmainPros(
@@ -36,6 +41,13 @@ const CategoryTable = ({ mainPros, setmainPros }) => {
     }
   };
 
+  const handleDelete = () => {
+    setdeleteModalOpen(false);
+  };
+  const handleEdit = () => {
+    seteditModalOpen(false);
+  };
+
   useEffect(() => {
     if (mainPros.length > 0) {
       mainPros.filter((pro) => !pro.selected).length == 0
@@ -48,6 +60,18 @@ const CategoryTable = ({ mainPros, setmainPros }) => {
 
   return (
     <div class="relative overflow-x-auto">
+      <DeleteModal
+        open={deleteModalOpen}
+        onclose={() => setdeleteModalOpen(false)}
+        onconfirm={handleDelete}
+        type={"Category"}
+      />
+      <CategoryModal
+        open={editModalOpen}
+        category={activeModalData}
+        onclose={() => seteditModalOpen(false)}
+        onconfirm={handleEdit}
+      />
       <table class="w-full text-left">
         <thead>
           <tr class="bg-white border-b-2 border-gray-2">
@@ -90,8 +114,22 @@ const CategoryTable = ({ mainPros, setmainPros }) => {
                 <td class="px-3 py-4">{item.productsCount}</td>
                 <td class="px-3 py-4">
                   <div className="flex items-center gap-4">
-                    <Image src={DeleteIcon} />
-                    <Image src={EditIcon} />
+                    <Image
+                      src={DeleteIcon}
+                      className="cursor-pointer"
+                      onClick={() => {
+                        setactiveModalData(item);
+                        setdeleteModalOpen(true);
+                      }}
+                    />
+                    <Image
+                      src={EditIcon}
+                      className="cursor-pointer"
+                      onClick={() => {
+                        setactiveModalData(item);
+                        seteditModalOpen(true);
+                      }}
+                    />
                   </div>
                 </td>
               </tr>
