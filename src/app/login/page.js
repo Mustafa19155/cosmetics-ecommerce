@@ -38,6 +38,11 @@ export default function Page() {
                 value={""}
                 changeHandler={() => {}}
               />
+              <Link href={"/resetPassword"}>
+                <p className="text-sm text-end mt-1 underline">
+                  Forgot Password
+                </p>
+              </Link>
             </div>
 
             <PinkButton
@@ -52,7 +57,7 @@ export default function Page() {
             />
           </div>
         </div>
-        <p className="text-sm text-center mt-2">
+        <p className="text-sm text-center mt-2 flex gap-1">
           Dont Have an Account?
           <Link className="font-bold underline" href="/signup">
             Signup

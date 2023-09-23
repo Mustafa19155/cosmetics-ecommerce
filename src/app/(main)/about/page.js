@@ -49,7 +49,7 @@ const Page = async () => {
       <AboutTop />
       <div className="mt-20">
         <div className="text-center">
-          <p className="font-bold text-3xl">Featured Products</p>
+          <p className="font-bold text-3xl">Latest Products</p>
           <p className="text-secondary text-lg">Discover Our Top Picks!</p>
         </div>
         <FeaturedProducts products={data} />

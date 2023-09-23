@@ -9,7 +9,7 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <div className="bg-secondary text-white custom-full-width-child px-6 lg:px-20 pt-20 pb-2">
+    <div className="bg-secondary text-white  px-6 lg:px-20 pt-20 pb-2">
       <div className="container mx-auto">
         <div className="flex gap-5 mb-10">
           <Image src={FacebookIcon} />
@@ -60,22 +60,20 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="container mx-auto text-sm mt-8">
-        <div className="flex flex-col lg:flex-row justify-between items-center lg:items-end lg:w-[80%] gap-5 lg:gap-0">
-          <p className="order-2 lg:order-1 text-center">
+
+      <div className="container mx-auto mt-16 lg:mt-8">
+        <div className="flex flex-col items-center md:flex-row justify-center gap-5 md:gap-10">
+          <p>
             <span className="whitespace-nowrap">
               COPYRIGHT © 2023 Aliyaa Beauty.
-            </span>{" "}
-            ALL RIGHTS RESERVED
+            </span>
           </p>
-          <div className="flex gap-8 items-center mt-4 whitespace-nowrap">
-            <Link href={"/"}>
-              <p>Privacy Policy</p>
-            </Link>
-            <Link href={"/"}>
-              <p>Terms and Conditions</p>
-            </Link>
-          </div>
+          <Link href={"/"}>
+            <p>Terms and Conditions</p>
+          </Link>
+          <Link href={"/"}>
+            <p>Privacy Policy</p>
+          </Link>
         </div>
       </div>
     </div>

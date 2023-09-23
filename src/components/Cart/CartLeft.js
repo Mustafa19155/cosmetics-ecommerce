@@ -7,7 +7,7 @@ import MinusIcon from "../../assets/icons/minus.svg";
 const CartLeft = ({ data }) => {
   return (
     <div>
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center mb-10">
         <p className="text-3xl font-bold">Cart</p>
         <div className="flex gap-2">
           <Image src={DeleteIcon} />

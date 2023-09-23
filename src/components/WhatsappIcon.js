@@ -26,7 +26,7 @@ export default function WhatsappIcon() {
   }
 
   return (
-    <div className="fixed h-[45px] w-[45px] bottom-[20px] right-[20px] z-50">
+    <div className="fixed h-[60px] w-[60px] bottom-[20px] right-[20px] z-50">
       <a onClick={openWhatsApp} role="button">
         <Image alt="Logo" src={WhatsappImg} fill={true} />
       </a>

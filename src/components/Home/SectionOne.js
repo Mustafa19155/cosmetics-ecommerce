@@ -13,12 +13,12 @@ const SectionOne = () => {
     // stopOnHover: false,
     infiniteLoop: true,
     showStatus: false,
-    // transitionTime: 500,
+    transitionTime: 500,
     showThumbs: false,
     // showIndicators: true,
     swipeable: true,
     emulateTouch: true,
-    // autoPlay: true,
+    autoPlay: true,
   };
 
   return (

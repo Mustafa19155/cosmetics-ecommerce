@@ -68,7 +68,7 @@ export default function Page() {
             />
           </div>
         </div>
-        <p className="text-sm text-center mt-2">
+        <p className="text-sm text-center mt-2 flex gap-1">
           Already Have an Account?
           <Link className="font-bold underline" href="/login">
             Login

@@ -59,6 +59,9 @@ const TrendingProducts = () => {
   return (
     <div>
       <p className="text-3xl font-bold text-center">Latest Products</p>
+      <p className="text-secondary text-lg text-center">
+        Discover Our Top Picks!
+      </p>
       {/* <div className="flex justify-center gap-5 mt-8">
         <p
           className={`cursor-pointer text-xl pb-1 ${

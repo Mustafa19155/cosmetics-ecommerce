@@ -13,12 +13,16 @@ const CartRight = ({ data }) => {
         <p className="font-bold">${data.total}</p>
       </div>
       <div className="flex gap-3 text-sm items-center">
-        <div className="h-3 w-3 rounded-sm bg-primary" />
+        <input type="checkbox" className="accent-primary bg-primary" />
         <p>Do you want to claim your points</p>
       </div>
       <div className="flex justify-between items-center">
         <p className="font-bold">Discount</p>
         <p className="text-secondary">{data.discount}%</p>
+      </div>
+      <div className="flex justify-between items-center">
+        <p className="font-bold">Delivery fee</p>
+        <p className="text-secondary">$ 15</p>
       </div>
       <div className="flex justify-between items-center">
         <p className="font-bold">Discount Amount</p>
