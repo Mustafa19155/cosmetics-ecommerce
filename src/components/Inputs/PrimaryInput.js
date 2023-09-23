@@ -23,7 +23,7 @@ export default function PrimaryInput({
         onChange={changeHandler}
         type={type}
         placeholder={placeholder}
-        className="h-full w-full outline-none"
+        className="h-full w-full outline-none !bg-transparent"
       />
     </div>
   );
