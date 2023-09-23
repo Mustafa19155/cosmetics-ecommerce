@@ -10,40 +10,48 @@ const TableWrapper = ({
   filterOptions,
   showFilters,
 }) => {
+  const [prosCopy, setprosCopy] = useState([...products]);
+
   //pagination
   const [productsToShow, setproductsToShow] = useState([]);
 
   const itemsPerPage = 5;
   const [currentPage, setcurrentPage] = useState(1);
   const [totalPages, settotalPages] = useState(1);
+  const [startIndex, setstartIndex] = useState(0);
+  const [endIndex, setendIndex] = useState(0);
 
   useEffect(() => {
     settotalPages(
-      products.length > 0 ? Math.ceil(products.length / itemsPerPage) : 1
+      prosCopy.length > 0 ? Math.ceil(prosCopy.length / itemsPerPage) : 1
     );
-  }, [products]);
+  }, [prosCopy]);
 
   useEffect(() => {
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    setproductsToShow(products.slice(startIndex, endIndex));
-  }, [currentPage, products]);
+    const start = (currentPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    setstartIndex(start);
+    setendIndex(end);
+    setproductsToShow(prosCopy.slice(startIndex, endIndex));
+  }, [currentPage, prosCopy]);
 
   useEffect(() => {
     setcurrentPage(1);
-  }, [products]);
+  }, [prosCopy]);
 
   // search
   const [searchValue, setsearchValue] = useState("");
   const filterData = () => {
-    return products.filter((d) =>
-      searchCols.some((key) => d[key]?.toLowerCase().includes(searchValue))
+    setprosCopy(
+      products.filter((d) =>
+        searchCols.some((key) => d[key]?.toLowerCase().includes(searchValue))
+      )
     );
   };
 
-  // useEffect(() => {
-  //   filterData();
-  // }, [searchValue]);
+  useEffect(() => {
+    filterData();
+  }, [searchValue]);
 
   return (
     <div>
@@ -53,14 +61,18 @@ const TableWrapper = ({
         setsearchValue={setsearchValue}
         options={filterOptions}
       />
-      <Table mainPros={productsToShow} setmainPros={setproductsToShow} />
+
+      <Table
+        mainPros={prosCopy.slice(startIndex, endIndex)}
+        setmainPros={setprosCopy}
+      />
       <div className="mt-10 flex justify-between">
         <p className="text-sm items-center">
           Showing {currentPage * itemsPerPage - (itemsPerPage - 1)} to{" "}
-          {currentPage * itemsPerPage > products.length
-            ? products.length
+          {currentPage * itemsPerPage > prosCopy.length
+            ? prosCopy.length
             : currentPage * itemsPerPage}{" "}
-          of {products.length} entries
+          of {prosCopy.length} entries
         </p>
         <Pagination
           currentPage={currentPage}
