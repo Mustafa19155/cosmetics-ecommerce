@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import DeleteIcon from "@/assets/icons/delete-gray.svg";
 import EditIcon from "@/assets/icons/edit-gray.svg";
 import moment from "moment";
+import Link from "next/link";
 
 const UsersTable = ({ mainPros, setmainPros }) => {
   return (
@@ -30,7 +31,9 @@ const UsersTable = ({ mainPros, setmainPros }) => {
           {mainPros.map((item, index) => {
             return (
               <tr class="bg-white border-b border-gray-2 rounded-lg">
-                <td className="px-3 py-4 border-r">{item.username}</td>
+                <td className="px-3 py-4 border-r">
+                  <Link href={"/admin/users/1"}>{item.username}</Link>
+                </td>
                 <td class="px-3 py-4 border-r">{item.email}</td>
                 <td class="px-3 py-4 border-r">${item.spent}</td>
                 <td class="px-3 py-4 border-r">{item.points}</td>
