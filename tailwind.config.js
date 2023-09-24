@@ -26,6 +26,7 @@ module.exports = {
         secondary: "#1D1D1DB0",
         "gray-1": "#F8F9FA",
         "gray-2": "#EAEAEA",
+        "gray-3": "#555F7E",
       },
       boxShadow: {
         "custom-1": "0px 2px 8px 0px #99999933",
@@ -39,6 +40,8 @@ module.exports = {
         "admin-navbar": "0px 4px 10px 0px #0000001A",
         "pink-btn": "4px 4px 6px rgba(251, 107, 144, 0.5)",
         "trans-btn": "4px 4px 6px rgba(0,0,0,0.2)",
+        "dashboard-card":
+          "0px 7.440000057220459px 29.780000686645508px 0px #3326AE14",
       },
     },
   },

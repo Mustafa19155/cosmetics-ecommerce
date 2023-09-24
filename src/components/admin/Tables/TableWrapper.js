@@ -13,8 +13,6 @@ const TableWrapper = ({
   const [prosCopy, setprosCopy] = useState([...products]);
 
   //pagination
-  const [productsToShow, setproductsToShow] = useState([]);
-
   const itemsPerPage = 5;
   const [currentPage, setcurrentPage] = useState(1);
   const [totalPages, settotalPages] = useState(1);
@@ -32,7 +30,6 @@ const TableWrapper = ({
     const end = start + itemsPerPage;
     setstartIndex(start);
     setendIndex(end);
-    setproductsToShow(prosCopy.slice(startIndex, endIndex));
   }, [currentPage, prosCopy]);
 
   useEffect(() => {

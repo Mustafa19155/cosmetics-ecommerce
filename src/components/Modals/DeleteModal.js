@@ -9,7 +9,7 @@ import Image from "next/image";
 const DeleteModal = ({ open, onclose, onconfirm, type }) => {
   return (
     <ModalWrapper open={open}>
-      <div className="p-8">
+      <div className="p-8 text-black">
         <div className="text-center flex flex-col items-center gap-7">
           <Image src={DeleteIcon} />
           <p className="text-xl font-bold">

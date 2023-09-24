@@ -1,7 +1,10 @@
+"use client";
 import Navbar from "@/components/admin/Navbar";
 import Sidebar from "@/components/admin/Sidebar";
+import { usePathname } from "next/navigation";
 
 export default function RootLayout({ children }) {
+  const pathname = usePathname();
   return (
     <html lang="en">
       <head>
@@ -15,7 +18,11 @@ export default function RootLayout({ children }) {
       <body className="overflow-x-hidden">
         <div className="flex min-h-screen">
           <Sidebar />
-          <div className="flex flex-col h-full w-full bg-gray-1 min-h-screen">
+          <div
+            className={`flex flex-col h-full w-full ${
+              pathname == "/admin" ? "bg-white" : "bg-gray-1"
+            } min-h-screen`}
+          >
             <Navbar />
             <div className="m-6">{children}</div>
           </div>
