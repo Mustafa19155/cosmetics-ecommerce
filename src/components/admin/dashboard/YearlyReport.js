@@ -79,6 +79,7 @@ const YearlyReport = ({ data }) => {
   const [screenWidth, setscreenWidth] = useState(0);
 
   useEffect(() => {
+    setscreenWidth(window.screen.width);
     const handleResize = () => {
       setscreenWidth(window.screen.width);
     };
