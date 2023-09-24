@@ -1,10 +1,13 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import UserImg from "../../assets/images/admin-user.png";
 import NotificationIcon from "../../assets/icons/notification.svg";
 import Image from "next/image";
+import ProfileDropdown from "./ProfileDropdown";
 
 const Navbar = () => {
+  const [showDropdown, setshowDropdown] = useState(false);
+
   return (
     <div className="shadow-admin-navbar w-full flex justify-between p-4 bg-white">
       <div className="flex items-center gap-2">
@@ -14,9 +17,15 @@ const Navbar = () => {
           <Image src={NotificationIcon} />
         </div>
       </div>
-      <div className="flex items-center gap-2">
-        <p className="font-bold">Alex Hales</p>
-        <Image src={UserImg} className="h-[45px] w-[45px] rounded-full" />
+      <div className="relative">
+        <ProfileDropdown show={showDropdown} setshow={setshowDropdown} />
+        <div
+          className="flex items-center gap-2 relative cursor-pointer"
+          onClick={() => setshowDropdown(true)}
+        >
+          <p className="font-bold">Alex Hales</p>
+          <Image src={UserImg} className="h-[45px] w-[45px] rounded-full" />
+        </div>
       </div>
     </div>
   );

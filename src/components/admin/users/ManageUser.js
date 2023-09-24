@@ -10,9 +10,9 @@ const ManageUser = () => {
   const [email, setemail] = useState("email@email.com");
 
   return (
-    <div className="bg-white shadow-cart-wrapper mt-16 flex flex-col items-center gap-10 sm:px-4 sm:py-8 md:p-8 lg:p-16">
+    <div className="bg-white shadow-cart-wrapper mt-16 flex flex-col items-center gap-10 py-8 sm:px-4 sm:py-8 md:p-8 lg:p-16">
       <Image src={PortfileImg} className="h-[167px] w-[167px] rounded-full" />
-      <div className="flex items-center gap-20 ml-24">
+      <div className="flex items-center gap-20 ml-8 sm:ml-24">
         <label>Name</label>
         <PrimaryInput
           className={"bg-white shadow-none"}
@@ -20,7 +20,7 @@ const ManageUser = () => {
           changeHandler={(e) => setusername(e.target.value)}
         />
       </div>
-      <div className="flex items-center gap-20 ml-24">
+      <div className="flex items-center gap-20 ml-8 sm:ml-24">
         <label>Email</label>
         <PrimaryInput
           className={"bg-white shadow-none"}

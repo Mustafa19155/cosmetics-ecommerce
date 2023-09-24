@@ -13,12 +13,12 @@ const Dropdown = ({ show, setshow, options, className, handleClick }) => {
         show ? "block" : "hidden"
       } ${className ? className : ""}`}
     >
-      {options.map((opt) => (
+      {options.map((opt, index) => (
         <div
-          className="text-secondary p-3 cursor-pointer whitespace-nowrap"
+          className="text-secondary p-3 cursor-pointer whitespace-nowrap hover:text-primary"
           onClick={(e) => {
             setshow(false);
-            handleClick ? handleClick() : null;
+            handleClick ? handleClick(index) : null;
           }}
         >
           <p>{opt.name}</p>

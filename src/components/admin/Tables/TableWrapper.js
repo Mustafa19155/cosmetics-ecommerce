@@ -51,7 +51,7 @@ const TableWrapper = ({
   }, [searchValue]);
 
   return (
-    <div>
+    <div className="max-w-[calc(100vw_-_100px)]">
       <TableSearch
         showFilters={showFilters}
         searchValue={searchValue}

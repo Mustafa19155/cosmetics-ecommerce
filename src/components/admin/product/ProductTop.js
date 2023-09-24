@@ -14,7 +14,7 @@ const ProductTop = ({ showProducts, setshowProducts }) => {
         onconfirm={() => {}}
       />
       <div className="flex flex-col gap-5 lg:gap-0 lg:flex-row justify-between lg:items-center">
-        <div className="bg-white flex gap-2 shadow-admin-navbar p-2 rounded-lg">
+        <div className="bg-white flex gap-2 shadow-admin-navbar p-2 rounded-lg flex-wrap sm:flex-nowrap">
           <PinkButton
             text={"Products"}
             className={`px-16 w-[48.5%] ${

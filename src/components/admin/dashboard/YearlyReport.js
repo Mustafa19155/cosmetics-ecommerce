@@ -91,7 +91,11 @@ const YearlyReport = ({ data }) => {
   }, []);
 
   return (
-    <BarChart width={screenWidth / 1.4} height={400} data={data}>
+    <BarChart
+      width={screenWidth > 575 ? screenWidth / 1.4 : screenWidth == 0 ? 0 : 500}
+      height={400}
+      data={data}
+    >
       {/* <XAxis dataKey="month" tickLine={false} axisLine={false} /> */}
       <YAxis
         allowDecimals={false}

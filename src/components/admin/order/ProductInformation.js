@@ -5,7 +5,7 @@ const ProductInformation = ({ order }) => {
   return (
     <div>
       <p className="text-3xl font-bold mb-8">Products Information</p>
-      <div className="bg-white shadow-cart-wrapper p-8 rounded-lg">
+      <div className="bg-white shadow-cart-wrapper p-8 rounded-lg  max-w-[calc(100vw_-_100px)]">
         <div class="relative overflow-x-auto">
           <table class="w-full text-left">
             <thead>

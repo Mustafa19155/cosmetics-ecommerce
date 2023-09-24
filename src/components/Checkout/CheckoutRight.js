@@ -3,7 +3,7 @@ import PinkButton from "../buttons/PinkButton";
 import TransparentButton from "../buttons/TransparentButton";
 import Image from "next/image";
 
-const CheckoutRight = ({ data, SubmitBtn }) => {
+const CheckoutRight = ({ data, SubmitBtn, deliveryMethod }) => {
   return (
     <div className="flex flex-col gap-3 xl:gap-5">
       <p className="text-xl font-bold">Your Order</p>
@@ -36,7 +36,9 @@ const CheckoutRight = ({ data, SubmitBtn }) => {
       </div>
       <div className="flex justify-between items-center">
         <p className="font-bold">Delivery fee</p>
-        <p className="text-secondary">$ 15</p>
+        <p className="text-secondary">
+          $ {deliveryMethod == "pickup" ? 0 : 15}
+        </p>
       </div>
       <div className="flex justify-between items-center text-xl font-bold">
         <p>Grand Total</p>

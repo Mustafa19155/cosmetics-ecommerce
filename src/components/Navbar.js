@@ -54,15 +54,23 @@ export default function Navbar() {
         }`}
       >
         <div
-          className={`flex justify-between py-3 z-10 px-5 items-center whitespace-nowrap container mx-auto ${
-            showSearchbar ? "nav-show-search" : ""
+          className={`flex justify-between  py-3 z-10 px-5 items-center whitespace-nowrap container mx-auto ${
+            showSearchbar ? "" : ""
           }`}
         >
+          <Image
+            src={HamIcon}
+            className="block lg:hidden"
+            onClick={() => {
+              setshowNavDrop(!showNavDrop);
+            }}
+          />
+
           <Link href={"/"}>
             <Image
               src={Logo}
               className={`h-[35px] w-auto ${
-                showSearchbar ? "lg:hidden xl:block" : ""
+                showSearchbar ? "hidden sm:block lg:hidden xl:block" : ""
               }`}
             />
           </Link>
@@ -237,20 +245,61 @@ export default function Navbar() {
             </div>
           </div>
 
-          <Image
-            src={HamIcon}
-            className="block lg:hidden"
-            onClick={() => {
-              setshowNavDrop(!showNavDrop);
-            }}
-          />
+          <div
+            className={`flex lg:hidden gap-3 ${showSearchbar ? "mt-1" : ""}`}
+          >
+            <div
+              ref={searcbarRef}
+              className={`relative ${showSearchbar ? "top-[-5px]" : ""}`}
+              onClick={() => {
+                setshowSearchbar(true);
+              }}
+            >
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className={`cursor-pointer stroke-black hover:stroke-primary mt-1 ${
+                  showSearchbar ? "absolute top-1 left-1" : ""
+                } `}
+              >
+                <path
+                  d="M19 19L14.657 14.657M14.657 14.657C15.3998 13.9141 15.9891 13.0321 16.3912 12.0615C16.7932 11.0909 17.0002 10.0506 17.0002 8.99996C17.0002 7.94936 16.7932 6.90905 16.3912 5.93842C15.9891 4.96779 15.3998 4.08585 14.657 3.34296C13.9141 2.60007 13.0321 2.01078 12.0615 1.60874C11.0909 1.20669 10.0506 0.999756 8.99996 0.999756C7.94936 0.999756 6.90905 1.20669 5.93842 1.60874C4.96779 2.01078 4.08585 2.60007 3.34296 3.34296C1.84263 4.84329 0.999756 6.87818 0.999756 8.99996C0.999756 11.1217 1.84263 13.1566 3.34296 14.657C4.84329 16.1573 6.87818 17.0002 8.99996 17.0002C11.1217 17.0002 13.1566 16.1573 14.657 14.657Z"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              {showSearchbar && (
+                <PrimaryInput
+                  placeholder={"nar's foundation"}
+                  className={"pl-8 h-[35px]"}
+                />
+              )}
+            </div>
+            <Link href={"/cart"}>
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                // className="fill-black hover:fill-primary duration-75 cursor-pointer mt-1"
+                className={`mt-1 hover:fill-primary duration-75 ${
+                  pathname == "/cart" ? "fill-primary" : "fill-black"
+                }`}
+              >
+                <path d="M15.6487 15C16.1791 15 16.6878 15.2107 17.0629 15.5858C17.438 15.9609 17.6487 16.4696 17.6487 17C17.6487 17.5304 17.438 18.0391 17.0629 18.4142C16.6878 18.7893 16.1791 19 15.6487 19C15.1182 19 14.6095 18.7893 14.2345 18.4142C13.8594 18.0391 13.6487 17.5304 13.6487 17C13.6487 16.4696 13.8594 15.9609 14.2345 15.5858C14.6095 15.2107 15.1182 15 15.6487 15ZM15.6487 16C15.3835 16 15.1291 16.1054 14.9416 16.2929C14.754 16.4804 14.6487 16.7348 14.6487 17C14.6487 17.2652 14.754 17.5196 14.9416 17.7071C15.1291 17.8946 15.3835 18 15.6487 18C15.9139 18 16.1683 17.8946 16.3558 17.7071C16.5433 17.5196 16.6487 17.2652 16.6487 17C16.6487 16.7348 16.5433 16.4804 16.3558 16.2929C16.1683 16.1054 15.9139 16 15.6487 16ZM6.64868 15C7.17911 15 7.68782 15.2107 8.06289 15.5858C8.43797 15.9609 8.64868 16.4696 8.64868 17C8.64868 17.5304 8.43797 18.0391 8.06289 18.4142C7.68782 18.7893 7.17911 19 6.64868 19C6.11825 19 5.60954 18.7893 5.23447 18.4142C4.8594 18.0391 4.64868 17.5304 4.64868 17C4.64868 16.4696 4.8594 15.9609 5.23447 15.5858C5.60954 15.2107 6.11825 15 6.64868 15ZM6.64868 16C6.38347 16 6.12911 16.1054 5.94158 16.2929C5.75404 16.4804 5.64868 16.7348 5.64868 17C5.64868 17.2652 5.75404 17.5196 5.94158 17.7071C6.12911 17.8946 6.38347 18 6.64868 18C6.9139 18 7.16825 17.8946 7.35579 17.7071C7.54332 17.5196 7.64868 17.2652 7.64868 17C7.64868 16.7348 7.54332 16.4804 7.35579 16.2929C7.16825 16.1054 6.9139 16 6.64868 16ZM17.6487 3H3.91868L6.46868 9H14.6487C14.9787 9 15.2687 8.84 15.4487 8.6L18.4487 4.6C18.5787 4.43 18.6487 4.22 18.6487 4C18.6487 3.73478 18.5433 3.48043 18.3558 3.29289C18.1683 3.10536 17.9139 3 17.6487 3ZM14.6487 10H6.51868L5.74868 11.56L5.64868 12C5.64868 12.2652 5.75404 12.5196 5.94158 12.7071C6.12911 12.8946 6.38347 13 6.64868 13H17.6487V14H6.64868C6.11825 14 5.60954 13.7893 5.23447 13.4142C4.8594 13.0391 4.64868 12.5304 4.64868 12C4.64838 11.6607 4.73442 11.3269 4.89868 11.03L5.61868 9.56L1.98868 1H0.648682V0H2.64868L3.49868 2H17.6487C18.1791 2 18.6878 2.21071 19.0629 2.58579C19.438 2.96086 19.6487 3.46957 19.6487 4C19.6487 4.5 19.4787 4.92 19.1987 5.26L16.2887 9.15C15.9287 9.66 15.3287 10 14.6487 10Z" />
+              </svg>
+            </Link>
+          </div>
 
           {showNavDrop && (
             <div
               className={
                 "flex lg:hidden flex-col absolute w-full  max-w-screen left-0 top-14 justify-center"
               }
-              // ref={navbarRef}
             >
               <div className="flex flex-col gap-12 container self-center bg-white shadow-2xl p-4 rounded-lg">
                 <div className="flex flex-col gap-5">

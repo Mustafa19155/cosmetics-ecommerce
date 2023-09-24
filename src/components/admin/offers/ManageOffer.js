@@ -43,7 +43,7 @@ const ManageOffer = ({ offer }) => {
             {isEditing ? "Edit" : "Add"} Offer
           </p>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 flex-wrap min-[400px]:flex-nowrap">
           <TransparentButton
             text={"DISCARD"}
             className={"px-16"}
@@ -55,12 +55,12 @@ const ManageOffer = ({ offer }) => {
       </div>
       <div className="w-[100%] md:w-[60%]">
         <div className="flex flex-col gap-2 mt-5">
-          <label className="text-sm font-inter font-semibold">offer Name</label>
+          <label className="text-sm font-inter font-semibold">Offer Name</label>
           <PrimaryInput
             className={"!p-3"}
             value={name}
             changeHandler={(e) => setname(e.target.value)}
-            placeholder={"offer Name"}
+            placeholder={"Offer Name"}
           />
         </div>
         <div className="flex flex-col gap-2 mt-5">

@@ -8,8 +8,10 @@ import PrimaryInput from "@/components/Inputs/PrimaryInput";
 import SelectInput from "@/components/Inputs/SelectInput";
 import Link from "next/link";
 import DeleteIcon from "@/assets/icons/delete-black.svg";
+import { useRouter } from "next/navigation";
 
 const ManageProduct = ({ product, categories }) => {
+  const router = useRouter();
   const [isEditing, setisEditing] = useState(product ? true : false);
   const [name, setname] = useState(product?.name);
   const [description, setdescription] = useState(product?.description);
@@ -39,10 +41,13 @@ const ManageProduct = ({ product, categories }) => {
             {isEditing ? "Edit" : "Add"} Product
           </p>
         </div>
-        <div className="flex items-center gap-4">
-          <Link href={"/admin/product"}>
-            <TransparentButton text={"DISCARD"} className={"px-16"} />
-          </Link>
+        <div className="flex items-center gap-4 flex-wrap xs:flex-nowrap">
+          <TransparentButton
+            text={"DISCARD"}
+            className={"px-16"}
+            clickHandler={() => router.push("/admin/product")}
+          />
+
           <PinkButton text={"SAVE"} className={"px-16"} />
         </div>
       </div>

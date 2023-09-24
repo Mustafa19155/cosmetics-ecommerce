@@ -225,7 +225,7 @@ const Page = async () => {
     <div className="bg-white">
       <p className="font-bold text-3xl mb-8">Dashboard</p>
       <MainStats data={mainData} />
-      <div className="bg-white shadow-dashboard-card rounded-lg p-10 my-10">
+      <div className="bg-white shadow-dashboard-card rounded-lg p-10 my-10 hidden sm:block">
         <p className="font-bold text-2xl mb-8">Yearly Revenue Report</p>
         <div className="flex items-center">
           <YearlyReport data={yearlyReport} />
@@ -235,7 +235,7 @@ const Page = async () => {
       <div className="flex flex-wrap justify-between mb-10">
         <div className="bg-white w-full xl:w-[49.5%] shadow-dashboard-card rounded-lg p-5">
           <p className="font-bold text-lg mb-5 text-center">Top 3 Products</p>
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center flex-wrap">
             <TopProducts data={topPros} colors={colors} />
             <div className="flex flex-col gap-5">
               {topPros.map((pro, index) => (
@@ -254,7 +254,7 @@ const Page = async () => {
             </div>
           </div>
         </div>
-        <div className="bg-white shadow-dashboard-card rounded-lg p-5 w-full xl:w-[49.5%]">
+        <div className="bg-white shadow-dashboard-card rounded-lg p-5 w-full xl:w-[49.5%] max-w-[calc(100vw_-_90px)] mt-8">
           <p className="font-bold text-lg mb-5">Bestsellers</p>
           <BestSellersTable data={bestSellers} />
         </div>
