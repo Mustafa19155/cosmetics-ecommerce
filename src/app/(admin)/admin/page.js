@@ -3,7 +3,7 @@ import TopProducts from "@/components/admin/dashboard/TopProducts";
 import React from "react";
 import BestSellerImg from "@/assets/images/home/perfumes.png";
 import BestSellersTable from "@/components/admin/Tables/BestSellersTable";
-import { YearlyReport } from "@/components/admin/dashboard/YearlyReport";
+import YearlyReport from "@/components/admin/dashboard/YearlyReport";
 import MainStats from "@/components/admin/dashboard/MainStats";
 
 const getOrders = async () => {

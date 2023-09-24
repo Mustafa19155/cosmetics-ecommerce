@@ -75,8 +75,8 @@ const YTick = (props) => {
   );
 };
 
-export const YearlyReport = ({ data }) => {
-  const [screenWidth, setscreenWidth] = useState(window.screen.width);
+const YearlyReport = ({ data }) => {
+  const [screenWidth, setscreenWidth] = useState(0);
 
   useEffect(() => {
     const handleResize = () => {
@@ -118,3 +118,5 @@ export const YearlyReport = ({ data }) => {
     </BarChart>
   );
 };
+
+export default YearlyReport;
