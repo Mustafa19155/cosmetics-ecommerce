@@ -248,11 +248,11 @@ export default function Navbar() {
           {showNavDrop && (
             <div
               className={
-                "flex lg:hidden flex-col absolute bg-white w-full p-4 rounded-lg shadow-2xl max-w-screen left-0 top-14"
+                "flex lg:hidden flex-col absolute w-full  max-w-screen left-0 top-14 justify-center"
               }
               // ref={navbarRef}
             >
-              <div className="flex flex-col gap-12">
+              <div className="flex flex-col gap-12 container self-center bg-white shadow-2xl p-4 rounded-lg">
                 <div className="flex flex-col gap-5">
                   <Link
                     href={"/"}

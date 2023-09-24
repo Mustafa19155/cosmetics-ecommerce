@@ -168,7 +168,7 @@ const getYearlyReport = async () => {
     },
     {
       month: "August",
-      sales: 200,
+      sales: 300,
     },
     {
       month: "September",

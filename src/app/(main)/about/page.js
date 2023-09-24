@@ -1,9 +1,7 @@
-import FeaturedProducts from "@/components/About/FeaturedProducts";
 import FoundationImg from "../../../assets/images/home/foundation.png";
 import React from "react";
-import Image from "next/image";
-import PinkButton from "@/components/buttons/PinkButton";
 import AboutTop from "@/components/About/AboutTop";
+import TrendingProducts from "@/components/Home/TrendingProducts";
 
 const getData = async () => {
   return [
@@ -48,11 +46,12 @@ const Page = async () => {
     <div className="my-16 px-3 sm:px-0">
       <AboutTop />
       <div className="mt-20">
-        <div className="text-center">
+        {/* <div className="text-center">
           <p className="font-bold text-3xl">Latest Products</p>
           <p className="text-secondary text-lg">Discover Our Top Picks!</p>
-        </div>
-        <FeaturedProducts products={data} />
+        </div> */}
+        <TrendingProducts products={data} />
+        {/* <FeaturedProducts products={data} /> */}
       </div>
     </div>
   );

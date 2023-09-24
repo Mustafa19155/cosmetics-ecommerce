@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+import Stars from "../Stars";
 
 const Reviews = ({ reviews }) => {
   return (
@@ -11,10 +12,15 @@ const Reviews = ({ reviews }) => {
               <Image src={review.userImg} className="rounded-full h-[100px]" />
             </div>
             <div className="flex flex-col gap-1 w-[80%]">
-              <div>
+              <div className="flex gap-2 items-center">
                 <p className="font-semibold text-primary text-lg">
                   {review.name}
                 </p>
+                <Stars
+                  rating={review.rating}
+                  starColor={"#FB6B90"}
+                  textColor={"primary"}
+                />
               </div>
               <p className="text-sm">{review.description}</p>
             </div>

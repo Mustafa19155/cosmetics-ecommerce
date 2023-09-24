@@ -40,7 +40,7 @@ const ManageOffer = ({ offer }) => {
             <Image src={BackIcon} />
           </Link>
           <p className="font-bold text-3xl">
-            {isEditing ? "Edit" : "Add"} offer
+            {isEditing ? "Edit" : "Add"} Offer
           </p>
         </div>
         <div className="flex items-center gap-4">

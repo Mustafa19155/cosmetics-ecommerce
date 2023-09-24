@@ -19,6 +19,8 @@ const SectionOne = () => {
     swipeable: true,
     emulateTouch: true,
     autoPlay: true,
+    preventMovementUntilSwipeScrollTolerance: true,
+    swipeScrollTolerance: 50,
   };
 
   return (

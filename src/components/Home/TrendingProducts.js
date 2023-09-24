@@ -5,44 +5,10 @@ import Image from "next/image";
 import HeartIcon from "../../assets/icons/heart.svg";
 import PinkButton from "../buttons/PinkButton";
 import { useRouter } from "next/navigation";
+import Stars from "../Stars";
 
-const TrendingProducts = () => {
+const TrendingProducts = ({ products }) => {
   const router = useRouter();
-
-  const [products, setproducts] = useState([
-    {
-      name: "Nars Foundation",
-      rating: 4,
-      originalPrice: 25,
-      discountedPrice: 25,
-      image: FoundationImg,
-      type: "new",
-    },
-    {
-      name: "Nars Foundation",
-      rating: 4,
-      originalPrice: 25,
-      discountedPrice: 25,
-      image: FoundationImg,
-      type: "new",
-    },
-    {
-      name: "Nars Foundation",
-      rating: 4,
-      originalPrice: 25,
-      discountedPrice: 25,
-      image: FoundationImg,
-      type: "new",
-    },
-    {
-      name: "Nars Foundation",
-      rating: 4,
-      originalPrice: 25,
-      discountedPrice: 25,
-      image: FoundationImg,
-      type: "new",
-    },
-  ]);
 
   const [activeTab, setactiveTab] = useState("new");
 
@@ -62,43 +28,15 @@ const TrendingProducts = () => {
       <p className="text-secondary text-lg text-center">
         Discover Our Top Picks!
       </p>
-      {/* <div className="flex justify-center gap-5 mt-8">
-        <p
-          className={`cursor-pointer text-xl pb-1 ${
-            activeTab == "new" ? "border-b-[4px] border-primary" : ""
-          }`}
-          onClick={() => {
-            handleChangeTab("new");
-          }}
-        >
-          New Products
-        </p>
-        <p
-          className={`cursor-pointer text-xl pb-1 ${
-            activeTab == "top" ? "border-b-[4px] border-primary" : ""
-          }`}
-          onClick={() => {
-            handleChangeTab("top");
-          }}
-        >
-          Top Selling
-        </p>
-        <p
-          className={`cursor-pointer text-xl pb-1 ${
-            activeTab == "featured" ? "border-b-[4px] border-primary" : ""
-          }`}
-          onClick={() => {
-            handleChangeTab("featured");
-          }}
-        >
-          Featured
-        </p>
-      </div> */}
       <div className="mt-8 w-full justify-center flex flex-wrap gap-[4%] lg:gap-[2%]">
         {products.map((pro) => (
           <div className="w-[90%] sm:w-[48%] lg:w-[23.5%] mt-10">
-            <Image src={pro.image} className="w-full h-[15vw] min-h-[270px]" />
-            <div className="flex flex-col gap-2">
+            <Image
+              src={pro.image}
+              className="w-full h-[15vw] min-h-[270px] mb-2"
+            />
+            <Stars rating={pro.rating} starColor={"#FDCC0D"} />
+            <div className="flex flex-col gap-2 mt-2">
               <div className="flex justify-between">
                 <p className="text-xl font-semibold">{pro.name}</p>
                 <Image src={HeartIcon} className="cursor-pointer" />

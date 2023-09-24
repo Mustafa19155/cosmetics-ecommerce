@@ -23,7 +23,7 @@ const Sidebar = () => {
 
   return (
     // absolute z-50 sm:relative
-    <div className="bg-primary text-white w-[260px] min-h-screen p-4 flex flex-col gap-5 pt-20">
+    <div className="bg-primary text-white !w-[260px] min-h-screen p-4 flex flex-col gap-5 pt-20">
       {SidebarRoutes.map((route) => (
         <div
           className={`flex items-center gap-3 rounded-lg p-3 cursor-pointer ${

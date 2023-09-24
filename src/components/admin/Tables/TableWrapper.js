@@ -13,7 +13,7 @@ const TableWrapper = ({
   const [prosCopy, setprosCopy] = useState([...products]);
 
   //pagination
-  const itemsPerPage = 5;
+  const itemsPerPage = 10;
   const [currentPage, setcurrentPage] = useState(1);
   const [totalPages, settotalPages] = useState(1);
   const [startIndex, setstartIndex] = useState(0);

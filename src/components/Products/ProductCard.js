@@ -5,6 +5,7 @@ import HeartFillIcon from "../../assets/icons/heart-fill.svg";
 import PinkButton from "../buttons/PinkButton";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import Stars from "../Stars";
 
 const ProductCard = ({ product }) => {
   const router = useRouter();
@@ -27,6 +28,7 @@ const ProductCard = ({ product }) => {
             className="cursor-pointer"
           />
         </div>
+        <Stars rating={product.rating} starColor={"#FDCC0D"} />
         <div className="flex items-end gap-3">
           <p className="font-semibold">${product.discountedPrice}</p>
           <p className="text-sm text-gray-500 line-through">

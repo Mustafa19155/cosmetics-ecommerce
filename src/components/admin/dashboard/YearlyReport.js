@@ -34,7 +34,7 @@ const CustomShape = (props) => {
         }
       />
       <rect
-        x={x + 11}
+        x={x + 10}
         y={y}
         width={8}
         rx={8}
@@ -91,7 +91,7 @@ const YearlyReport = ({ data }) => {
   }, []);
 
   return (
-    <BarChart width={screenWidth / 1.3} height={400} data={data}>
+    <BarChart width={screenWidth / 1.4} height={400} data={data}>
       {/* <XAxis dataKey="month" tickLine={false} axisLine={false} /> */}
       <YAxis
         allowDecimals={false}

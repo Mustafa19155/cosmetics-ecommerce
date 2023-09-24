@@ -98,7 +98,7 @@ const Page = async () => {
 
   return (
     <div>
-      <p className="font-bold text-3xl">Orders</p>
+      <p className="font-bold text-3xl">Users</p>
       <TableWrapper
         Table={UsersTable}
         products={data}

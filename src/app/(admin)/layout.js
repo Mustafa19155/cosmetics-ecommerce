@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
             } min-h-screen`}
           >
             <Navbar />
-            <div className="m-6">{children}</div>
+            <div className="m-6 mb-16">{children}</div>
           </div>
         </div>
       </body>
