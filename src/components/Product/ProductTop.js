@@ -52,7 +52,7 @@ const ProductTop = ({ product }) => {
             onClick={handleDecrement}
             className="cursor-pointer"
           />
-          <p className="font-bold">{quantity}</p>
+          <p className="font-bold w-[25px] text-center">{quantity}</p>
           <Image
             src={PlusIcon}
             onClick={handleIncrement}

@@ -1,17 +1,33 @@
 "use client";
 
 import PinkButton from "@/components/buttons/PinkButton";
-import TransparentButton from "@/components/buttons/TransparentButton";
-import React, { useState } from "react";
-import GoogleIcon from "../../assets/icons/google.svg";
-import Link from "next/link";
-import Image from "next/image";
+import React, { useEffect, useState } from "react";
 import LoginMainImg from "../../assets/images/login.png";
 import PrimaryInput from "@/components/Inputs/PrimaryInput";
 import { useRouter } from "next/navigation";
+import { resetPasword } from "@/api/user";
 
 export default function Page() {
   const router = useRouter();
+
+  const [newPassword, setnewPassword] = useState("");
+  const [confirmPassword, setconfirmPassword] = useState("");
+  const [email, setemail] = useState("");
+
+  const handleResetPassword = () => {
+    if (newPassword == confirmPassword) {
+      resetPasword({ email, pasword: newPassword })
+        .then((res) => {
+          router.push("/login");
+        })
+        .catch((err) => {});
+    }
+  };
+
+  useEffect(() => {
+    setemail(localStorage.getItem("otp-email"));
+  }, []);
+
   return (
     <div className="flex h-screen">
       <div className="w-[100%] md:w-[50%] flex flex-col justify-center items-center px-8 sm:px-16 py-8">
@@ -21,7 +37,7 @@ export default function Page() {
             Your new password must be different from previous used password
           </p>
           <div className="flex flex-col gap-5">
-            <div className="flex flex-col gap-2">
+            {/* <div className="flex flex-col gap-2">
               <label className="font-semibold">Current Password</label>
               <PrimaryInput
                 type="password"
@@ -29,15 +45,17 @@ export default function Page() {
                 value={""}
                 changeHandler={() => {}}
               />
-            </div>
+            </div> */}
 
             <div className="flex flex-col gap-2">
               <label className="font-semibold">New Password</label>
               <PrimaryInput
                 type="password"
                 placeholder="******"
-                value={""}
-                changeHandler={() => {}}
+                value={newPassword}
+                changeHandler={(e) => {
+                  setnewPassword(e.target.value);
+                }}
               />
             </div>
             <div className="flex flex-col gap-2">
@@ -45,13 +63,15 @@ export default function Page() {
               <PrimaryInput
                 type="password"
                 placeholder="*******"
-                value={""}
-                changeHandler={() => {}}
+                value={confirmPassword}
+                changeHandler={(e) => {
+                  setconfirmPassword(e.target.value);
+                }}
               />
             </div>
             <PinkButton
               text={"SET PASSWORD"}
-              clickHandler={() => router.push("/login")}
+              clickHandler={handleResetPassword}
             />
           </div>
         </div>

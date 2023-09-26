@@ -111,6 +111,7 @@ const CategoryTable = ({ mainPros, setmainPros }) => {
                     {item.name}
                   </p>
                 </td>
+
                 <td class="px-3 py-4">{item.productsCount}</td>
                 <td class="px-3 py-4">
                   <div className="flex items-center gap-4">

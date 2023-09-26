@@ -5,13 +5,39 @@ import TransparentButton from "@/components/buttons/TransparentButton";
 import React, { useState } from "react";
 import GoogleIcon from "../../assets/icons/google.svg";
 import Link from "next/link";
-import Image from "next/image";
 import LoginMainImg from "../../assets/images/login.png";
 import PrimaryInput from "@/components/Inputs/PrimaryInput";
 import { useRouter } from "next/navigation";
+import { registerUser } from "@/api/user";
+import useAlert from "@/hooks/useAlert";
 
 export default function Page() {
   const router = useRouter();
+
+  const { setAlert } = useAlert();
+
+  const [name, setname] = useState("");
+  const [email, setemail] = useState("");
+  const [password, setpassword] = useState("");
+  const [confirmPassword, setconfirmPassword] = useState();
+
+  const handleRegister = () => {
+    if (email && password && name)
+      if (password == confirmPassword) {
+        registerUser({ name, email, password })
+          .then((res) => {
+            setAlert(
+              "Account created succesfully. Please Login to continue",
+              "success"
+            );
+          })
+          .catch((err) => {
+            setAlert(err, "danger");
+          });
+      } else {
+        setAlert("Passwords Donot Match", "danger");
+      }
+  };
 
   return (
     <div className="flex h-screen">
@@ -27,8 +53,10 @@ export default function Page() {
               <PrimaryInput
                 type="text"
                 placeholder="David John"
-                value={""}
-                changeHandler={() => {}}
+                value={name}
+                changeHandler={(e) => {
+                  setname(e.target.value);
+                }}
               />
             </div>
             <div className="flex flex-col gap-2">
@@ -36,8 +64,10 @@ export default function Page() {
               <PrimaryInput
                 type="email"
                 placeholder="Example@yahoo.com"
-                value={""}
-                changeHandler={() => {}}
+                value={email}
+                changeHandler={(e) => {
+                  setemail(e.target.value);
+                }}
               />
             </div>
             <div className="flex flex-col gap-2">
@@ -45,8 +75,10 @@ export default function Page() {
               <PrimaryInput
                 type="password"
                 placeholder="******"
-                value={""}
-                changeHandler={() => {}}
+                value={password}
+                changeHandler={(e) => {
+                  setpassword(e.target.value);
+                }}
               />
             </div>
             <div className="flex flex-col gap-2">
@@ -54,15 +86,19 @@ export default function Page() {
               <PrimaryInput
                 type="password"
                 placeholder="*******"
-                value={""}
-                changeHandler={() => {}}
+                value={confirmPassword}
+                changeHandler={(e) => {
+                  setconfirmPassword(e.target.value);
+                }}
               />
             </div>
-            <PinkButton
-              text={"REGISTER"}
-              clickHandler={() => router.push("/admin")}
-            />
+            <PinkButton text={"REGISTER"} clickHandler={handleRegister} />
             <TransparentButton
+              clickHandler={() =>
+                router.push(
+                  `${process.env.NEXT_PUBLIC_BASE_URL}/users/auth/google`
+                )
+              }
               text={"Continue with Google"}
               icon={GoogleIcon}
             />

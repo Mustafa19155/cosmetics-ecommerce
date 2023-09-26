@@ -88,11 +88,14 @@ export default function Navbar() {
                 <div
                   className="relative hover:text-primary duration-75 group flex items-center"
                   onMouseLeave={() => {
-                    setshowProductsDropdown(!showProductsDropdown);
+                    setshowProductsDropdown(false);
+                  }}
+                  onMouseEnter={() => {
+                    setshowProductsDropdown(true);
                   }}
                 >
                   <Dropdown
-                    handleClick={() => router.push("/products")}
+                    handleClick={(i) => router.push(`/products`)}
                     options={productOptions}
                     show={showProductsDropdown}
                     setshow={setshowProductsDropdown}
@@ -103,12 +106,7 @@ export default function Navbar() {
                       pathname == "/products" ? "text-primary" : ""
                     }`}
                   >
-                    <div
-                      className="flex gap-2 items-center cursor-pointer"
-                      onMouseEnter={() =>
-                        setshowProductsDropdown(!showProductsDropdown)
-                      }
-                    >
+                    <div className="flex gap-2 items-center cursor-pointer">
                       <p>Products</p>
                       <svg
                         width="12"

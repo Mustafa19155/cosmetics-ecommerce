@@ -36,12 +36,18 @@ const TableWrapper = ({
     setcurrentPage(1);
   }, [prosCopy]);
 
+  useEffect(() => {
+    setprosCopy([...products]);
+  }, [products]);
+
   // search
   const [searchValue, setsearchValue] = useState("");
   const filterData = () => {
     setprosCopy(
       products.filter((d) =>
-        searchCols.some((key) => d[key]?.toLowerCase().includes(searchValue))
+        searchCols.some((key) =>
+          d[key]?.toLowerCase().includes(searchValue.toLowerCase())
+        )
       )
     );
   };

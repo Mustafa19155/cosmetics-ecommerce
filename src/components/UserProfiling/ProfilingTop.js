@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useContext } from "react";
 import AboutImg from "../../assets/images/about.png";
 import Image from "next/image";
 import EditIcon from "../../assets/icons/edit.svg";
@@ -7,9 +7,22 @@ import DollarIcon from "../../assets/icons/dollar-yellow.svg";
 import PinkButton from "../buttons/PinkButton";
 import WhiteArrow from "../../assets/icons/arrow-white.svg";
 import { useRouter } from "next/navigation";
+import { logout } from "@/api/user";
+import { AuthContext } from "@/contexts/userContext";
 
 const ProfilingTop = () => {
   const router = useRouter();
+
+  const { setUser } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    logout()
+      .then((res) => {
+        setUser(null);
+        router.push("/login");
+      })
+      .catch((err) => {});
+  };
 
   return (
     <div>
@@ -46,7 +59,7 @@ const ProfilingTop = () => {
           text={"Logout"}
           icon={WhiteArrow}
           className={"justify-between flex-row-reverse px-8"}
-          clickHandler={() => router.push("/login")}
+          clickHandler={handleLogout}
         />
       </div>
     </div>

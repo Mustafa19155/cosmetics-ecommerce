@@ -11,7 +11,7 @@ export default function WhatsappIcon() {
       return typeof link.href === "string" && link.href !== "";
     };
 
-    var phoneNumber = "923342464427";
+    var phoneNumber = "34615971758";
     const url = `https://web.whatsapp.com/send?phone=${phoneNumber}`;
 
     // Check if WhatsApp app is installed

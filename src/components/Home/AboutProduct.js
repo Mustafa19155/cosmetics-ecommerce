@@ -33,7 +33,7 @@ const AboutProduct = () => {
           <TransparentButton
             text={"BUY NOW"}
             className={"bg-white border-0"}
-            clickHandler={() => router.push("/product/1")}
+            clickHandler={() => router.push("/products")}
           />
         </div>
       </div>

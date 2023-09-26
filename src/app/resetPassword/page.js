@@ -2,14 +2,29 @@
 
 import PinkButton from "@/components/buttons/PinkButton";
 import TransparentButton from "@/components/buttons/TransparentButton";
-import React from "react";
-import GoogleIcon from "../../assets/icons/google.svg";
-import Link from "next/link";
+import React, { useState } from "react";
 import LoginMainImg from "../../assets/images/login.png";
 import { useRouter } from "next/navigation";
+import { requestOtp } from "@/api/user";
+import useAlert from "@/hooks/useAlert";
 
 export default function Page() {
   const router = useRouter();
+
+  const [email, setemail] = useState("");
+
+  const { setAlert } = useAlert();
+
+  const handleGetOtp = () => {
+    requestOtp({ email })
+      .then((res) => {
+        localStorage.setItem("otp-email", email);
+        router.push("/otp");
+      })
+      .catch((err) => {
+        setAlert(err, "danger");
+      });
+  };
 
   return (
     <div className="flex h-screen">
@@ -24,17 +39,14 @@ export default function Page() {
             <div className="flex flex-col gap-2">
               <label>Email</label>
               <input
+                value={email}
+                onChange={(e) => setemail(e.target.value)}
                 type="email"
                 placeholder="Example@yahoo.com"
                 className="bg-gray-1 shadow-custom-1 py-2 outline-none"
               />
             </div>
-            <PinkButton
-              text={"GET CODE"}
-              clickHandler={() => {
-                router.push("/otp");
-              }}
-            />
+            <PinkButton text={"GET CODE"} clickHandler={handleGetOtp} />
             <TransparentButton
               clickHandler={() => {
                 router.push("/login");

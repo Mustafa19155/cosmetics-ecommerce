@@ -10,12 +10,14 @@ import Link from "next/link";
 import DeleteIcon from "@/assets/icons/delete-black.svg";
 import moment from "moment";
 import { useRouter } from "next/navigation";
+import ConfirmModal from "@/components/Modals/ConfirmModal";
 
 const ManageOffer = ({ offer }) => {
   const router = useRouter();
   const [isEditing, setisEditing] = useState(offer ? true : false);
   const [name, setname] = useState(offer?.name);
   const [images, setimages] = useState(offer ? offer.images : []);
+  const [confirmModalOpen, setconfirmModalOpen] = useState(false);
   const [startDate, setstartDate] = useState(
     offer ? moment(offer.startDate).format("DD MMM, YYYY") : ""
   );
@@ -32,8 +34,20 @@ const ManageOffer = ({ offer }) => {
     );
   };
 
+  const handleDiscard = () => {
+    router.push("/admin/offers");
+  };
+
   return (
     <div>
+      {
+        <ConfirmModal
+          open={confirmModalOpen}
+          onclose={() => setconfirmModalOpen(false)}
+          description={"Are you sure you want to discard the changes?"}
+          onconfirm={handleDiscard}
+        />
+      }
       <div className="flex gap-5 lg:gap-0 flex-col lg:flex-row lg:items-center justify-between">
         <div className="flex items-center gap-4">
           <Link href={"/admin/offers"}>
@@ -47,10 +61,13 @@ const ManageOffer = ({ offer }) => {
           <TransparentButton
             text={"DISCARD"}
             className={"px-16"}
-            clickHandler={() => router.push("/admin/offers")}
+            clickHandler={() => setconfirmModalOpen(true)}
           />
 
-          <PinkButton text={"SAVE"} className={"px-16"} />
+          <PinkButton
+            text={isEditing ? "Save Changes" : "Save"}
+            className={"px-16 whitespace-nowrap"}
+          />
         </div>
       </div>
       <div className="w-[100%] md:w-[60%]">

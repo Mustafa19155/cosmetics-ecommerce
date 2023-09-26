@@ -2,16 +2,43 @@
 
 import PinkButton from "@/components/buttons/PinkButton";
 import TransparentButton from "@/components/buttons/TransparentButton";
-import React from "react";
+import React, { useContext, useState } from "react";
 import GoogleIcon from "../../assets/icons/google.svg";
 import Link from "next/link";
-import Image from "next/image";
 import LoginMainImg from "../../assets/images/login.png";
 import PrimaryInput from "@/components/Inputs/PrimaryInput";
 import { useRouter } from "next/navigation";
+import { getUser, loginUser } from "@/api/user";
+import { AuthContext } from "@/contexts/userContext";
+import useAlert from "@/hooks/useAlert";
 
 export default function Page() {
   const router = useRouter();
+
+  const [email, setemail] = useState("");
+  const { setAlert } = useAlert();
+  const [password, setpassword] = useState("");
+
+  const { setUser } = useContext(AuthContext);
+
+  const handleLogin = () => {
+    loginUser({ email, password })
+      .then((res) => {
+        getUser()
+          .then((resp) => {
+            setUser(resp.user);
+            router.push("/");
+          })
+          .catch((err) => {
+            console.log(err);
+            setAlert(err, "danger");
+          });
+      })
+      .catch((err) => {
+        setAlert(err, "danger");
+      });
+  };
+
   return (
     <div className="flex h-screen">
       <div className="w-[100%] md:w-[50%] flex flex-col justify-center items-center px-8 sm:px-16 py-8">
@@ -26,8 +53,10 @@ export default function Page() {
               <PrimaryInput
                 type="email"
                 placeholder="Example@yahoo.com"
-                value={""}
-                changeHandler={() => {}}
+                value={email}
+                changeHandler={(e) => {
+                  setemail(e.target.value);
+                }}
               />
             </div>
             <div className="flex flex-col gap-2">
@@ -35,8 +64,10 @@ export default function Page() {
               <PrimaryInput
                 type="password"
                 placeholder="******"
-                value={""}
-                changeHandler={() => {}}
+                value={password}
+                changeHandler={(e) => {
+                  setpassword(e.target.value);
+                }}
               />
               <Link href={"/resetPassword"}>
                 <p className="text-sm text-end mt-1 underline">
@@ -45,13 +76,13 @@ export default function Page() {
               </Link>
             </div>
 
-            <PinkButton
-              text={"LOGIN"}
-              clickHandler={() => {
-                router.push("/");
-              }}
-            />
+            <PinkButton text={"LOGIN"} clickHandler={handleLogin} />
             <TransparentButton
+              clickHandler={() =>
+                router.push(
+                  `${process.env.NEXT_PUBLIC_BASE_URL}/users/auth/google`
+                )
+              }
               text={"Continue with Google"}
               icon={GoogleIcon}
             />

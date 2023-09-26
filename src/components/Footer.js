@@ -28,21 +28,41 @@ const Footer = () => {
           <div className="w-[100%] sm:w-[40%] lg:mb-0 lg:w-[21%]  mb-4 sm:mb-0">
             <p className="text-2xl font-semibold mb-2">Information</p>
             <div className="flex flex-col gap-2">
-              <p>My account</p>
-              <p>Checkout</p>
-              <p>Cart</p>
-              <p>Shop</p>
-              <p>Sample Page</p>
+              <Link href={"/userProfiling"}>
+                <p>My account</p>
+              </Link>
+              <Link href={"/checkout"}>
+                <p>Checkout</p>
+              </Link>
+              <Link href={"/cart"}>
+                <p>Cart</p>
+              </Link>
+              <Link href={"/products"}>
+                <p>Shop</p>
+              </Link>
+              <Link href={"/"}>
+                <p>Sample Page</p>
+              </Link>
             </div>
           </div>
           <div className="w-[100%] sm:w-[60%] lg:mb-0 lg:w-[21%]  mb-4 sm:mb-0">
             <p className="text-2xl font-semibold mb-2">Quick Links</p>
             <div className="flex flex-col gap-2">
-              <p>Wishlist</p>
-              <p>My account</p>
-              <p>Checkout</p>
-              <p>Cart</p>
-              <p>Shop</p>
+              <Link href={"/wishlist"}>
+                <p>Wishlist</p>
+              </Link>
+              <Link href={"/userProfiling"}>
+                <p>My account</p>
+              </Link>
+              <Link href={"/checkout"}>
+                <p>Checkout</p>
+              </Link>
+              <Link href={"/cart"}>
+                <p>Cart</p>
+              </Link>
+              <Link href={"/products"}>
+                <p>Shop</p>
+              </Link>
             </div>
           </div>
           <div className="w-[100%] sm:w-[40%] lg:mb-0 lg:w-[21%]  mb-4 sm:mb-0">
@@ -50,11 +70,11 @@ const Footer = () => {
             <div className="flex flex-col gap-2">
               <div className="flex gap-3 items-center">
                 <Image src={LocationIcon} />
-                <p>123 Main StreetAnytown</p>
+                <p>Avenida san memes local 15 código postal 24007 León Spain</p>
               </div>
               <div className="flex gap-3 items-center">
                 <Image src={PhoneIcon} />
-                <p>+92-344445</p>
+                <p>+34615971758</p>
               </div>
             </div>
           </div>

@@ -31,6 +31,7 @@ const ProductWrapper = ({ products, categories }) => {
         showProducts={showProducts}
         setshowProducts={setshowProducts}
       />
+
       <TableWrapper
         showFilters={showProducts ? true : false}
         filterOptions={filterOptions}

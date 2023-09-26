@@ -9,6 +9,7 @@ export default function PrimaryInput({
   className,
   name,
   icon,
+  disabled,
 }) {
   return (
     <div
@@ -18,6 +19,7 @@ export default function PrimaryInput({
     >
       {icon && <Image src={icon} className="h-[20px] w-[20px]" />}
       <input
+        disabled={disabled ? disabled : false}
         name={name}
         value={value}
         onChange={changeHandler}

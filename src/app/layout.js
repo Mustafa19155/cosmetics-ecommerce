@@ -1,7 +1,8 @@
-import Navbar from "@/components/Navbar";
 import "./globals.css";
 import { Inter } from "next/font/google";
-import Footer from "@/components/Footer";
+import AuthContextProvider from "@/contexts/userContext";
+import AlertContextProvider from "@/contexts/alertContext";
+import AlertPopup from "@/components/AlertPopup";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,13 +27,12 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         ></link>
       </head>
-      <body className="overflow-x-hidden">
-        {/* <div className="container mx-auto"> */}
-        {/* <Navbar /> */}
-        {children}
-        {/* <Footer /> */}
-        {/* </div> */}
-      </body>
+      <AlertContextProvider>
+        <AuthContextProvider>
+          <AlertPopup />
+          <body className="overflow-x-hidden">{children}</body>
+        </AuthContextProvider>
+      </AlertContextProvider>
     </html>
   );
 }

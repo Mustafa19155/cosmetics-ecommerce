@@ -28,13 +28,13 @@ const Testimonials = () => {
               <p>{testimonial.name}</p>
             </div>
             <p>"{testimonial.description}"</p>
-            <TransparentButton
+            {/* <TransparentButton
               text={"SEE MORE"}
               icon={ArrowRight}
               className={
                 "bg-white text-black w-[80%] sm:w-[40%] md:w-[70%] lg:w-[60%] self-end mt-8 flex-row-reverse font-semibold border-0 h-[60px] relative lg:absolute bottom-[-10px]"
               }
-            />
+            /> */}
           </div>
         </div>
       </div>

@@ -9,7 +9,7 @@ const Navbar = () => {
   const [showDropdown, setshowDropdown] = useState(false);
 
   return (
-    <div className="shadow-admin-navbar w-full flex justify-between p-4 bg-white">
+    <div className="shadow-admin-navbar w-[calc(100vw_-_40px)] sm:w-[calc(100vw_-_260px)] flex justify-between p-4 bg-white fixed z-20">
       <div className="flex items-center gap-2">
         <p className="font-bold text-2xl">Hello Admin</p>
         <div className="relative">

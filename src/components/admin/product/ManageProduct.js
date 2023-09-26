@@ -9,6 +9,9 @@ import SelectInput from "@/components/Inputs/SelectInput";
 import Link from "next/link";
 import DeleteIcon from "@/assets/icons/delete-black.svg";
 import { useRouter } from "next/navigation";
+import PlusIcon from "@/assets/icons/plus.svg";
+import MinusIcon from "@/assets/icons/minus.svg";
+import ConfirmModal from "@/components/Modals/ConfirmModal";
 
 const ManageProduct = ({ product, categories }) => {
   const router = useRouter();
@@ -17,9 +20,9 @@ const ManageProduct = ({ product, categories }) => {
   const [description, setdescription] = useState(product?.description);
   const [price, setprice] = useState(product?.price);
   const [images, setimages] = useState(product ? product.images : []);
+  const [confirmModalOpen, setconfirmModalOpen] = useState(false);
   const [discount, setdiscount] = useState(product?.discount);
-  const [availability, setavailability] = useState(product?.availability);
-  const [quantity, setquantity] = useState(product?.quantity);
+  const [quantity, setquantity] = useState(product ? product.quantity : 0);
   const [category, setcategory] = useState(product?.category);
 
   const handleRemoveImage = (index) => {
@@ -30,9 +33,28 @@ const ManageProduct = ({ product, categories }) => {
     );
   };
 
+  const handleDecrement = () => {
+    if (quantity > 1) {
+      setquantity(quantity - 1);
+    }
+  };
+
+  const handleIncrement = () => {
+    setquantity(quantity + 1);
+  };
+  const handleDiscard = () => {
+    router.push("/admin/product");
+  };
+
   return (
     <div>
       <div className="flex gap-5 lg:gap-0 flex-col lg:flex-row lg:items-center justify-between">
+        <ConfirmModal
+          open={confirmModalOpen}
+          onclose={() => setconfirmModalOpen(false)}
+          description={"Are you sure you want to discard the changes?"}
+          onconfirm={handleDiscard}
+        />
         <div className="flex items-center gap-4">
           <Link href={"/admin/product"}>
             <Image src={BackIcon} />
@@ -45,10 +67,13 @@ const ManageProduct = ({ product, categories }) => {
           <TransparentButton
             text={"DISCARD"}
             className={"px-16"}
-            clickHandler={() => router.push("/admin/product")}
+            clickHandler={() => setconfirmModalOpen(true)}
           />
 
-          <PinkButton text={"SAVE"} className={"px-16"} />
+          <PinkButton
+            text={isEditing ? "Save Changes" : "Save"}
+            className={"px-16 whitespace-nowrap"}
+          />
         </div>
       </div>
       <div>
@@ -134,28 +159,29 @@ const ManageProduct = ({ product, categories }) => {
             type={"number"}
           />
         </div>
-        {isEditing && (
-          <div className="flex flex-col gap-2 mt-5">
-            <label className="text-sm font-inter font-semibold">
-              Availability
-            </label>
-            <PrimaryInput
-              className={"!p-3"}
-              value={availability}
-              changeHandler={(e) => setavailability(e.target.value)}
-              placeholder={"Availability"}
-            />
-          </div>
-        )}
         <div className="flex flex-col gap-2 mt-5">
           <label className="text-sm font-inter font-semibold">Quantity</label>
+          <div className="flex gap-8 text-lg items-center px-4 py-2 shadow-custom-1 w-fit">
+            <Image
+              src={MinusIcon}
+              onClick={handleDecrement}
+              className="cursor-pointer"
+            />
+            <p className="font-bold w-[30px] text-center">{quantity}</p>
+            <Image
+              src={PlusIcon}
+              onClick={handleIncrement}
+              className="cursor-pointer"
+            />
+          </div>
+          {/* <label className="text-sm font-inter font-semibold">Quantity</label>
           <PrimaryInput
             className={"!p-3"}
             value={quantity}
             changeHandler={(e) => setquantity(e.target.value)}
             placeholder={"Quantity"}
             type={"number"}
-          />
+          /> */}
         </div>
         <div className="flex flex-col gap-2 mt-5">
           <label className="text-sm font-inter font-semibold">Category</label>

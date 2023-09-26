@@ -254,7 +254,7 @@ const Page = async () => {
             </div>
           </div>
         </div>
-        <div className="bg-white shadow-dashboard-card rounded-lg p-5 w-full xl:w-[49.5%] max-w-[calc(100vw_-_90px)] mt-8">
+        <div className="bg-white shadow-dashboard-card rounded-lg p-5 w-full xl:w-[49.5%] max-w-[calc(100vw_-_90px)] mt-8 lg:mt-0">
           <p className="font-bold text-lg mb-5">Bestsellers</p>
           <BestSellersTable data={bestSellers} />
         </div>

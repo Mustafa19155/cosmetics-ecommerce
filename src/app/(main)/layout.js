@@ -1,9 +1,19 @@
+"use client";
 import Navbar from "@/components/Navbar";
-import { Inter } from "next/font/google";
 import Footer from "@/components/Footer";
 import WhatsappIcon from "@/components/WhatsappIcon";
+import { useContext, useEffect } from "react";
+import { AuthContext } from "@/contexts/userContext";
+import { useRouter } from "next/navigation";
 
 export default function RootLayout({ children }) {
+  const router = useRouter();
+  const { currentUser } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (!currentUser) router.push("/login");
+  }, []);
+
   return (
     <html lang="en">
       <head>

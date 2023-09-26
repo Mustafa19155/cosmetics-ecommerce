@@ -11,66 +11,14 @@ import Card1Img from "../../assets/images/card1.png";
 import Card2Img from "../../assets/images/card2.png";
 
 const CheckoutLeft = ({ deliveryMethod, setdeliveryMethod }) => {
-  // address
-  const [value, setValue] = useState("");
-  const [isValid, setIsValid] = useState(null);
-
-  const [formData, setFormData] = useState({
-    username: null,
-    email: null,
-    country: null,
-    state: null,
-    city: null,
-    address: null,
-  });
-
-  const changeHandler = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
   useEffect(() => {
-    if (value) {
-      setIsValid(false);
-
-      if (value.length > 0) {
-        if (isValidPhoneNumber(value)) {
-          setIsValid(true);
-
-          let countryName = parsePhoneNumber(value);
-          if (countryName) {
-            let country = Country.getCountryByCode(countryName.country);
-            if (country) {
-              let state = State.getStatesOfCountry(countryName.country);
-              let city = City.getCitiesOfState(
-                countryName.country,
-                state[0].isoCode
-              );
-              setFormData({
-                ...formData,
-                country: country.name,
-                state: state[0].isoCode,
-                city: city[0].name,
-              });
-            }
-          }
-        }
-      }
-    }
-  }, [value]);
-
-  const [paymentMethod, setpaymentMethod] = useState("cash");
-
-  // payment
-  const [cardNo, setcardNo] = useState("");
-  const [nameOnCard, setnameOnCard] = useState("");
-  const [expiry, setexpiry] = useState("");
-  const [cvv, setcvv] = useState("");
-
-  //remember my info
-  const [saveInfo, setsaveInfo] = useState(false);
+    // if (saveInfo) {
+    //   localStorage.setItem(
+    //     "deliveryInfo",
+    //     JSON.stringify({ ...formData, phone: value })
+    //   );
+    // }
+  }, [saveInfo]);
 
   return (
     <div>
@@ -283,13 +231,13 @@ const CheckoutLeft = ({ deliveryMethod, setdeliveryMethod }) => {
           <div className="flex items-center gap-3">
             <input
               type="checkbox"
-              className="accent-primary"
+              className="accent-primary cursor-pointer"
               checked={saveInfo}
               onChange={() => setsaveInfo(!saveInfo)}
             />
             <label>Save my information for future checkout</label>
           </div>
-          {saveInfo && (
+          {/* {saveInfo && (
             <div className="flex flex-col gap-3">
               <div className="flex flex-col gap-2">
                 <label className="font-semibold text-sm">Password</label>
@@ -312,7 +260,7 @@ const CheckoutLeft = ({ deliveryMethod, setdeliveryMethod }) => {
                 />
               </div>
             </div>
-          )}
+          )} */}
         </div>
       </div>
     </div>
