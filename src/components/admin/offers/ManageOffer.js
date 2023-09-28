@@ -11,6 +11,8 @@ import DeleteIcon from "@/assets/icons/delete-black.svg";
 import moment from "moment";
 import { useRouter } from "next/navigation";
 import ConfirmModal from "@/components/Modals/ConfirmModal";
+import { addOffer } from "@/api/offers";
+import useAlert from "@/hooks/useAlert";
 
 const ManageOffer = ({ offer }) => {
   const router = useRouter();
@@ -18,13 +20,15 @@ const ManageOffer = ({ offer }) => {
   const [name, setname] = useState(offer?.name);
   const [images, setimages] = useState(offer ? offer.images : []);
   const [confirmModalOpen, setconfirmModalOpen] = useState(false);
-  const [startDate, setstartDate] = useState(
-    offer ? moment(offer.startDate).format("DD MMM, YYYY") : ""
+  const [starting_date, setstarting_date] = useState(
+    offer ? moment(offer.starting_date).format("DD MMM, YYYY") : ""
   );
-  const [endDate, setendDate] = useState(
-    offer ? moment(offer.endDate).format("DD MMM, YYYY") : ""
+  const [ending_date, setending_date] = useState(
+    offer ? moment(offer.ending_date).format("DD MMM, YYYY") : ""
   );
   const [discount, setdiscount] = useState(offer?.discount);
+
+  const { setAlert } = useAlert();
 
   const handleRemoveImage = (index) => {
     setimages(
@@ -36,6 +40,24 @@ const ManageOffer = ({ offer }) => {
 
   const handleDiscard = () => {
     router.push("/admin/offers");
+  };
+
+  const handleAddOffer = () => {
+    if (name && starting_date && ending_date && discount) {
+      if (!isEditing) {
+        addOffer({
+          data: { name, starting_date, ending_date, discount, images },
+        })
+          .then((res) => {
+            setAlert("Offer Added Successfully", "success");
+          })
+          .catch((err) => {
+            setAlert(err, "danger");
+          });
+      }
+    } else {
+      setAlert("Fill all fields first", "danger");
+    }
   };
 
   return (
@@ -67,6 +89,7 @@ const ManageOffer = ({ offer }) => {
           <PinkButton
             text={isEditing ? "Save Changes" : "Save"}
             className={"px-16 whitespace-nowrap"}
+            clickHandler={handleAddOffer}
           />
         </div>
       </div>
@@ -86,8 +109,8 @@ const ManageOffer = ({ offer }) => {
           </label>
           <PrimaryInput
             className={"!p-3"}
-            value={startDate}
-            changeHandler={(e) => setstartDate(e.target.value)}
+            value={starting_date}
+            changeHandler={(e) => setstarting_date(e.target.value)}
             placeholder={moment(Date.now()).format("DD MMM, YYYY")}
           />
         </div>
@@ -97,8 +120,8 @@ const ManageOffer = ({ offer }) => {
           </label>
           <PrimaryInput
             className={"!p-3"}
-            value={endDate}
-            changeHandler={(e) => setendDate(e.target.value)}
+            value={ending_date}
+            changeHandler={(e) => setending_date(e.target.value)}
             placeholder={moment(Date.now()).format("DD MMM, YYYY")}
           />
         </div>

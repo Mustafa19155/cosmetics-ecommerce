@@ -7,9 +7,11 @@ export default function PinkButton({
   className,
   icon,
   type,
+  disabled,
 }) {
   return (
     <button
+      disabled={disabled ? disabled : false}
       type={type}
       className={`pink-btn ${
         className ? className : ""

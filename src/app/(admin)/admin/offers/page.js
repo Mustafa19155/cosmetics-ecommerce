@@ -1,26 +1,10 @@
+import { getOffers } from "@/api/offers";
 import OfferCard from "@/components/admin/offers/OfferCard";
 import Link from "next/link";
 import React from "react";
 
-const getData = async () => {
-  return [
-    {
-      name: "Hallowen Offer",
-      discount: 50,
-      startDate: Date.now(),
-      endDate: Date.now(),
-    },
-    {
-      name: "Hallowen Offer",
-      discount: 50,
-      startDate: Date.now(),
-      endDate: Date.now(),
-    },
-  ];
-};
-
 const Page = async () => {
-  const data = await getData();
+  const data = await getOffers();
 
   return (
     <div>

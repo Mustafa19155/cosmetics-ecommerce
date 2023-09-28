@@ -11,6 +11,7 @@ const OfferCard = ({ offer }) => {
   const [deleteModalOpen, setdeleteModalOpen] = useState(false);
 
   const handleDeleteOffer = () => {
+    window.location.reload();
     setdeleteModalOpen(false);
   };
 
@@ -33,7 +34,7 @@ const OfferCard = ({ offer }) => {
         onconfirm={handleDeleteOffer}
         type={"Offer"}
       />
-      <div className="p-5" onClick={() => router.push("offers/1")}>
+      <div className="p-5" onClick={() => router.push(`offers/${offer._id}`)}>
         <div className="flex flex-col gap-16">
           <div>
             <p className="text-xl">{offer.name}</p>
@@ -43,13 +44,13 @@ const OfferCard = ({ offer }) => {
             <div>
               <p>Starting Date</p>
               <p className="text-xs">
-                {moment(offer.startDate).format("DD MMM, YYYY")}
+                {moment(offer.starting_date).format("DD MMM, YYYY")}
               </p>
             </div>
             <div>
               <p>Ending Date</p>
               <p className="text-xs">
-                {moment(offer.endDate).format("DD MMM, YYYY")}
+                {moment(offer.ending_date).format("DD MMM, YYYY")}
               </p>
             </div>
           </div>

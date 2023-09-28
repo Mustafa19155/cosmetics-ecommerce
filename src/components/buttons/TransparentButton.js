@@ -7,9 +7,11 @@ export default function TransparentButton({
   clickHandler,
   className,
   icon,
+  disabled,
 }) {
   return (
     <button
+      disabled={disabled ? disabled : false}
       className={`${
         className ? className : ""
       } w-full h-[48px] rounded-md border border-primary flex justify-center items-center gap-2 hover:shadow-trans-btn duration-150`}

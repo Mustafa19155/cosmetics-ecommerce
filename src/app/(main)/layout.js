@@ -10,9 +10,9 @@ export default function RootLayout({ children }) {
   const router = useRouter();
   const { currentUser } = useContext(AuthContext);
 
-  useEffect(() => {
-    if (!currentUser) router.push("/login");
-  }, []);
+  // useEffect(() => {
+  //   if (!currentUser) router.push("/login");
+  // }, []);
 
   return (
     <html lang="en">

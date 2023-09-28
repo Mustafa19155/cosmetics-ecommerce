@@ -1,62 +1,29 @@
 "use client";
-
-import PinkButton from "@/components/buttons/PinkButton";
-import TransparentButton from "@/components/buttons/TransparentButton";
 import React, { useState } from "react";
 import LoginMainImg from "../../assets/images/login.png";
-import { useRouter } from "next/navigation";
-import { requestOtp } from "@/api/user";
-import useAlert from "@/hooks/useAlert";
+import Step1 from "@/components/ResetPassword/Step1";
+import Step2 from "@/components/ResetPassword/Step2";
+import Step3 from "@/components/ResetPassword/Step3";
 
 export default function Page() {
-  const router = useRouter();
-
   const [email, setemail] = useState("");
-
-  const { setAlert } = useAlert();
-
-  const handleGetOtp = () => {
-    requestOtp({ email })
-      .then((res) => {
-        localStorage.setItem("otp-email", email);
-        router.push("/otp");
-      })
-      .catch((err) => {
-        setAlert(err, "danger");
-      });
-  };
+  const [currentStep, setcurrentStep] = useState(1);
 
   return (
     <div className="flex h-screen">
-      <div className="w-[100%] md:w-[50%] flex flex-col justify-center items-center px-8 sm:px-16 py-8">
-        <div className="md:max-w-[700px] w-full">
-          <p className="font-bold text-3xl text-center">Reset Password</p>
-          <p className="text-gray-400 text-center mb-3 w-[70%] mx-auto mt-3">
-            Enter the email associated with your account to recieve a reset
-            password mail
-          </p>
-          <div className="flex flex-col gap-5">
-            <div className="flex flex-col gap-2">
-              <label>Email</label>
-              <input
-                value={email}
-                onChange={(e) => setemail(e.target.value)}
-                type="email"
-                placeholder="Example@yahoo.com"
-                className="bg-gray-1 shadow-custom-1 py-2 outline-none"
-              />
-            </div>
-            <PinkButton text={"GET CODE"} clickHandler={handleGetOtp} />
-            <TransparentButton
-              clickHandler={() => {
-                router.push("/login");
-              }}
-              text={"BACK TO LOGIN"}
-              className={"font-bold border-0"}
-            />
-          </div>
-        </div>
-      </div>
+      {currentStep == 1 ? (
+        <Step1
+          email={email}
+          setemail={setemail}
+          setcurrentStep={setcurrentStep}
+        />
+      ) : currentStep == 2 ? (
+        <Step2 email={email} setstep={setcurrentStep} />
+      ) : currentStep == 3 ? (
+        <Step3 />
+      ) : (
+        <Step4 />
+      )}
       <div
         className="w-[50%] h-full hidden md:block"
         style={{
@@ -65,9 +32,7 @@ export default function Page() {
           backgroundSize: "cover",
           backgroundPosition: "center center",
         }}
-      >
-        {/* <Image src={LoginMainImg} className="h-full w-[100%] object-cover" /> */}
-      </div>
+      ></div>
     </div>
   );
 }

@@ -135,6 +135,43 @@ const getCategories = async () => {
   ];
 };
 
+const getSubCategories = async () => {
+  return [
+    {
+      name: "category name",
+      productsCount: 10,
+    },
+    {
+      name: "category name",
+      productsCount: 10,
+    },
+    {
+      name: "category name",
+      productsCount: 10,
+    },
+    {
+      name: "category name",
+      productsCount: 10,
+    },
+    {
+      name: "category name",
+      productsCount: 10,
+    },
+    {
+      name: "category name",
+      productsCount: 10,
+    },
+    {
+      name: "category name",
+      productsCount: 10,
+    },
+    {
+      name: "category name",
+      productsCount: 10,
+    },
+  ];
+};
+
 const Page = async () => {
   const data = (await getData()).map((d, index) => {
     return { ...d, selected: false, name: index.toString() + "a" };

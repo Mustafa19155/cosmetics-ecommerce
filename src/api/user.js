@@ -67,13 +67,13 @@ export const verifyOtp = async ({ otp, email }) => {
   }
 };
 
-export const resetPasword = async ({ pasword, email }) => {
+export const resetPasword = async ({ password, email }) => {
   try {
     const res = await axiosClient.patch(`/users/reset/password`, {
-      pasword,
+      password,
       email,
     });
-
+    console.log(res);
     return res;
   } catch (err) {
     throw err.response.data.message;

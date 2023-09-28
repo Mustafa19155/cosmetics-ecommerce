@@ -2,16 +2,19 @@ import React, { useState } from "react";
 import PinkButton from "@/components/buttons/PinkButton";
 import Link from "next/link";
 import CategoryModal from "@/components/Modals/CategoryModal";
+import { addCategory } from "@/api/categories";
 
 const ProductTop = ({ showProducts, setshowProducts }) => {
   const [categoryModalOpen, setcategoryModalOpen] = useState(false);
+
+  const handleAddCategory = () => {};
 
   return (
     <>
       <CategoryModal
         open={categoryModalOpen}
         onclose={() => setcategoryModalOpen(false)}
-        onconfirm={() => {}}
+        onconfirm={handleAddCategory}
       />
       <div className="flex flex-col gap-5 lg:gap-0 lg:flex-row justify-between lg:items-center">
         <div className="bg-white flex gap-2 shadow-admin-navbar p-2 rounded-lg flex-wrap sm:flex-nowrap">
