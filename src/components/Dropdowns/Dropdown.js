@@ -1,7 +1,14 @@
 import useClickOutside from "@/hooks/useClickOutside";
 import React, { useRef } from "react";
 
-const Dropdown = ({ show, setshow, options, className, handleClick }) => {
+const Dropdown = ({
+  show,
+  setshow,
+  options,
+  className,
+  handleClick,
+  setactive,
+}) => {
   const ref = useRef(null);
 
   useClickOutside(ref, () => setshow(false));
@@ -16,9 +23,10 @@ const Dropdown = ({ show, setshow, options, className, handleClick }) => {
       {options.map((opt, index) => (
         <div
           className="text-secondary p-3 cursor-pointer whitespace-nowrap hover:text-primary"
-          onClick={(e) => {
+          onClick={() => {
             setshow(false);
             handleClick ? handleClick(index) : null;
+            setactive(opt);
           }}
         >
           <p>{opt.name}</p>

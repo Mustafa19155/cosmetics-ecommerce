@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import DeleteIcon from "@/assets/icons/delete-gray.svg";
 import EditIcon from "@/assets/icons/edit-gray.svg";
 import DeleteModal from "@/components/Modals/DeleteModal";
-import CategoryModal from "@/components/Modals/CategoryModal";
+import CategoryModal from "@/components/Modals/BrandModal";
+import { deleteBrand } from "@/api/brands";
 
 const CategoryTable = ({ mainPros, setmainPros }) => {
   const [allChecked, setallChecked] = useState(false);
@@ -42,6 +43,11 @@ const CategoryTable = ({ mainPros, setmainPros }) => {
   };
 
   const handleDelete = () => {
+    deleteBrand({ id: activeModalData._id })
+      .then((res) => {
+        window.location.reload();
+      })
+      .catch((err) => {});
     setdeleteModalOpen(false);
   };
   const handleEdit = () => {
@@ -64,7 +70,7 @@ const CategoryTable = ({ mainPros, setmainPros }) => {
         open={deleteModalOpen}
         onclose={() => setdeleteModalOpen(false)}
         onconfirm={handleDelete}
-        type={"Category"}
+        type={"Brand"}
       />
       <CategoryModal
         open={editModalOpen}
@@ -84,7 +90,7 @@ const CategoryTable = ({ mainPros, setmainPros }) => {
               />
             </th>
             <th className="p-3" scope="col">
-              Category Name
+              Brand Name
             </th>
             <th className="p-3" scope="col">
               Products

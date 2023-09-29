@@ -5,7 +5,7 @@ import useAlert from "../hooks/useAlert";
 
 export default function AlertPopup() {
   const { text, type } = useAlert();
-  console.log(text, type);
+
   if (text && type) {
     return (
       <div

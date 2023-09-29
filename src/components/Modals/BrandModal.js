@@ -13,11 +13,11 @@ const CategoryModal = ({ open, onclose, category, onconfirm }) => {
   return (
     <ModalWrapper open={open}>
       <div>
-        <p className="p-5">{category ? "Edit" : "Create"} Category</p>
+        <p className="p-5">{category ? "Edit" : "Create"} Brand</p>
         <hr />
         <div className="p-8">
           <div className="">
-            <label>Category</label>
+            <label>Brand</label>
             <PrimaryInput
               className={"mt-1"}
               placeholder={"Perfume"}
@@ -29,7 +29,7 @@ const CategoryModal = ({ open, onclose, category, onconfirm }) => {
             <TransparentButton text={"CANCEL"} clickHandler={onclose} />
             <PinkButton
               text={`${category ? "EDIT" : "ADD"}`}
-              clickHandler={onconfirm}
+              clickHandler={() => onconfirm({ name: categoryName })}
             />
           </div>
         </div>

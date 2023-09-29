@@ -5,13 +5,19 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import DeleteIcon from "@/assets/icons/delete-black.svg";
 import DeleteModal from "@/components/Modals/DeleteModal";
+import { deleteOffer } from "@/api/offers";
 
 const OfferCard = ({ offer }) => {
   const router = useRouter();
   const [deleteModalOpen, setdeleteModalOpen] = useState(false);
 
   const handleDeleteOffer = () => {
-    window.location.reload();
+    deleteOffer({ id: offer._id })
+      .then((res) => {
+        window.location.reload();
+      })
+      .catch((err) => {});
+
     setdeleteModalOpen(false);
   };
 

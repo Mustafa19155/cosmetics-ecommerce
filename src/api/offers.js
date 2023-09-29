@@ -2,10 +2,10 @@ import { axiosClient } from "./axios";
 
 export const getOffers = async () => {
   try {
-    const res = await axiosClient.get("/admin/offer");
+    const res = await axiosClient.get("/admin/offers");
     return res.data.offers;
   } catch (err) {
-    throw err.response.data.message;
+    throw err.response?.data?.message;
   }
 };
 
@@ -15,17 +15,35 @@ export const addOffer = async ({ data }) => {
       "Content-Type": "multipart/form-data",
     };
 
-    const formData = new FormData();
+    const res = await axiosClient.post("/admin/offer/add", data);
 
-    formData.append("name", data.name);
-    formData.append("starting_date", data.starting_date);
-    formData.append("ending_date", data.ending_date);
-    formData.append("discount", data.discount);
-    data.images.map((img) => {
-      formData.append("images", img);
-    });
+    axiosClient.defaults.headers = {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    };
 
-    const res = await axiosClient.post("/admin/offer/add", formData);
+    return res.data;
+  } catch (err) {
+    throw err.response?.data?.message;
+  }
+};
+
+export const deleteOffer = async ({ id }) => {
+  try {
+    const res = await axiosClient.delete(`/admin/offer/delete/${id}`);
+    return res.data.offers;
+  } catch (err) {
+    throw err.response?.data?.message;
+  }
+};
+
+export const editOffer = async ({ data, id }) => {
+  try {
+    axiosClient.defaults.headers = {
+      "Content-Type": "multipart/form-data",
+    };
+
+    const res = await axiosClient.patch(`admin/offer/edit/${id}`, data);
 
     axiosClient.defaults.headers = {
       "Content-Type": "application/json",
@@ -38,11 +56,11 @@ export const addOffer = async ({ data }) => {
   }
 };
 
-export const deleteOffer = async ({ id }) => {
+export const getSingleOffer = async ({ id }) => {
   try {
-    const res = await axiosClient.get("/admin/offer");
-    return res.data.offers;
+    const res = await axiosClient.get(`/admin/offer/${id}`);
+    return res.data.offer;
   } catch (err) {
-    throw err.response.data.message;
+    throw err.response?.data?.message;
   }
 };

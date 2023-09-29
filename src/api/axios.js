@@ -8,7 +8,7 @@ axiosClient.defaults.headers = {
   Accept: "application/json",
 };
 
-axiosClient.defaults.withCredentials = true;
+// axiosClient.defaults.withCredentials = true;
 
 axiosClient.interceptors.response.use(
   function (response) {

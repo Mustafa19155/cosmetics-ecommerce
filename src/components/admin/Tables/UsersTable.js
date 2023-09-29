@@ -33,13 +33,13 @@ const UsersTable = ({ mainPros, setmainPros }) => {
               <tr class="bg-white border-b border-gray-2 rounded-lg">
                 <td className="px-3 py-4 border-r">
                   {/* <Link href={"/admin/users/1"}> */}
-                  {item.username}
+                  {item.name}
                   {/* </Link> */}
                 </td>
                 <td class="px-3 py-4 border-r">{item.email}</td>
                 <td class="px-3 py-4 border-r">${item.spent}</td>
-                <td class="px-3 py-4 border-r">{item.points}</td>
-                <td class="px-12 py-4 border-r">{item.ordersCount}</td>
+                <td class="px-3 py-4 border-r">{item.coins}</td>
+                <td class="px-3 py-4 border-r">{item.orders}</td>
               </tr>
             );
           })}

@@ -30,7 +30,6 @@ export default function Page() {
             router.push("/");
           })
           .catch((err) => {
-            console.log(err);
             setAlert(err, "danger");
           });
       })

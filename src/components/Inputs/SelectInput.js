@@ -1,10 +1,16 @@
 import React, { useState } from "react";
-import ArrowIcon from "../../assets/icons/arrow.svg";
-import Image from "next/image";
 import Dropdown from "../Dropdowns/Dropdown";
 
-const SelectInput = ({ options, className, dropdownClassName }) => {
+const SelectInput = ({
+  options,
+  className,
+  dropdownClassName,
+  active,
+  setactive,
+  placeholder,
+}) => {
   const [showDropdown, setshowDropdown] = useState(false);
+
   return (
     <div className="relative">
       <div
@@ -13,7 +19,9 @@ const SelectInput = ({ options, className, dropdownClassName }) => {
         }`}
         onClick={() => setshowDropdown(!showDropdown)}
       >
-        <p className="whitespace-nowrap">{options[0].name}</p>
+        <p className={`whitespace-nowrap ${active ? "" : "text-gray-500"}`}>
+          {active ? active.name : placeholder}
+        </p>
         <svg
           width="14"
           height="14"
@@ -32,6 +40,7 @@ const SelectInput = ({ options, className, dropdownClassName }) => {
         options={options}
         show={showDropdown}
         setshow={setshowDropdown}
+        setactive={setactive}
       />
     </div>
   );

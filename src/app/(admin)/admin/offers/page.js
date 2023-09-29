@@ -4,7 +4,7 @@ import Link from "next/link";
 import React from "react";
 
 const Page = async () => {
-  const data = await [];
+  const data = await getOffers();
 
   return (
     <div>

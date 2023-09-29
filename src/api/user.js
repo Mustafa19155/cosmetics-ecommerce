@@ -7,7 +7,7 @@ export const registerUser = async ({ name, email, password }) => {
       email,
       password,
     });
-    console.log(res);
+
     return res.data;
   } catch (err) {
     throw err.response.data.message;
@@ -73,7 +73,7 @@ export const resetPasword = async ({ password, email }) => {
       password,
       email,
     });
-    console.log(res);
+
     return res;
   } catch (err) {
     throw err.response.data.message;

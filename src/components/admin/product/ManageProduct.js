@@ -12,6 +12,8 @@ import { useRouter } from "next/navigation";
 import PlusIcon from "@/assets/icons/plus.svg";
 import MinusIcon from "@/assets/icons/minus.svg";
 import ConfirmModal from "@/components/Modals/ConfirmModal";
+import { addProduct, editProduct } from "@/api/products";
+import useAlert from "@/hooks/useAlert";
 
 const ManageProduct = ({ product, categories }) => {
   const router = useRouter();
@@ -24,6 +26,8 @@ const ManageProduct = ({ product, categories }) => {
   const [discount, setdiscount] = useState(product?.discount);
   const [quantity, setquantity] = useState(product ? product.quantity : 0);
   const [category, setcategory] = useState(product?.category);
+
+  const { setAlert } = useAlert();
 
   const handleRemoveImage = (index) => {
     setimages(
@@ -44,6 +48,76 @@ const ManageProduct = ({ product, categories }) => {
   };
   const handleDiscard = () => {
     router.push("/admin/product");
+  };
+
+  const handleAddProduct = () => {
+    if (
+      name &&
+      description &&
+      quantity > 0 &&
+      price &&
+      discount &&
+      category &&
+      images.length > 0
+    ) {
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("description", description);
+      formData.append("quantity", quantity);
+      formData.append("discount", discount);
+      formData.append("price", price);
+      formData.append("category", category.value);
+      images.map(async (img) => {
+        if (img instanceof File) {
+          formData.append("images", img);
+        } else {
+          // var request = new XMLHttpRequest();
+          // request.open("GET", img, true);
+          // request.responseType = "blob";
+          // request.onload = function () {
+          //   var reader = new FileReader();
+          //   reader.readAsDataURL(request.response);
+          //   console.log(reader);
+          //   reader.onload = function (e) {
+          //     console.log("DataURL:", e.target.result);
+          //   };
+          // };
+
+          // request.send();
+          const response = await fetch(img, {
+            mode: "no-cors",
+          });
+          const data = await response.blob();
+
+          const fileName = "updatedImage";
+          formData.append(
+            "images",
+            new File([data], fileName, {
+              type: response.headers.get("content-type"),
+            })
+          );
+        }
+      });
+      if (isEditing) {
+        editProduct({ data: formData, id: product._id })
+          .then((res) => {
+            setAlert("Product Updated Successfully", "success");
+          })
+          .catch((err) => {
+            setAlert(err, "danger");
+          });
+      } else {
+        addProduct({ data: formData })
+          .then((res) => {
+            setAlert("Product Added Successfully", "success");
+          })
+          .catch((err) => {
+            setAlert(err, "danger");
+          });
+      }
+    } else {
+      setAlert("Fill all fields", "danger");
+    }
   };
 
   return (
@@ -71,6 +145,7 @@ const ManageProduct = ({ product, categories }) => {
           />
 
           <PinkButton
+            clickHandler={handleAddProduct}
             text={isEditing ? "Save Changes" : "Save"}
             className={"px-16 whitespace-nowrap"}
           />
@@ -126,16 +201,7 @@ const ManageProduct = ({ product, categories }) => {
               </div>
             ))}
 
-            <label
-              for="upload-image-input"
-              class={`cursor-pointer`}
-              style={
-                {
-                  // borderImage: `url(${BorderImg}) 10 round`,
-                  // border: "10px solid transparent",
-                }
-              }
-            >
+            <label for="upload-image-input" class={`cursor-pointer`}>
               <div class="flex gap-3 border-dashed border-primary border w-fit p-12">
                 <p className="font-bold text-lg">+ Add Photo</p>
               </div>
@@ -155,7 +221,7 @@ const ManageProduct = ({ product, categories }) => {
             className={"!p-3"}
             value={discount}
             changeHandler={(e) => setdiscount(e.target.value)}
-            placeholder={"Product Name"}
+            placeholder={"50%"}
             type={"number"}
           />
         </div>
@@ -174,18 +240,12 @@ const ManageProduct = ({ product, categories }) => {
               className="cursor-pointer"
             />
           </div>
-          {/* <label className="text-sm font-inter font-semibold">Quantity</label>
-          <PrimaryInput
-            className={"!p-3"}
-            value={quantity}
-            changeHandler={(e) => setquantity(e.target.value)}
-            placeholder={"Quantity"}
-            type={"number"}
-          /> */}
         </div>
         <div className="flex flex-col gap-2 mt-5">
           <label className="text-sm font-inter font-semibold">Category</label>
           <SelectInput
+            active={category}
+            setactive={setcategory}
             options={categories}
             className={"!p-3 !bg-gray-1"}
             dropdownClassName={"relative !top-1"}
@@ -197,69 +257,3 @@ const ManageProduct = ({ product, categories }) => {
 };
 
 export default ManageProduct;
-
-// import { useState } from "react";
-
-// const App = () => {
-//   const [selectedImage, setSelectedImage] = useState();
-
-//   // This function will be triggered when the file field change
-//   const imageChange = (e) => {
-//     if (e.target.files && e.target.files.length > 0) {
-//       setSelectedImage(e.target.files[0]);
-//     }
-//   };
-
-//   // This function will be triggered when the "Remove This Image" button is clicked
-//   const removeSelectedImage = () => {
-//     setSelectedImage();
-//   };
-
-//   return (
-//     <>
-//       <div style={styles.container}>
-//         <input accept="image/*" type="file" onChange={imageChange} />
-
-//         {selectedImage && (
-//           <div style={styles.preview}>
-//             {console.log(URL.createObjectURL(selectedImage))}
-//             <img
-//               src={URL.createObjectURL(selectedImage)}
-//               style={styles.image}
-//               alt="Thumb"
-//             />
-//             <button onClick={removeSelectedImage} style={styles.delete}>
-//               Remove This Image
-//             </button>
-//           </div>
-//         )}
-//       </div>
-//     </>
-//   );
-// };
-
-// export default App;
-
-// // Just some styles
-// const styles = {
-//   container: {
-//     display: "flex",
-//     flexDirection: "column",
-//     justifyContent: "center",
-//     alignItems: "center",
-//     paddingTop: 50,
-//   },
-//   preview: {
-//     marginTop: 50,
-//     display: "flex",
-//     flexDirection: "column",
-//   },
-//   image: { maxWidth: "100%", maxHeight: 320 },
-//   delete: {
-//     cursor: "pointer",
-//     padding: 15,
-//     background: "red",
-//     color: "white",
-//     border: "none",
-//   },
-// };

@@ -9,7 +9,7 @@ export default function Pagination({
   textSize,
 }) {
   const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
+    setCurrentPage({ page: pageNumber });
   };
 
   const generatePageNumbers = () => {

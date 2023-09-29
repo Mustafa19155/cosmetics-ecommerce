@@ -1,109 +1,46 @@
+"use client";
+import ProductWrapper from "@/components/admin/product/ProductWrapper";
+import React, { useEffect, useState } from "react";
 import TableWrapper from "@/components/admin/Tables/TableWrapper";
 import UsersTable from "@/components/admin/Tables/UsersTable";
-import React from "react";
+import { getUsers } from "@/api/users";
 
-const getData = async () => {
-  return [
-    {
-      username: "DavidFilma",
-      email: "email@emai.com",
-      spent: 20,
-      points: 40,
-      ordersCount: 3,
-    },
-    {
-      username: "DavidFilma",
-      email: "email@emai.com",
-      spent: 20,
-      points: 40,
-      ordersCount: 3,
-    },
-    {
-      username: "DavidFilma",
-      email: "email@emai.com",
-      spent: 20,
-      points: 40,
-      ordersCount: 3,
-    },
-    {
-      username: "DavidFilma",
-      email: "email@emai.com",
-      spent: 20,
-      points: 40,
-      ordersCount: 3,
-    },
-    {
-      username: "DavidFilma",
-      email: "email@emai.com",
-      spent: 20,
-      points: 40,
-      ordersCount: 3,
-    },
-    {
-      username: "DavidFilma",
-      email: "email@emai.com",
-      spent: 20,
-      points: 40,
-      ordersCount: 3,
-    },
-    {
-      username: "DavidFilma",
-      email: "email@emai.com",
-      spent: 20,
-      points: 40,
-      ordersCount: 3,
-    },
-    {
-      username: "DavidFilma",
-      email: "email@emai.com",
-      spent: 20,
-      points: 40,
-      ordersCount: 3,
-    },
-    {
-      username: "DavidFilma",
-      email: "email@emai.com",
-      spent: 20,
-      points: 40,
-      ordersCount: 3,
-    },
-    {
-      username: "DavidFilma",
-      email: "email@emai.com",
-      spent: 20,
-      points: 40,
-      ordersCount: 3,
-    },
-    {
-      username: "DavidFilma",
-      email: "email@emai.com",
-      spent: 20,
-      points: 40,
-      ordersCount: 3,
-    },
-    {
-      username: "DavidFilma",
-      email: "email@emai.com",
-      spent: 20,
-      points: 40,
-      ordersCount: 3,
-    },
-  ];
-};
+const Page = () => {
+  const [usersData, setusersData] = useState(null);
 
-const Page = async () => {
-  const data = await getData();
+  const [loading, setloading] = useState(true);
 
-  const searchCols = ["id", "username"];
+  const handleGetUsersData = async ({ page }) => {
+    setloading(true);
+    const data = await getUsers({ page });
+    console.log(data);
+    setusersData(data);
+    setloading(false);
+  };
+
+  useEffect(() => {
+    handleGetUsersData({ page: 1 });
+  }, []);
 
   return (
     <div>
-      <p className="font-bold text-3xl">Users</p>
-      <TableWrapper
-        Table={UsersTable}
-        products={data}
-        searchCols={searchCols}
-      />
+      {loading ? (
+        ""
+      ) : (
+        <>
+          <TableWrapper
+            products={usersData.users}
+            setcurrentPage={() => handleGetUsersData({ page })}
+            Table={UsersTable}
+            currentPage={usersData.currentPage}
+            totalPages={usersData.currentPage}
+            itemsPerPage={usersData.perPage}
+            searchCols={["name", "email"]}
+            showFilters={false}
+            filterOptions={[]}
+          />
+        </>
+      )}
     </div>
   );
 };

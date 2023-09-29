@@ -11,7 +11,7 @@ import DeleteIcon from "@/assets/icons/delete-black.svg";
 import moment from "moment";
 import { useRouter } from "next/navigation";
 import ConfirmModal from "@/components/Modals/ConfirmModal";
-import { addOffer } from "@/api/offers";
+import { addOffer, editOffer } from "@/api/offers";
 import useAlert from "@/hooks/useAlert";
 
 const ManageOffer = ({ offer }) => {
@@ -44,12 +44,58 @@ const ManageOffer = ({ offer }) => {
 
   const handleAddOffer = () => {
     if (name && starting_date && ending_date && discount) {
+      const formData = new FormData();
+
+      formData.append("name", name);
+      formData.append("starting_date", starting_date);
+      formData.append("ending_date", ending_date);
+      formData.append("discount", discount);
+      images.map(async (img) => {
+        if (img instanceof File) {
+          formData.append("images", img);
+        } else {
+          // var request = new XMLHttpRequest();
+          // request.open("GET", img, true);
+          // request.responseType = "blob";
+          // request.onload = function () {
+          //   var reader = new FileReader();
+          //   reader.readAsDataURL(request.response);
+          //   console.log(reader);
+          //   reader.onload = function (e) {
+          //     console.log("DataURL:", e.target.result);
+          //   };
+          // };
+          // request.send();
+
+          const response = await fetch(img, {
+            mode: "no-cors",
+          });
+          const data = await response.blob();
+
+          const fileName = "updatedImage";
+          formData.append(
+            "images",
+            new File([data], fileName, {
+              type: response.headers.get("content-type"),
+            })
+          );
+        }
+      });
+
       if (!isEditing) {
         addOffer({
-          data: { name, starting_date, ending_date, discount, images },
+          data: formData,
         })
           .then((res) => {
             setAlert("Offer Added Successfully", "success");
+          })
+          .catch((err) => {
+            setAlert(err, "danger");
+          });
+      } else {
+        editOffer({ data: formData, id: offer._id })
+          .then((res) => {
+            setAlert("Offer Updated Successfully", "success");
           })
           .catch((err) => {
             setAlert(err, "danger");

@@ -1,26 +1,16 @@
 import React from "react";
 import MainImg from "@/assets/images/edit-product.png";
 import ManageProduct from "@/components/admin/product/ManageProduct";
-
-const getCategories = async () => {
-  return [
-    {
-      name: "category 1",
-    },
-    {
-      name: "category 2",
-    },
-    {
-      name: "category 3",
-    },
-    {
-      name: "category 4",
-    },
-  ];
-};
+import { getAdminCategories, getAllCategories } from "@/api/categories";
 
 const Page = async () => {
-  const categories = await getCategories();
+  const categories = (await getAllCategories()).map((cat) => {
+    return {
+      ...cat,
+      name: cat.name,
+      value: cat._id,
+    };
+  });
 
   return (
     <div>

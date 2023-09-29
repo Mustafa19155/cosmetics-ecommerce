@@ -18,7 +18,7 @@ const ManageUser = () => {
           src={image ? URL.createObjectURL(image) : PortfileImg.src}
           className="h-[167px] w-[167px] rounded-full"
         />
-        {console.log(image)}
+
         <input
           type="file"
           id="file"

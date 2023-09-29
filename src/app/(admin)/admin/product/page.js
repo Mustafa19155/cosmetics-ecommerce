@@ -1,189 +1,63 @@
+"use client";
 import ProductWrapper from "@/components/admin/product/ProductWrapper";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ProductImg from "../../../../assets/images/product-detail.png";
+import { getAdminBrands } from "@/api/brands";
+import { getAdminCategories } from "@/api/categories";
+import { getAdminProducts } from "@/api/products";
 
-const getData = async () => {
-  return [
-    {
-      image: ProductImg,
-      name: "Espresso Filma",
-      availability: true,
-      price: 11.7,
-      quantity: 6,
-    },
-    {
-      image: ProductImg,
-      name: "Espresso Filma",
-      availability: true,
-      price: 11.7,
-      quantity: 6,
-    },
-    {
-      image: ProductImg,
-      name: "Espresso Filma",
-      availability: true,
-      price: 11.7,
-      quantity: 6,
-    },
-    {
-      image: ProductImg,
-      name: "Espresso Filma",
-      availability: true,
-      price: 11.7,
-      quantity: 6,
-    },
-    {
-      image: ProductImg,
-      name: "Espresso Filma",
-      availability: true,
-      price: 11.7,
-      quantity: 6,
-    },
-    {
-      image: ProductImg,
-      name: "Espresso Filma",
-      availability: true,
-      price: 11.7,
-      quantity: 6,
-    },
-    {
-      image: ProductImg,
-      name: "Espresso Filma",
-      availability: true,
-      price: 11.7,
-      quantity: 6,
-    },
-    {
-      image: ProductImg,
-      name: "Espresso Filma",
-      availability: true,
-      price: 11.7,
-      quantity: 6,
-    },
-    {
-      image: ProductImg,
-      name: "Espresso Filma",
-      availability: true,
-      price: 11.7,
-      quantity: 3,
-    },
-    {
-      image: ProductImg,
-      name: "Espresso Filma",
-      availability: true,
-      price: 11.7,
-      quantity: 6,
-    },
-    {
-      image: ProductImg,
-      name: "Espresso Filma",
-      availability: true,
-      price: 11.7,
-      quantity: 6,
-    },
-    {
-      image: ProductImg,
-      name: "Espresso Filma",
-      availability: true,
-      price: 11.7,
-      quantity: 6,
-    },
-    {
-      image: ProductImg,
-      name: "espresso Filama",
-      availability: true,
-      price: 11.7,
-      quantity: 0,
-    },
-  ];
-};
+const Page = () => {
+  const [productsData, setproductsData] = useState(null);
+  const [brandsData, setbrandsData] = useState(null);
+  const [catsData, setcatsData] = useState(null);
 
-const getCategories = async () => {
-  return [
-    {
-      name: "category name",
-      productsCount: 10,
-    },
-    {
-      name: "category name",
-      productsCount: 10,
-    },
-    {
-      name: "category name",
-      productsCount: 10,
-    },
-    {
-      name: "category name",
-      productsCount: 10,
-    },
-    {
-      name: "category name",
-      productsCount: 10,
-    },
-    {
-      name: "category name",
-      productsCount: 10,
-    },
-    {
-      name: "category name",
-      productsCount: 10,
-    },
-    {
-      name: "category name",
-      productsCount: 10,
-    },
-  ];
-};
+  const [loading, setloading] = useState(true);
 
-const getSubCategories = async () => {
-  return [
-    {
-      name: "category name",
-      productsCount: 10,
-    },
-    {
-      name: "category name",
-      productsCount: 10,
-    },
-    {
-      name: "category name",
-      productsCount: 10,
-    },
-    {
-      name: "category name",
-      productsCount: 10,
-    },
-    {
-      name: "category name",
-      productsCount: 10,
-    },
-    {
-      name: "category name",
-      productsCount: 10,
-    },
-    {
-      name: "category name",
-      productsCount: 10,
-    },
-    {
-      name: "category name",
-      productsCount: 10,
-    },
-  ];
-};
+  const handleGetPros = async ({ page }) => {
+    setproductsData(await getAdminProducts({ page }));
+  };
 
-const Page = async () => {
-  const data = (await getData()).map((d, index) => {
-    return { ...d, selected: false, name: index.toString() + "a" };
-  });
+  const handleGetBrands = async ({ page }) => {
+    setbrandsData(await getAdminBrands());
+  };
 
-  const cats = (await getCategories()).map((d, index) => {
-    return { ...d, selected: false, name: d.name + index };
-  });
+  const handleGetCats = async ({ page }) => {
+    setcatsData(await getAdminCategories());
+  };
+
+  useEffect(() => {
+    Promise.all([
+      handleGetBrands({ page: 1 }),
+      handleGetPros({ page: 1 }),
+      handleGetCats({ page: 1 }),
+    ])
+      .then((res) => {
+        setloading(false);
+      })
+      .catch((err) => {
+        setloading(false);
+      });
+  }, []);
 
   return (
     <div>
-      <ProductWrapper products={data} categories={cats} />
+      {loading ? (
+        ""
+      ) : (
+        <>
+          <ProductWrapper
+            setproducts={setproductsData}
+            products={productsData}
+            setbrands={setbrandsData}
+            brands={brandsData}
+            setsubCategories={setcatsData}
+            subCategories={catsData}
+            productPagination={handleGetPros}
+            catsPagination={handleGetCats}
+            brandsPagination={handleGetBrands}
+          />
+        </>
+      )}
     </div>
   );
 };

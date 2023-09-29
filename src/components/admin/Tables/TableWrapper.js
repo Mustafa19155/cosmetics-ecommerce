@@ -9,32 +9,37 @@ const TableWrapper = ({
   searchCols,
   filterOptions,
   showFilters,
+  brands,
+  currentPage,
+  totalPages,
+  setcurrentPage,
+  itemsPerPage,
 }) => {
   const [prosCopy, setprosCopy] = useState([...products]);
 
   //pagination
-  const itemsPerPage = 10;
-  const [currentPage, setcurrentPage] = useState(1);
-  const [totalPages, settotalPages] = useState(1);
-  const [startIndex, setstartIndex] = useState(0);
-  const [endIndex, setendIndex] = useState(0);
+  // const itemsPerPage = 10;
+  // const [currentPage, setcurrentPage] = useState(1);
+  // const [totalPages, settotalPages] = useState(1);
+  // const [startIndex, setstartIndex] = useState(0);
+  // const [endIndex, setendIndex] = useState(0);
 
-  useEffect(() => {
-    settotalPages(
-      prosCopy.length > 0 ? Math.ceil(prosCopy.length / itemsPerPage) : 1
-    );
-  }, [prosCopy]);
+  // useEffect(() => {
+  //   settotalPages(
+  //     prosCopy.length > 0 ? Math.ceil(prosCopy.length / itemsPerPage) : 1
+  //   );
+  // }, [prosCopy]);
 
-  useEffect(() => {
-    const start = (currentPage - 1) * itemsPerPage;
-    const end = start + itemsPerPage;
-    setstartIndex(start);
-    setendIndex(end);
-  }, [currentPage, prosCopy]);
+  // useEffect(() => {
+  //   const start = (currentPage - 1) * itemsPerPage;
+  //   const end = start + itemsPerPage;
+  //   setstartIndex(start);
+  //   setendIndex(end);
+  // }, [currentPage, prosCopy]);
 
-  useEffect(() => {
-    setcurrentPage(1);
-  }, [prosCopy]);
+  // useEffect(() => {
+  //   setcurrentPage(1);
+  // }, [prosCopy]);
 
   useEffect(() => {
     setprosCopy([...products]);
@@ -65,10 +70,7 @@ const TableWrapper = ({
         options={filterOptions}
       />
 
-      <Table
-        mainPros={prosCopy.slice(startIndex, endIndex)}
-        setmainPros={setprosCopy}
-      />
+      <Table brands={brands} mainPros={prosCopy} setmainPros={setprosCopy} />
       <div className="mt-10 flex justify-between">
         <p className="text-sm items-center">
           Showing {currentPage * itemsPerPage - (itemsPerPage - 1)} to{" "}
