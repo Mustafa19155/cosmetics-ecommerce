@@ -26,6 +26,7 @@ const ManageProduct = ({ product, categories }) => {
   const [discount, setdiscount] = useState(product?.discount);
   const [quantity, setquantity] = useState(product ? product.quantity : 0);
   const [category, setcategory] = useState(product?.category);
+  const [apiCalled, setapiCalled] = useState(false);
 
   const { setAlert } = useAlert();
 
@@ -60,6 +61,7 @@ const ManageProduct = ({ product, categories }) => {
       category &&
       images.length > 0
     ) {
+      setapiCalled(true);
       const formData = new FormData();
       formData.append("name", name);
       formData.append("description", description);
@@ -101,6 +103,7 @@ const ManageProduct = ({ product, categories }) => {
       if (isEditing) {
         editProduct({ data: formData, id: product._id })
           .then((res) => {
+            setapiCalled(false);
             setAlert("Product Updated Successfully", "success");
           })
           .catch((err) => {
@@ -109,6 +112,7 @@ const ManageProduct = ({ product, categories }) => {
       } else {
         addProduct({ data: formData })
           .then((res) => {
+            setapiCalled(false);
             setAlert("Product Added Successfully", "success");
           })
           .catch((err) => {
@@ -139,12 +143,14 @@ const ManageProduct = ({ product, categories }) => {
         </div>
         <div className="flex items-center gap-4 flex-wrap xs:flex-nowrap">
           <TransparentButton
+            disabled={apiCalled}
             text={"DISCARD"}
             className={"px-16"}
             clickHandler={() => setconfirmModalOpen(true)}
           />
 
           <PinkButton
+            disabled={apiCalled}
             clickHandler={handleAddProduct}
             text={isEditing ? "Save Changes" : "Save"}
             className={"px-16 whitespace-nowrap"}

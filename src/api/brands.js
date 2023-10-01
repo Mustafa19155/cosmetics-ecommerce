@@ -6,7 +6,7 @@ export const getBrands = async () => {
 
     return res.data;
   } catch (err) {
-    throw err.response.data.message;
+    throw err.response?.data?.message;
   }
 };
 
@@ -16,7 +16,7 @@ export const getAdminBrands = async () => {
 
     return res.data;
   } catch (err) {
-    throw err.response.data.message;
+    throw err.response?.data?.message;
   }
 };
 export const addBrand = async ({ name }) => {
@@ -25,7 +25,7 @@ export const addBrand = async ({ name }) => {
 
     return res.data;
   } catch (err) {
-    throw err.response.data.message;
+    throw err.response?.data?.message;
   }
 };
 
@@ -35,6 +35,6 @@ export const deleteBrand = async ({ id }) => {
 
     return res.data;
   } catch (err) {
-    throw err.response.data.message;
+    throw err.response?.data?.message;
   }
 };

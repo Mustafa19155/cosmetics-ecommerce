@@ -6,7 +6,7 @@ export const getAllCategories = async () => {
 
     return res.data;
   } catch (err) {
-    throw err.response.data.message;
+    throw err.response?.data?.message;
   }
 };
 
@@ -16,7 +16,7 @@ export const getAdminCategories = async () => {
 
     return res.data;
   } catch (err) {
-    throw err.response.data.message;
+    // throw err.response?.data?.message;
   }
 };
 export const addCategory = async ({ name, brand }) => {
@@ -25,7 +25,7 @@ export const addCategory = async ({ name, brand }) => {
 
     return res.data;
   } catch (err) {
-    throw err.response.data.message;
+    throw err.response?.data?.message;
   }
 };
 
@@ -35,6 +35,6 @@ export const deleteCategory = async ({ id }) => {
 
     return res.data;
   } catch (err) {
-    throw err.response.data.message;
+    throw err.response?.data?.message;
   }
 };

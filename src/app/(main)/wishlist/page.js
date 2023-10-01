@@ -1,124 +1,21 @@
+"use client";
 import ProductFilters from "@/components/ProductFilters";
 import ProductsWrapper from "@/components/Products/ProductsWrapper";
 import PinkButton from "@/components/buttons/PinkButton";
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import FoundationImg from "../../../assets/images/home/foundation.png";
+import { AuthContext } from "@/contexts/userContext";
 
-const getData = async () => {
-  return [
-    {
-      name: "Nars Foundation",
-      rating: 4,
-      originalPrice: 25,
-      discountedPrice: 25,
-      image: FoundationImg,
-      discountPercent: 10,
-      isFavourite: true,
-    },
-    {
-      name: "Nars Foundation",
-      rating: 4,
-      originalPrice: 25,
-      discountedPrice: 25,
-      image: FoundationImg,
-      discountPercent: 10,
-      isFavourite: true,
-    },
-    {
-      name: "Nars Foundation",
-      rating: 4,
-      originalPrice: 25,
-      discountedPrice: 25,
-      image: FoundationImg,
-      discountPercent: 10,
-      isFavourite: true,
-    },
-    {
-      name: "Nars Foundation",
-      rating: 4,
-      originalPrice: 25,
-      discountedPrice: 25,
-      image: FoundationImg,
-      discountPercent: 10,
-      isFavourite: true,
-    },
-    {
-      name: "Top Selling",
-      rating: 4,
-      originalPrice: 25,
-      discountedPrice: 25,
-      image: FoundationImg,
-      discountPercent: 20,
-      isFavourite: true,
-    },
-    {
-      name: "Top Selling",
-      rating: 4,
-      originalPrice: 25,
-      discountedPrice: 25,
-      image: FoundationImg,
-      discountPercent: 20,
-      isFavourite: true,
-    },
-    {
-      name: "Top Selling",
-      rating: 4,
-      originalPrice: 25,
-      discountedPrice: 25,
-      image: FoundationImg,
-      discountPercent: 20,
-      isFavourite: true,
-    },
-    {
-      name: "Top Selling",
-      rating: 4,
-      originalPrice: 25,
-      discountedPrice: 25,
-      image: FoundationImg,
-      discountPercent: 20,
-      isFavourite: true,
-    },
-    {
-      name: "Featured",
-      rating: 4,
-      originalPrice: 25,
-      discountedPrice: 25,
-      image: FoundationImg,
-      discountPercent: 30,
-      isFavourite: true,
-    },
-    {
-      name: "Featured",
-      rating: 4,
-      originalPrice: 25,
-      discountedPrice: 25,
-      image: FoundationImg,
-      discountPercent: 30,
-      isFavourite: true,
-    },
-    {
-      name: "Featured",
-      rating: 4,
-      originalPrice: 25,
-      discountedPrice: 25,
-      image: FoundationImg,
-      discountPercent: 30,
-      isFavourite: true,
-    },
-    {
-      name: "Featured",
-      rating: 4,
-      originalPrice: 25,
-      discountedPrice: 25,
-      image: FoundationImg,
-      discountPercent: 30,
-      isFavourite: true,
-    },
-  ];
-};
+const Page = () => {
+  const [loading, setloading] = useState(true);
+  const [data, setdata] = useState([]);
 
-const Page = async () => {
-  const data = await getData();
+  const { wishlist } = useContext(AuthContext);
+
+  useEffect(() => {
+    setdata(wishlist);
+    setloading(false);
+  }, [wishlist]);
 
   return (
     <div className="my-16">
@@ -126,13 +23,21 @@ const Page = async () => {
         <p className="font-bold  text-3xl">Favourite</p>
         <p className="text-secondary mt-1">Shop Our Favorites</p>
       </div>
-      <div className="my-16">
-        <ProductFilters />
-      </div>
-      <ProductsWrapper products={data} />
-      <div className="w-fit mt-16 m-auto">
-        <PinkButton text={"VIEW MORE"} className={"px-16"} />
-      </div>
+      {data.length > 0 ? (
+        <div>
+          <div className="my-16">
+            <ProductFilters />
+          </div>
+          <ProductsWrapper products={data} />
+          <div className="w-fit mt-16 m-auto">
+            <PinkButton text={"VIEW MORE"} className={"px-16"} />
+          </div>
+        </div>
+      ) : (
+        <p className="my-16 text-lg font-bold text-center">
+          No items added to wishlist
+        </p>
+      )}
     </div>
   );
 };

@@ -2,7 +2,7 @@ import React from "react";
 import MainImg from "@/assets/images/edit-product.png";
 import ManageProduct from "@/components/admin/product/ManageProduct";
 import { getAllCategories } from "@/api/categories";
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { getSingleProduct } from "@/api/products";
 
 const Page = async () => {

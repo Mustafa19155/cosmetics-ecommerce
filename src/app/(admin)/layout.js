@@ -1,10 +1,11 @@
 "use client";
 import Navbar from "@/components/admin/Navbar";
 import Sidebar from "@/components/admin/Sidebar";
-import { usePathname } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 
 export default function RootLayout({ children }) {
   const pathname = usePathname();
+
   return (
     <html lang="en">
       <head>

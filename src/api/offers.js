@@ -52,7 +52,7 @@ export const editOffer = async ({ data, id }) => {
 
     return res.data;
   } catch (err) {
-    throw err.response.data.message;
+    throw err.response?.data?.message;
   }
 };
 

@@ -6,14 +6,23 @@ import { useContext, useEffect } from "react";
 import { AuthContext } from "@/contexts/userContext";
 import { useRouter } from "next/navigation";
 import ProductFilterProvider from "@/contexts/productFilterConext";
+import { getUser } from "@/api/user";
 
 export default function RootLayout({ children }) {
   const router = useRouter();
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, setUser } = useContext(AuthContext);
 
-  // useEffect(() => {
-  //   if (!currentUser) router.push("/login");
-  // }, []);
+  useEffect(() => {
+    getUser()
+      .then((res) => {
+        setUser(res.user);
+      })
+      .catch((err) => {
+        setUser(null);
+      });
+
+    // if (!currentUser) router.push("/login");
+  }, []);
 
   return (
     <html lang="en">

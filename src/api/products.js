@@ -6,7 +6,7 @@ export const getProducts = async () => {
 
     return res.data;
   } catch (err) {
-    throw err.response.data.message;
+    throw err.response?.data?.message;
   }
 };
 
@@ -19,7 +19,7 @@ export const getAdminProducts = async ({ page }) => {
 
     return res.data;
   } catch (err) {
-    throw err.response.data.message;
+    throw err.response?.data?.message;
   }
 };
 
@@ -38,7 +38,8 @@ export const addProduct = async ({ data }) => {
 
     return res.data;
   } catch (err) {
-    throw err.response.data.message;
+    console.log(err);
+    throw err.response?.data?.message;
   }
 };
 
@@ -48,7 +49,7 @@ export const deleteProduct = async ({ id }) => {
 
     return res.data;
   } catch (err) {
-    throw err.response.data.message;
+    throw err.response?.data?.message;
   }
 };
 
@@ -58,7 +59,7 @@ export const getSingleProduct = async ({ id }) => {
 
     return res.data.product;
   } catch (err) {
-    throw err.response.data.message;
+    throw err.response?.data?.message;
   }
 };
 
@@ -77,7 +78,7 @@ export const editProduct = async ({ data, id }) => {
 
     return res.data;
   } catch (err) {
-    throw err.response.data.message;
+    throw err.response?.data?.message;
   }
 };
 
@@ -86,7 +87,7 @@ export const getLatestProducts = async () => {
     const res = await axiosClient.get(`/api/products/filter`);
     return res.data.products;
   } catch (err) {
-    throw err.response.data.message;
+    throw err.response?.data?.message;
   }
 };
 
@@ -96,6 +97,6 @@ export const getUserSingleProduct = async ({ id }) => {
 
     return res.data;
   } catch (err) {
-    throw err.response.data.message;
+    throw err.response?.data?.message;
   }
 };

@@ -5,6 +5,6 @@ export const getUsers = async () => {
     const res = await axiosClient.get("/admin/users");
     return res.data;
   } catch (err) {
-    throw err.response.data.message;
+    throw err.response?.data?.message;
   }
 };

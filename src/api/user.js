@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import { axiosClient } from "./axios";
 
 export const registerUser = async ({ name, email, password }) => {
@@ -10,7 +11,7 @@ export const registerUser = async ({ name, email, password }) => {
 
     return res.data;
   } catch (err) {
-    throw err.response.data.message;
+    throw err.response?.data?.message;
   }
 };
 
@@ -33,7 +34,7 @@ export const getUser = async () => {
 
     return res.data;
   } catch (err) {
-    throw err.response.data.message;
+    throw err.response?.data?.message;
   }
 };
 
@@ -43,7 +44,7 @@ export const logout = async () => {
 
     return res.data;
   } catch (err) {
-    throw err.response.data.message;
+    throw err.response?.data?.message;
   }
 };
 
@@ -53,7 +54,7 @@ export const requestOtp = async ({ email }) => {
 
     return res.data;
   } catch (err) {
-    throw err.response.data.message;
+    throw err.response?.data?.message;
   }
 };
 
@@ -63,7 +64,7 @@ export const verifyOtp = async ({ otp, email }) => {
 
     return res.data;
   } catch (err) {
-    throw err.response.data.message;
+    throw err.response?.data?.message;
   }
 };
 
@@ -76,7 +77,7 @@ export const resetPasword = async ({ password, email }) => {
 
     return res;
   } catch (err) {
-    throw err.response.data.message;
+    throw err.response?.data?.message;
   }
 };
 
@@ -86,7 +87,6 @@ export const loginAdmin = async ({ email, password }) => {
       email,
       password,
     });
-
     return res.data;
   } catch (err) {
     throw err.response.data;

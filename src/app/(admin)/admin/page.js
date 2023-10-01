@@ -5,6 +5,7 @@ import BestSellerImg from "@/assets/images/home/perfumes.png";
 import BestSellersTable from "@/components/admin/Tables/BestSellersTable";
 import YearlyReport from "@/components/admin/dashboard/YearlyReport";
 import MainStats from "@/components/admin/dashboard/MainStats";
+import { redirect } from "next/navigation";
 
 const getOrders = async () => {
   return [

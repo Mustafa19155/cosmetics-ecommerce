@@ -6,7 +6,7 @@ export const getReviewsOfProduct = async ({ id }) => {
 
     return res.data;
   } catch (err) {
-    throw err.response.data.message;
+    throw err.response?.data?.message;
   }
 };
 
@@ -16,6 +16,6 @@ export const addReview = async ({ data }) => {
     console.log(res);
     // return res.data;
   } catch (err) {
-    throw err.response.data.message;
+    throw err.response?.data?.message;
   }
 };
