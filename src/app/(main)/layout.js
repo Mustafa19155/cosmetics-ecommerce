@@ -7,10 +7,11 @@ import { AuthContext } from "@/contexts/userContext";
 import { useRouter } from "next/navigation";
 import ProductFilterProvider from "@/contexts/productFilterConext";
 import { getUser } from "@/api/user";
+import { validateCart } from "@/api/cart";
 
 export default function RootLayout({ children }) {
   const router = useRouter();
-  const { currentUser, setUser } = useContext(AuthContext);
+  const { currentUser, setUser, cart, setcart } = useContext(AuthContext);
 
   useEffect(() => {
     getUser()
@@ -20,6 +21,24 @@ export default function RootLayout({ children }) {
       .catch((err) => {
         setUser(null);
       });
+
+    const cartCopy = { ...cart };
+    cartCopy.total = 0;
+    validateCart({ array: cart.items.map((item) => item.product._id) })
+      .then((res) => {
+        res.map((pro) => {
+          const foundItem = cartCopy.items.find(
+            (item) => item.product._id == pro._id
+          );
+          if (pro.quantity < foundItem.quantity) {
+            foundItem.quantity = pro.quantity;
+          }
+          cartCopy.total += foundItem.quantity * pro.price;
+        });
+
+        setcart(cartCopy);
+      })
+      .catch((err) => {});
 
     // if (!currentUser) router.push("/login");
   }, []);
