@@ -31,6 +31,7 @@ const ProfileDropdown = ({ show, setshow }) => {
         }}
         show={show}
         setshow={() => setshow(false)}
+        setactive={() => {}}
       />
     </div>
   );

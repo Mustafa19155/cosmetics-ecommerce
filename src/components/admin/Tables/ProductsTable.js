@@ -47,9 +47,7 @@ const ProductsTable = ({ mainPros, setmainPros }) => {
       .then((res) => {
         window.location.reload();
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
 
   useEffect(() => {

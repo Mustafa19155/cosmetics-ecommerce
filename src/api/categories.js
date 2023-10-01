@@ -2,9 +2,9 @@ import { axiosClient } from "./axios";
 
 export const getAllCategories = async () => {
   try {
-    const res = await axiosClient.get("/admin/category/all");
+    const res = await axiosClient.get("/api/categories");
 
-    return res.data.categories;
+    return res.data;
   } catch (err) {
     throw err.response.data.message;
   }

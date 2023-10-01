@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 
 export const axiosClient = axios.create();
 
@@ -8,18 +9,39 @@ axiosClient.defaults.headers = {
   Accept: "application/json",
 };
 
-// axiosClient.defaults.withCredentials = true;
+axiosClient.defaults.withCredentials = true;
+
+// axiosClient.interceptors.request.use(
+//   (config) => {
+//     const token = Cookies.get("jwt");
+
+//     // const token = JSON.parse(localStorage.getItem("user"));
+//     if (token) {
+//       config.headers["jwt"] = `${token}`;
+//     }
+//     return config;
+//   },
+//   (error) => {
+//     return Promise.reject(error);
+//   }
+// );
 
 axiosClient.interceptors.response.use(
   function (response) {
-    //Dispatch any action on success
     return response;
   },
 
   function (error) {
-    if (error.response?.status === 401) {
-      if (error.response.config.url != "/users/login") {
-        window.location.href = "/login";
+    if (error.response?.status == 401) {
+      if (
+        error.response.config.url != "/users/login"
+        // error.response.config.url.trim() != "/users/user".trim()
+      ) {
+        if (error.response.config.url.includes("/admin")) {
+          window.location.href = "/adminLogin";
+        } else {
+          window.location.href = "/login";
+        }
       }
     }
     return Promise.reject(error);

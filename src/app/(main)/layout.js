@@ -5,6 +5,7 @@ import WhatsappIcon from "@/components/WhatsappIcon";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "@/contexts/userContext";
 import { useRouter } from "next/navigation";
+import ProductFilterProvider from "@/contexts/productFilterConext";
 
 export default function RootLayout({ children }) {
   const router = useRouter();
@@ -24,12 +25,14 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         ></link>
       </head>
-      <body className="overflow-x-hidden">
-        <WhatsappIcon />
-        <Navbar />
-        <div className="container mx-auto">{children}</div>
-        <Footer />
-      </body>
+      <ProductFilterProvider>
+        <body className="overflow-x-hidden">
+          <WhatsappIcon />
+          <Navbar />
+          <div className="container mx-auto">{children}</div>
+          <Footer />
+        </body>
+      </ProductFilterProvider>
     </html>
   );
 }

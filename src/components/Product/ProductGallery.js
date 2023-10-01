@@ -26,10 +26,10 @@ const ProductGallery = ({ images }) => {
   }, [images]);
 
   useEffect(() => {
-    if (selectedRef[selectedImageIndex].current) {
-      selectedRef[selectedImageIndex].current.scrollIntoView({
+    if (selectedRef[selectedImageIndex]?.current) {
+      selectedRef[selectedImageIndex]?.current.scrollIntoView({
         behavior: "smooth",
-        container: scrollableContainerRef.current,
+        container: scrollableContainerRef?.current,
         block: "nearest",
         inline: "nearest",
       });
@@ -38,13 +38,13 @@ const ProductGallery = ({ images }) => {
 
   return (
     <>
-      <div style={{ overflow: "hidden" }}>
-        <Image
+      <div className="overflow-hidden">
+        <img
           src={images[selectedImageIndex]}
-          className="max-h-[400px] md:max-h-[550px]"
+          className="h-[400px] object-contain"
         />
       </div>
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 justify-between">
         <div
           className="bg-primary p-3 rounded-full flex justify-center items-center cursor-pointer"
           onClick={handleDecremnt}
@@ -67,11 +67,11 @@ const ProductGallery = ({ images }) => {
           className="py-1 overflow-x-auto p-[10px] flex image-gallery-bot"
           ref={scrollableContainerRef}
         >
-          <div className="flex gap-[10px] w-100">
+          <div className="flex gap-[10px] w-100 relative">
             {images.map((image, index) => (
-              <Image
+              <img
                 ref={selectedRef[index]}
-                className={`rounded w-[60px] h-[60px] cursor-pointer ${
+                className={`rounded w-[60px] h-[60px] cursor-pointer object-cover ${
                   selectedImageIndex == index ? "" : "opacity-60"
                 }`}
                 src={image}

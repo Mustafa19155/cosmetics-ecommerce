@@ -80,3 +80,22 @@ export const editProduct = async ({ data, id }) => {
     throw err.response.data.message;
   }
 };
+
+export const getLatestProducts = async () => {
+  try {
+    const res = await axiosClient.get(`/api/products/filter`);
+    return res.data.products;
+  } catch (err) {
+    throw err.response.data.message;
+  }
+};
+
+export const getUserSingleProduct = async ({ id }) => {
+  try {
+    const res = await axiosClient.get(`api/product/single/${id}`);
+
+    return res.data;
+  } catch (err) {
+    throw err.response.data.message;
+  }
+};

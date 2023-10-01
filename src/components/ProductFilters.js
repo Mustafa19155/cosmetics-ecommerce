@@ -19,13 +19,13 @@ const ProductFilters = () => {
       <div className="w-[25%] min-w-fit">
         <p className="font-bold text-lg mb-1">Type</p>
         <div className="cursor-pointer">
-          <SelectInput options={typeOptions} />
+          <SelectInput options={typeOptions} setactive={() => {}} />
         </div>
       </div>
       <div className="w-[25%] min-w-fit">
         <p className="font-bold text-lg mb-1">Sort By</p>
         <div className="cursor-pointer">
-          <SelectInput options={sortOptions} />
+          <SelectInput options={sortOptions} setactive={() => {}} />
         </div>
       </div>
     </div>

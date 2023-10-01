@@ -8,7 +8,7 @@ import Link from "next/link";
 import LoginMainImg from "../../assets/images/login.png";
 import PrimaryInput from "@/components/Inputs/PrimaryInput";
 import { useRouter } from "next/navigation";
-import { getUser, loginUser } from "@/api/user";
+import { getUser, loginAdmin, loginUser } from "@/api/user";
 import { AuthContext } from "@/contexts/userContext";
 import useAlert from "@/hooks/useAlert";
 
@@ -19,20 +19,12 @@ export default function Page() {
   const { setAlert } = useAlert();
   const [password, setpassword] = useState("");
 
-  const { setUser } = useContext(AuthContext);
+  // const { setUser } = useContext(AuthContext);
 
   const handleLogin = () => {
-    loginUser({ email, password })
+    loginAdmin({ email, password })
       .then((res) => {
-        router.push("/");
-        getUser()
-          .then((resp) => {
-            setUser(resp.user);
-            router.push("/");
-          })
-          .catch((err) => {
-            setAlert(err, "danger");
-          });
+        router.push("/admin");
       })
       .catch((err) => {
         setAlert(err, "danger");

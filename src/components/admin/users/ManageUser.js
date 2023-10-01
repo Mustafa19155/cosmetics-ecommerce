@@ -45,7 +45,6 @@ const ManageUser = () => {
         <PrimaryInput
           disabled={!isEditing}
           className={`${isEditing ? "" : "bg-white shadow-none"}`}
-          x
           value={email}
           changeHandler={(e) => setemail(e.target.value)}
         />

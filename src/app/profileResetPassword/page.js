@@ -1,10 +1,45 @@
 "use client";
 import PinkButton from "@/components/buttons/PinkButton";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import LoginMainImg from "../../assets/images/profile-reset-password.png";
 import PrimaryInput from "@/components/Inputs/PrimaryInput";
+import { resetPasword } from "@/api/user";
+import { AuthContext } from "@/contexts/userContext";
+import useAlert from "@/hooks/useAlert";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
+  const router = useRouter();
+  const [newPassword, setnewPassword] = useState("");
+  const [confirmPassword, setconfirmPassword] = useState("");
+  const [email, setemail] = useState("");
+  const [apiCalled, setapiCalled] = useState(false);
+
+  const { currentUser } = useContext(AuthContext);
+
+  const { setAlert } = useAlert();
+
+  const handleResetPassword = () => {
+    setapiCalled(true);
+    if (newPassword == confirmPassword) {
+      resetPasword({ email, password: newPassword })
+        .then((res) => {
+          setapiCalled(false);
+          setAlert("Password reset successfully", "success");
+          router.push("/userProfiling");
+        })
+        .catch((err) => {
+          setapiCalled(false);
+        });
+    } else {
+      setAlert("Passwords donot match", "danger");
+    }
+  };
+
+  useEffect(() => {
+    setemail(currentUser?.email);
+  }, [currentUser]);
+
   return (
     <div className="flex h-screen">
       <div className="w-[100%] md:w-[50%] flex flex-col justify-center items-center px-8 sm:px-16 py-8">
@@ -15,22 +50,14 @@ export default function Page() {
           </p>
           <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-2">
-              <label className="font-semibold">Current Password</label>
-              <PrimaryInput
-                type="password"
-                placeholder="******"
-                value={""}
-                changeHandler={() => {}}
-              />
-            </div>
-
-            <div className="flex flex-col gap-2">
               <label className="font-semibold">New Password</label>
               <PrimaryInput
                 type="password"
                 placeholder="******"
-                value={""}
-                changeHandler={() => {}}
+                value={newPassword}
+                changeHandler={(e) => {
+                  setnewPassword(e.target.value);
+                }}
               />
             </div>
             <div className="flex flex-col gap-2">
@@ -38,11 +65,17 @@ export default function Page() {
               <PrimaryInput
                 type="password"
                 placeholder="*******"
-                value={""}
-                changeHandler={() => {}}
+                value={confirmPassword}
+                changeHandler={(e) => {
+                  setconfirmPassword(e.target.value);
+                }}
               />
             </div>
-            <PinkButton text={"SUBMIT"} />
+            <PinkButton
+              text={"SUBMIT"}
+              clickHandler={handleResetPassword}
+              disabled={apiCalled}
+            />
           </div>
         </div>
       </div>

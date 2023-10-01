@@ -26,7 +26,7 @@ const BestSellersTable = ({ data }) => {
                 <td className="px-3 py-1">
                   <div className="flex items-center gap-3">
                     <div className="h-[40px] w-[40px] rounded-full bg-gray-1 p-1 overflow-hidden flex justify-center items-center">
-                      <Image src={item.image} />
+                      {item.image && <Image src={item.image} />}
                     </div>
                     <p>{item.name}</p>
                   </div>

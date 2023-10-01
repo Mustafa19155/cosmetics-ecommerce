@@ -79,3 +79,35 @@ export const resetPasword = async ({ password, email }) => {
     throw err.response.data.message;
   }
 };
+
+export const loginAdmin = async ({ email, password }) => {
+  try {
+    const res = await axiosClient.post("/admin/login", {
+      email,
+      password,
+    });
+
+    return res.data;
+  } catch (err) {
+    throw err.response.data;
+  }
+};
+
+export const updateUser = async ({ data }) => {
+  try {
+    axiosClient.defaults.headers = {
+      "Content-Type": "multipart/form-data",
+    };
+
+    const res = await axiosClient.patch("/users/profile/edit", data);
+
+    axiosClient.defaults.headers = {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    };
+
+    return res.data;
+  } catch (err) {
+    throw err.response.data;
+  }
+};

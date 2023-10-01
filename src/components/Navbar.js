@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import LanguageIcon from "../assets/icons/language.svg";
 import HamIcon from "../assets/icons/hamburger.svg";
 import Image from "next/image";
@@ -9,12 +9,16 @@ import Dropdown from "./Dropdowns/Dropdown";
 import Logo from "../assets/logo/logo.png";
 import PrimaryInput from "./Inputs/PrimaryInput";
 import useClickOutside from "@/hooks/useClickOutside";
+import { AuthContext } from "@/contexts/userContext";
 
 export default function Navbar() {
   const pathname = usePathname();
   const searcbarRef = useRef(null);
   const navbarRef = useRef(null);
+
   const router = useRouter();
+
+  const { currentUser } = useContext(AuthContext);
 
   const [showNavDrop, setshowNavDrop] = useState(false);
   const [showProductsDropdown, setshowProductsDropdown] = useState(false);
@@ -25,7 +29,7 @@ export default function Navbar() {
   ]);
   const [showSearchbar, setshowSearchbar] = useState(false);
 
-  useClickOutside(searcbarRef, () => setshowSearchbar(false));
+  // useClickOutside(searcbarRef, () => setshowSearchbar(false));
   useClickOutside(navbarRef, () => setshowNavDrop(false));
 
   useEffect(() => {
@@ -99,6 +103,7 @@ export default function Navbar() {
                     options={productOptions}
                     show={showProductsDropdown}
                     setshow={setshowProductsDropdown}
+                    setactive={() => {}}
                   />
                   <Link
                     href={"/products"}
@@ -187,7 +192,7 @@ export default function Navbar() {
                     />
                   )}
                 </div>
-                <Link href={"/userProfiling"}>
+                <Link href={currentUser ? "/userProfiling" : "/login"}>
                   <svg
                     width="20"
                     height="20"
@@ -321,6 +326,7 @@ export default function Navbar() {
                       options={productOptions}
                       show={showProductsDropdown}
                       setshow={setshowProductsDropdown}
+                      setactive={() => {}}
                     />
 
                     <div
@@ -380,7 +386,7 @@ export default function Navbar() {
                     </svg>
                   </div>
                   <Link
-                    href={"/userProfiling"}
+                    href={currentUser ? "/userProfiling" : "/login"}
                     className={`hover:text-primary duration-75 ${
                       pathname == "/userProfiling" ? "text-primary" : ""
                     }`}

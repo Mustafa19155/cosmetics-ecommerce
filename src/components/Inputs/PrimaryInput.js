@@ -10,6 +10,7 @@ export default function PrimaryInput({
   name,
   icon,
   disabled,
+  textCenter,
 }) {
   return (
     <div
@@ -25,7 +26,9 @@ export default function PrimaryInput({
         onChange={changeHandler}
         type={type}
         placeholder={placeholder}
-        className="h-full w-full outline-none !bg-transparent"
+        className={`h-full w-full outline-none !bg-transparent ${
+          textCenter ? "text-center" : ""
+        }`}
       />
     </div>
   );

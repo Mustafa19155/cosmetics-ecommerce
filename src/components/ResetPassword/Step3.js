@@ -30,6 +30,8 @@ const Step3 = () => {
         .catch((err) => {
           setapiCalled(false);
         });
+    } else {
+      setAlert("Passwords donot match", "danger");
     }
   };
 

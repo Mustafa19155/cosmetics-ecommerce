@@ -5,52 +5,18 @@ import SpecialOffers from "@/components/Home/SpecialOffers";
 import Testimonials from "@/components/Home/Testimonials";
 import TrendingProducts from "@/components/Home/TrendingProducts";
 import FoundationImg from "@/assets/images/home/foundation.png";
-
-const getLatestProducts = async () => {
-  return [
-    {
-      name: "Nars Foundation",
-      rating: 4,
-      originalPrice: 25,
-      discountedPrice: 25,
-      image: FoundationImg,
-      type: "new",
-    },
-    {
-      name: "Nars Foundation",
-      rating: 4,
-      originalPrice: 25,
-      discountedPrice: 25,
-      image: FoundationImg,
-      type: "new",
-    },
-    {
-      name: "Nars Foundation",
-      rating: 4,
-      originalPrice: 25,
-      discountedPrice: 25,
-      image: FoundationImg,
-      type: "new",
-    },
-    {
-      name: "Nars Foundation",
-      rating: 4,
-      originalPrice: 25,
-      discountedPrice: 25,
-      image: FoundationImg,
-      type: "new",
-    },
-  ];
-};
+import { getAllCategories } from "@/api/categories";
+import { getLatestProducts } from "@/api/products";
 
 export default async function Home() {
+  const categories = (await getAllCategories()).slice(0, 4);
   const latestProducts = await getLatestProducts();
 
   return (
     <div className=" relative top-[-74px] ">
       <SectionOne />
       <div className="flex flex-col gap-20 mt-12">
-        <Categories />
+        <Categories categories={categories} />
         <TrendingProducts products={latestProducts} />
         <AboutProduct />
         <SpecialOffers />

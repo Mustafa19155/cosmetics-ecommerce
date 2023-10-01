@@ -2,32 +2,44 @@
 import React, { useEffect, useState } from "react";
 
 import { useLocalStorage } from "../hooks/useLocalStorage";
+import { getUser } from "@/api/user";
 
 export const AuthContext = React.createContext();
 
 function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useLocalStorage("user", null);
+  const [wishlist, setwishlist] = useLocalStorage("wishlist", []);
+  const [cart, setcart] = useLocalStorage("cart", { total: 0, items: [] });
 
-  //   const [cart, setcart] = useState({ products: [], total: 0 });
+  // useEffect(() => {
+  //   getUser()
+  //     .then((res) => {
+  //       setCurrentUser(res.user);
+  //     })
+  //     .catch((err) => {
+  //       setCurrentUser(null);
+  //     });
+  // }, []);
 
-  function checkAuth() {
-    // checkLoggedIn()
-    //   .then((activeUser) => {
-    //     if (activeUser) {
-    //       setCurrentUser(activeUser.user);
-    //     } else {
-    //       setCurrentUser(null);
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     setCurrentUser(null);
-    //   });
-  }
+  // useEffect(() => {
+  //   if (cart.items.length > 0) {
+  //     let finalTotal = 0;
+  //     cart.items.map((item) => {
+  //       finalTotal += item.quantity * item.product.discountedPrice;
+  //     });
+  //     setcart({ ...cart, total: finalTotal });
+  //   } else {
+  //     setcart({ ...cart, total: 0 });
+  //   }
+  // }, [cart.items]);
 
   const value = {
+    cart,
+    setcart,
+    wishlist,
+    setwishlist,
     currentUser,
     setUser: setCurrentUser,
-    checkAuth,
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

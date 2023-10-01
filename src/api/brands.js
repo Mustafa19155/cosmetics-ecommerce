@@ -25,7 +25,6 @@ export const addBrand = async ({ name }) => {
 
     return res.data;
   } catch (err) {
-    console.log(err);
     throw err.response.data.message;
   }
 };

@@ -1,10 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import ProductCard from "./ProductCard";
+import { AuthContext } from "@/contexts/userContext";
 
 const ProductsWrapper = ({ products }) => {
   return (
-    <div className="flex flex-wrap justify-center sm:justify-between">
+    <div className="mt-8 w-full justify-center flex flex-wrap gap-[4%] lg:gap-[2%]">
       {products.map((product) => (
         <ProductCard product={product} />
       ))}

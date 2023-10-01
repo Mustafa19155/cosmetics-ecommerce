@@ -56,7 +56,7 @@ const ProductDetails = ({ product }) => {
           </div>
           {showInfo && (
             <p className="px-2 border-b-4 border-primary py-6">
-              {product.information}
+              {product.description}
             </p>
           )}
         </div>

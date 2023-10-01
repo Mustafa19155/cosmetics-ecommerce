@@ -9,7 +9,12 @@ const Reviews = ({ reviews }) => {
         <div className="md:w-[49%] shadow-review-box bg-white p-4 rounded-lg mb-12">
           <div className="flex flex-col sm:flex-row items-center gap-2">
             <div className="w-[100px]">
-              <Image src={review.userImg} className="rounded-full h-[100px]" />
+              {review.userImg && (
+                <Image
+                  src={review.userImg}
+                  className="rounded-full h-[100px]"
+                />
+              )}
             </div>
             <div className="flex flex-col gap-1 w-[80%]">
               <div className="flex gap-2 items-center">

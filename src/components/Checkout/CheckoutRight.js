@@ -11,7 +11,9 @@ const CheckoutRight = ({ data, SubmitBtn, deliveryMethod }) => {
         <div className="flex flex-col gap-2">
           {data.items.map((item) => (
             <div class="flex gap-2 items-center w-full">
-              <Image src={item.image} className="w-[75px] h-[75px]" />
+              {item.image && (
+                <Image src={item.image} className="w-[75px] h-[75px]" />
+              )}
               <div className="flex flex-col justify-center overflow-hidden w-full">
                 <div className="flex justify-between items-center w-full">
                   <p className="font-bold max-w-[120px] sm:max-w-[300px] md:max-w-[150px] lg:max-w-[280px] truncate line-clamp-2 whitespace-normal">
