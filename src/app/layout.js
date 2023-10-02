@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
       <AlertContextProvider>
         <AuthContextProvider>
           <AlertPopup />
-          <body className="overflow-x-hidden">{children}</body>
+          <body className="overflow-x-hidden relative !top-0">{children}</body>
         </AuthContextProvider>
       </AlertContextProvider>
     </html>
