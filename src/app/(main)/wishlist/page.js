@@ -29,9 +29,9 @@ const Page = () => {
             <ProductFilters />
           </div>
           <ProductsWrapper products={data} />
-          <div className="w-fit mt-16 m-auto">
+          {/* <div className="w-fit mt-16 m-auto">
             <PinkButton text={"VIEW MORE"} className={"px-16"} />
-          </div>
+          </div> */}
         </div>
       ) : (
         <p className="my-16 text-lg font-bold text-center">

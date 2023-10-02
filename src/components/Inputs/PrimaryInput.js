@@ -11,6 +11,7 @@ export default function PrimaryInput({
   icon,
   disabled,
   textCenter,
+  keyDownHandler,
 }) {
   return (
     <div
@@ -20,6 +21,7 @@ export default function PrimaryInput({
     >
       {icon && <Image src={icon} className="h-[20px] w-[20px]" />}
       <input
+        onKeyDown={keyDownHandler}
         disabled={disabled ? disabled : false}
         name={name}
         value={value}

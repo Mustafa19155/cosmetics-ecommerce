@@ -100,3 +100,13 @@ export const getUserSingleProduct = async ({ id }) => {
     throw err.response?.data?.message;
   }
 };
+
+export const searchProduct = async ({ name }) => {
+  try {
+    const res = await axiosClient.get(`api/product/${name}?name=${name}`);
+
+    return res.data;
+  } catch (err) {
+    throw err.response?.data?.message;
+  }
+};

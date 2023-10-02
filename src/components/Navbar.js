@@ -4,21 +4,26 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import LanguageIcon from "../assets/icons/language.svg";
 import HamIcon from "../assets/icons/hamburger.svg";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Dropdown from "./Dropdowns/Dropdown";
 import Logo from "../assets/logo/logo.png";
 import PrimaryInput from "./Inputs/PrimaryInput";
 import useClickOutside from "@/hooks/useClickOutside";
 import { AuthContext } from "@/contexts/userContext";
+import handleEnterKeyPress from "@/utils/handleEnterKeyPress";
 
 export default function Navbar() {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const searcbarRef = useRef(null);
   const navbarRef = useRef(null);
+  const [brands, setbrands] = useState();
 
   const router = useRouter();
 
   const { currentUser } = useContext(AuthContext);
+
+  const [searchValue, setsearchValue] = useState("");
 
   const [showNavDrop, setshowNavDrop] = useState(false);
   const [showProductsDropdown, setshowProductsDropdown] = useState(false);
@@ -35,7 +40,7 @@ export default function Navbar() {
   useEffect(() => {
     setshowSearchbar(false);
     setshowNavDrop(false);
-  }, [pathname]);
+  }, [pathname, searchParams]);
   const [screenTop, setscreenTop] = useState(0);
 
   const handleScroll = () => {
@@ -187,6 +192,13 @@ export default function Navbar() {
                   </svg>
                   {showSearchbar && (
                     <PrimaryInput
+                      value={searchValue}
+                      changeHandler={(e) => setsearchValue(e.target.value)}
+                      keyDownHandler={(e) => {
+                        handleEnterKeyPress(e, () => {
+                          router.push(`/products?name=${searchValue}`);
+                        });
+                      }}
                       placeholder={"nar's foundation"}
                       className={"pl-8 h-[35px]"}
                     />

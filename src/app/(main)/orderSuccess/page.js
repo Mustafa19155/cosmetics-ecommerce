@@ -3,8 +3,6 @@ import React, { useContext, useEffect, useState } from "react";
 import TickIcon from "../../../assets/icons/tick.svg";
 import Image from "next/image";
 import moment from "moment";
-import ProImg from "../../../assets/images/product-detail.png";
-import CheckoutRight from "@/components/Checkout/CheckoutRight";
 import Link from "next/link";
 import PinkButton from "@/components/buttons/PinkButton";
 import { AuthContext } from "@/contexts/userContext";
@@ -12,7 +10,6 @@ import { AuthContext } from "@/contexts/userContext";
 const Page = () => {
   const [deliveryInformation, setdeliveryInformation] = useState(null);
   const [loading, setloading] = useState(true);
-  const { cart, setcart } = useContext(AuthContext);
 
   useEffect(() => {
     setdeliveryInformation(
@@ -25,16 +22,16 @@ const Page = () => {
   const [discountAmount, setdiscountAmount] = useState(0);
 
   useEffect(() => {
-    if (cart.items.length > 0) {
+    if (deliveryInformation?.items.length > 0) {
       let disAm = 0;
 
-      cart.items.map((item) => {
+      deliveryInformation?.items.map((item) => {
         disAm +=
           item.quantity * (item.product.price - item.product.discountedPrice);
       });
       setdiscountAmount(disAm);
     }
-  }, [cart]);
+  }, [deliveryInformation]);
 
   return (
     <>
@@ -47,7 +44,7 @@ const Page = () => {
           </div>
           <p className="text-3xl font-bold text-center">Thanks for the order</p>
           <p className="text-lg text-secondary text-center">
-            The order confirmation has been sent email@gmail.com
+            The order confirmation has been sent {deliveryInformation.email}
           </p>
           <div>
             <p className="font-bold text-lg">Transcation Date</p>
@@ -57,7 +54,17 @@ const Page = () => {
           </div>
           <div>
             <p className="font-bold text-lg">Payment Method</p>
-            <p className="text-secondary text-sm">Mastercard ending with 456</p>
+            {deliveryInformation.payment_method == "card" ? (
+              <p className="text-secondary text-sm">
+                Mastercard ending with{" "}
+                {deliveryInformation.card_number.slice(
+                  deliveryInformation.card_number.length - 4,
+                  deliveryInformation.card_number.length
+                )}
+              </p>
+            ) : (
+              <p className="text-secondary text-sm">Cash on Delivery</p>
+            )}
           </div>
           <p className="text-lg font-semibold text-primary text-center py-2">
             Your order will be delievered in 5 to 7 buisness days
@@ -67,7 +74,7 @@ const Page = () => {
             <p className="text-xl font-bold">Your Order</p>
             <div>
               <div className="flex flex-col gap-2">
-                {cart.items.map((item) => (
+                {deliveryInformation.items.map((item) => (
                   <div class="flex gap-2 items-center w-full">
                     <img
                       src={item.product.images[0]}
@@ -91,7 +98,7 @@ const Page = () => {
             </div>
             <div className="flex justify-between items-center">
               <p className="font-bold">SubTotal</p>
-              <p className="font-bold">${cart.total}</p>
+              <p className="font-bold">${deliveryInformation.total}</p>
             </div>
             <div className="flex justify-between items-center">
               <p className="font-bold">Discount</p>
@@ -100,7 +107,7 @@ const Page = () => {
             <div className="flex justify-between items-center">
               <p className="font-bold">Delivery fee</p>
               <p className="text-secondary">
-                $ {deliveryInformation?.online ? 15 : 0}
+                $ {deliveryInformation?.method == "online" ? 15 : 0}
               </p>
             </div>
 
@@ -108,26 +115,38 @@ const Page = () => {
               <p>Grand Total</p>
               <p>
                 $
-                {cart.total -
+                {deliveryInformation.total -
                   discountAmount +
                   (deliveryInformation?.online ? 15 : 0)}
               </p>
             </div>
-            {deliveryInformation?.online && (
+            {deliveryInformation?.method == "online" && (
               <div className="flex flex-col gap-3 my-5">
                 <p className="text-xl font-bold">Delievery Details</p>
-                {Object.keys(deliveryInformation).map((key, index) => {
-                  return (
-                    <>
-                      {key != "online" && (
-                        <div className="flex justify-between">
-                          <p className="font-bold text-lg">{key}:</p>
-                          <p>{deliveryInformation[key]}</p>
-                        </div>
-                      )}
-                    </>
-                  );
-                })}
+                <div className="flex justify-between">
+                  <p className="font-bold text-lg">Username:</p>
+                  <p>{deliveryInformation.name}</p>
+                </div>
+                <div className="flex justify-between">
+                  <p className="font-bold text-lg">Email:</p>
+                  <p>{deliveryInformation.email}</p>
+                </div>
+                <div className="flex justify-between">
+                  <p className="font-bold text-lg">Phone:</p>
+                  <p>{deliveryInformation.number}</p>
+                </div>
+                <div className="flex justify-between">
+                  <p className="font-bold text-lg">Region:</p>
+                  <p>{deliveryInformation.region}</p>
+                </div>
+                <div className="flex justify-between">
+                  <p className="font-bold text-lg">City:</p>
+                  <p>{deliveryInformation.city}</p>
+                </div>
+                <div className="flex justify-between">
+                  <p className="font-bold text-lg">State:</p>
+                  <p>{deliveryInformation.state}</p>
+                </div>
               </div>
             )}
 

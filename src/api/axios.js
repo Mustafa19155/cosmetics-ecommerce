@@ -37,7 +37,10 @@ axiosClient.interceptors.response.use(
 
   function (error) {
     if (error.response?.status == 401) {
-      if (error.response.config.url != "/users/login") {
+      if (
+        error.response.config.url != "/users/login" &&
+        error.response.config.url != "/users/user"
+      ) {
         // redirect("/login");
         // Redirect({ to: "/login" });
         if (error.response.config.url.includes("/admin")) {

@@ -14,6 +14,8 @@ import MinusIcon from "@/assets/icons/minus.svg";
 import ConfirmModal from "@/components/Modals/ConfirmModal";
 import { addProduct, editProduct } from "@/api/products";
 import useAlert from "@/hooks/useAlert";
+import axios from "axios";
+import { axiosClient } from "@/api/axios";
 
 const ManageProduct = ({ product, categories }) => {
   const router = useRouter();
@@ -86,9 +88,15 @@ const ManageProduct = ({ product, categories }) => {
           // };
 
           // request.send();
-          const response = await fetch(img, {
-            mode: "no-cors",
-          });
+          axiosClient
+            .get(img)
+            .then((res) => {
+              console.log(res);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+          const response = await fetch(img);
           const data = await response.blob();
 
           const fileName = "updatedImage";
@@ -100,25 +108,25 @@ const ManageProduct = ({ product, categories }) => {
           );
         }
       });
-      if (isEditing) {
-        editProduct({ data: formData, id: product._id })
-          .then((res) => {
-            setapiCalled(false);
-            setAlert("Product Updated Successfully", "success");
-          })
-          .catch((err) => {
-            setAlert(err, "danger");
-          });
-      } else {
-        addProduct({ data: formData })
-          .then((res) => {
-            setapiCalled(false);
-            setAlert("Product Added Successfully", "success");
-          })
-          .catch((err) => {
-            setAlert(err, "danger");
-          });
-      }
+      // if (isEditing) {
+      //   editProduct({ data: formData, id: product._id })
+      //     .then((res) => {
+      //       setapiCalled(false);
+      //       setAlert("Product Updated Successfully", "success");
+      //     })
+      //     .catch((err) => {
+      //       setAlert(err, "danger");
+      //     });
+      // } else {
+      //   addProduct({ data: formData })
+      //     .then((res) => {
+      //       setapiCalled(false);
+      //       setAlert("Product Added Successfully", "success");
+      //     })
+      //     .catch((err) => {
+      //       setAlert(err, "danger");
+      //     });
+      // }
     } else {
       setAlert("Fill all fields", "danger");
     }

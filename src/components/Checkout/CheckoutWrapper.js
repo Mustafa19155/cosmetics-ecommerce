@@ -15,12 +15,16 @@ import Card1Img from "../../assets/images/card1.png";
 import Card2Img from "../../assets/images/card2.png";
 import { useRouter } from "next/navigation";
 import { AuthContext } from "@/contexts/userContext";
+import useAlert from "@/hooks/useAlert";
+import { createOrder } from "@/api/order";
 
 const CheckoutWrapper = () => {
   const [data, setdata] = useState({});
   const [loading, setloading] = useState(true);
 
-  const { cart, setcart } = useContext(AuthContext);
+  const { setAlert } = useAlert();
+
+  const { cart, setcart, currentUser } = useContext(AuthContext);
 
   useEffect(() => {
     setdata(cart);
@@ -31,10 +35,10 @@ const CheckoutWrapper = () => {
   // address
   const [value, setValue] = useState("");
   const [isValid, setIsValid] = useState(null);
+  const [email, setemail] = useState("");
 
   const [formData, setFormData] = useState({
     username: null,
-    email: null,
     country: null,
     state: null,
     city: null,
@@ -91,18 +95,6 @@ const CheckoutWrapper = () => {
 
   const [deliveryMethod, setdeliveryMethod] = useState("pickup");
 
-  const handleSubmit = () => {
-    localStorage.setItem(
-      "deliveryInformation",
-      JSON.stringify({
-        ...formData,
-        value,
-        online: deliveryMethod == "pickup" ? false : true,
-      })
-    );
-    router.push("/orderSuccess");
-  };
-
   const [discountAmount, setdiscountAmount] = useState(0);
 
   useEffect(() => {
@@ -123,6 +115,83 @@ const CheckoutWrapper = () => {
     deliveryMethod == "pickup" ? setdeliveryFee(0) : setdeliveryFee(15);
   }, [deliveryMethod]);
 
+  const handleCreateOrder = () => {
+    if (!currentUser && !email) {
+      return setAlert("Please provide an email address", "danger");
+    }
+
+    const data = {
+      method: deliveryMethod,
+      delivery_charges: deliveryMethod == "online" ? 15 : 0,
+    };
+
+    if (deliveryMethod == "online") {
+      let flag = true;
+      for (const [key, value] of Object.entries(formData)) {
+        if (value == null) {
+          flag = false;
+        }
+      }
+
+      if (!flag || !isValid) {
+        return setAlert("Please fill all delivery details", "danger");
+      }
+      data.name = formData.username;
+      data.email = formData.email;
+      data.country = formData.country;
+      data.region = formData.state;
+      data.city = formData.city;
+      data.address = formData.address;
+      data.number = value;
+    }
+
+    data.payment_method = paymentMethod;
+
+    if (paymentMethod == "card") {
+      if (!cardNo || !nameOnCard || !cvv || !expiry) {
+        return setAlert("Invalid Card Details", "danger");
+      }
+      data.card_number = cardNo;
+      data.card_name = nameOnCard;
+      data.card_cvv = cvv;
+      data.card_date = expiry;
+    }
+    if (currentUser) {
+      data.user = currentUser._id;
+    }
+    //cart info
+
+    if (cart.items.length <= 0) {
+      return setAlert("Your Cart is Empty", "danger");
+    }
+    data.total = cart.total;
+
+    data.items = cart.items.map((item) => {
+      return {
+        ...item,
+        product: item.product._id,
+        price: item.product.discountedPrice,
+      };
+    });
+
+    if (currentUser) {
+      data.email = currentUser.email;
+    } else {
+      data.email = email;
+    }
+
+    createOrder({ data })
+      .then((res) => {
+        localStorage.setItem(
+          "deliveryInformation",
+          JSON.stringify({ ...data, items: cart.items })
+        );
+        setcart({ total: 0, items: [] });
+        router.push("/orderSuccess");
+      })
+      .catch((err) => {});
+  };
+
   return (
     <>
       {loading ? (
@@ -132,6 +201,19 @@ const CheckoutWrapper = () => {
           <div className="w-full md:w-[57%] xl:w-[65%]">
             <div>
               <div className="flex flex-col gap-8">
+                {!currentUser && (
+                  <div className="flex flex-col gap-4 px-5 py-9 border border-[rgba(251,107,144,0.2)] rounded-lg">
+                    <div className="flex flex-col gap-2">
+                      <label className="font-semibold text-sm">Email*</label>
+                      <PrimaryInput
+                        type="email"
+                        placeholder="Example@yahoo.com"
+                        value={email}
+                        changeHandler={(e) => setemail(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                )}
                 <div className="flex flex-col gap-4 px-5 py-9 border border-[rgba(251,107,144,0.2)] rounded-lg">
                   <p className="text-xl font-bold">Delievery Method</p>
                   <div className="flex gap-2 items-center border-[rgba(251,107,144,0.2)] border shadow-input-2 p-3">
@@ -145,6 +227,7 @@ const CheckoutWrapper = () => {
                       Pickup from Store
                     </label>
                   </div>
+
                   <div className="flex gap-2 items-center border-[rgba(251,107,144,0.2)] border shadow-input-2 p-3">
                     <input
                       type="radio"
@@ -170,16 +253,6 @@ const CheckoutWrapper = () => {
                           type="text"
                           placeholder="David John"
                           value={formData.username}
-                          changeHandler={changeHandler}
-                        />
-                      </div>
-                      <div className="flex flex-col gap-2">
-                        <label className="font-semibold text-sm">Email*</label>
-                        <PrimaryInput
-                          name={"email"}
-                          type="email"
-                          placeholder="Example@yahoo.com"
-                          value={formData.email}
                           changeHandler={changeHandler}
                         />
                       </div>
@@ -319,26 +392,34 @@ const CheckoutWrapper = () => {
                           <PrimaryInput
                             type="number"
                             placeholder="Card Number"
-                            value={""}
-                            changeHandler={() => {}}
+                            value={cardNo}
+                            changeHandler={(e) => {
+                              setcardNo(e.target.value);
+                            }}
                           />
                           <PrimaryInput
                             type="text"
                             placeholder="Name on Card"
-                            value={""}
-                            changeHandler={() => {}}
+                            value={nameOnCard}
+                            changeHandler={(e) => {
+                              setnameOnCard(e.target.value);
+                            }}
                           />
                           <PrimaryInput
                             type="text"
                             placeholder="Expiration date (dd/mm/yy)"
-                            value={""}
-                            changeHandler={() => {}}
+                            value={expiry}
+                            changeHandler={(e) => {
+                              setexpiry(e.target.value);
+                            }}
                           />
                           <PrimaryInput
                             type="text"
                             placeholder="CVV"
-                            value={""}
-                            changeHandler={() => {}}
+                            value={cvv}
+                            changeHandler={(e) => {
+                              setcvv(e.target.value);
+                            }}
                           />
                         </div>
                       </div>
@@ -407,7 +488,7 @@ const CheckoutWrapper = () => {
               <div>
                 <TransparentButton
                   text={"PLACE ORDER"}
-                  clickHandler={() => handleSubmit()}
+                  clickHandler={handleCreateOrder}
                 />
               </div>
             </div>

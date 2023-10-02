@@ -16,12 +16,12 @@ const ProductFilters = () => {
 
   return (
     <div className="flex justify-center sm:justify-end gap-5  text-center sm:text-start">
-      <div className="w-[25%] min-w-fit">
+      {/* <div className="w-[25%] min-w-fit">
         <p className="font-bold text-lg mb-1">Type</p>
         <div className="cursor-pointer">
           <SelectInput options={typeOptions} setactive={() => {}} />
         </div>
-      </div>
+      </div> */}
       <div className="w-[25%] min-w-fit">
         <p className="font-bold text-lg mb-1">Sort By</p>
         <div className="cursor-pointer">

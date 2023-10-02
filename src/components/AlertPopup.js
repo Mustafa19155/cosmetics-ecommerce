@@ -9,7 +9,7 @@ export default function AlertPopup() {
   if (text && type) {
     return (
       <div
-        className={`fixed top-0 left-0 text-center text-white w-screen p-2 z-50 ${
+        className={`fixed top-0 left-0 text-center text-white w-screen p-2 z-[1000] ${
           type == "danger" ? "bg-red-400" : "bg-green-500"
         }`}
       >
