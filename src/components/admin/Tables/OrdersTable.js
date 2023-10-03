@@ -63,7 +63,15 @@ const OrdersTable = ({ mainPros, setmainPros }) => {
                   </p>
                 </td>
                 <td class="px-3 py-4">{item.name}</td>
-                <td class="px-3 py-4 text-[#FDCC0D]">{item.status}</td>
+                <td
+                  class={`px-3 py-4 ${
+                    item.status == "pending"
+                      ? "text-[#FDCC0D]"
+                      : "text-green-500"
+                  }`}
+                >
+                  {item.status}
+                </td>
                 <td class="px-3 py-4">
                   <div className="flex items-center gap-4">
                     <Image
