@@ -1,100 +1,24 @@
+"use client";
+import { getAdminOrders } from "@/api/order";
 import OrdersTable from "@/components/admin/Tables/OrdersTable";
 import TableWrapper from "@/components/admin/Tables/TableWrapper";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-const getData = async () => {
-  return [
-    {
-      _id: 1,
-      price: 11.7,
-      date: Date.now(),
-      username: "David",
-      status: "pending",
-    },
-    {
-      _id: 1,
-      price: 11.7,
-      date: Date.now(),
-      username: "David",
-      status: "pending",
-    },
-    {
-      _id: 1,
-      price: 11.7,
-      date: Date.now(),
-      username: "David",
-      status: "pending",
-    },
-    {
-      _id: 1,
-      price: 11.7,
-      date: Date.now(),
-      username: "David",
-      status: "pending",
-    },
-    {
-      _id: 1,
-      price: 11.7,
-      date: Date.now(),
-      username: "David",
-      status: "pending",
-    },
-    {
-      _id: 1,
-      price: 11.7,
-      date: Date.now(),
-      username: "David",
-      status: "pending",
-    },
-    {
-      _id: 1,
-      price: 11.7,
-      date: Date.now(),
-      username: "David",
-      status: "pending",
-    },
-    {
-      _id: 1,
-      price: 11.7,
-      date: Date.now(),
-      username: "David",
-      status: "pending",
-    },
-    {
-      _id: 1,
-      price: 11.7,
-      date: Date.now(),
-      username: "David",
-      status: "pending",
-    },
-    {
-      _id: 1,
-      price: 11.7,
-      date: Date.now(),
-      username: "David",
-      status: "pending",
-    },
-    {
-      _id: 1,
-      price: 11.7,
-      date: Date.now(),
-      username: "David",
-      status: "pending",
-    },
-    {
-      _id: 1,
-      price: 11.7,
-      date: Date.now(),
-      username: "David",
-      status: "pending",
-    },
-  ];
-};
+const Page = () => {
+  const [ordersData, setordersData] = useState(null);
+  const [loading, setloading] = useState(true);
 
-const Page = async () => {
-  const data = await getData();
+  const handleGetOrders = async ({ page }) => {
+    setloading(true);
+    setordersData(await getAdminOrders({ page }));
+    setloading(false);
+  };
 
-  const searchCols = ["id", "username"];
+  useEffect(() => {
+    handleGetOrders({ page: 1 });
+  }, []);
+
+  const searchCols = ["order_id", "name"];
 
   const filterOptions = [
     { name: "All Orders", value: "" },
@@ -104,14 +28,23 @@ const Page = async () => {
 
   return (
     <div>
-      <p className="font-bold text-3xl">Orders</p>
-      <TableWrapper
-        showFilters={true}
-        Table={OrdersTable}
-        products={data}
-        searchCols={searchCols}
-        filterOptions={filterOptions}
-      />
+      {loading ? (
+        ""
+      ) : (
+        <>
+          <p className="font-bold text-3xl">Orders</p>
+          <TableWrapper
+            showFilters={true}
+            Table={OrdersTable}
+            products={ordersData.orders}
+            currentPage={ordersData.currentPage}
+            totalPages={ordersData.totalPages}
+            itemsPerPage={ordersData.perPage}
+            searchCols={searchCols}
+            filterOptions={filterOptions}
+          />
+        </>
+      )}
     </div>
   );
 };

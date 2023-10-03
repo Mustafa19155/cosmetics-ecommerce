@@ -114,11 +114,11 @@ const CategoryTable = ({ mainPros, setmainPros }) => {
                 </td>
                 <td class="px-3 py-4">
                   <p className="sm:max-w-[300px] md:max-w-[150px] lg:max-w-[400px] truncate line-clamp-3 whitespace-normal">
-                    {item.name}
+                    {item.data?.name}
                   </p>
                 </td>
 
-                <td class="px-3 py-4">{item.productsCount}</td>
+                <td class="px-3 py-4">{item.totalProducts}</td>
                 <td class="px-3 py-4">
                   <div className="flex items-center gap-4">
                     <Image

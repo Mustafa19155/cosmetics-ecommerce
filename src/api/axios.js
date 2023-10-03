@@ -18,10 +18,7 @@ axiosClient.interceptors.request.use(
   async (config) => {
     try {
       const token = await getCookie({ cookieName: "jwt" });
-
-      if (token) {
-        axiosClient.defaults.headers.common["Cookie"] = `jwt=${token.value}`;
-      }
+      axiosClient.defaults.headers.common["Cookie"] = `jwt=${token.value}`;
     } catch (err) {}
     return config;
   },
@@ -41,12 +38,14 @@ axiosClient.interceptors.response.use(
         error.response.config.url != "/users/login" &&
         error.response.config.url != "/users/user"
       ) {
-        // redirect("/login");
+        // redirect("/das");
         // Redirect({ to: "/login" });
-        if (error.response.config.url.includes("/admin")) {
-          window.location.href = "/adminLogin";
-        } else {
-          window.location.href = "/login";
+        if (typeof window != "undefined") {
+          if (error.response.config.url.includes("/admin")) {
+            window.location.href = "/adminLogin";
+          } else {
+            window.location.href = "/login";
+          }
         }
       }
     }

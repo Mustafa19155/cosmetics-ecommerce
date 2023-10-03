@@ -50,9 +50,11 @@ const TableWrapper = ({
   const filterData = () => {
     setprosCopy(
       products.filter((d) =>
-        searchCols.some((key) =>
-          d[key]?.toLowerCase().includes(searchValue.toLowerCase())
-        )
+        searchCols.some((key) => {
+          return String(d[key])
+            ?.toLowerCase()
+            .includes(searchValue.toLowerCase());
+        })
       )
     );
   };

@@ -6,13 +6,20 @@ import EditIcon from "@/assets/icons/edit-gray.svg";
 import moment from "moment";
 import Link from "next/link";
 import DeleteModal from "@/components/Modals/DeleteModal";
+import { deleteOrder } from "@/api/order";
 
 const OrdersTable = ({ mainPros, setmainPros }) => {
   const [activeModalData, setactiveModalData] = useState(null);
   const [deleteModalOpen, setdeleteModalOpen] = useState(false);
 
   const handleDelete = () => {
-    setdeleteModalOpen(false);
+    deleteOrder({ id: activeModalData._id })
+      .then((res) => {
+        window.location.reload();
+      })
+      .catch((err) => {
+        setdeleteModalOpen(false);
+      });
   };
 
   return (
@@ -48,14 +55,14 @@ const OrdersTable = ({ mainPros, setmainPros }) => {
           {mainPros.map((item, index) => {
             return (
               <tr class="bg-white border-b border-gray-2 rounded-lg">
-                <td className="px-3 py-4">{item._id}</td>
-                <td class="px-3 py-4">${item.price}</td>
+                <td className="px-3 py-4">{item.order_id}</td>
+                <td class="px-3 py-4">${item.total}</td>
                 <td class="px-3 py-4">
                   <p className="sm:max-w-[300px] md:max-w-[150px] lg:max-w-[400px] truncate line-clamp-3 whitespace-normal">
-                    {moment(item.date).format("MMM, D, YYYY")}
+                    {moment(item.createdAt).format("MMM, D, YYYY")}
                   </p>
                 </td>
-                <td class="px-3 py-4">{item.username}</td>
+                <td class="px-3 py-4">{item.name}</td>
                 <td class="px-3 py-4 text-[#FDCC0D]">{item.status}</td>
                 <td class="px-3 py-4">
                   <div className="flex items-center gap-4">
@@ -67,7 +74,7 @@ const OrdersTable = ({ mainPros, setmainPros }) => {
                         setdeleteModalOpen(true);
                       }}
                     />
-                    <Link href={"order/1"}>
+                    <Link href={`order/${item._id}`}>
                       <Image src={EditIcon} />
                     </Link>
                   </div>

@@ -19,17 +19,31 @@ import useAlert from "@/hooks/useAlert";
 import { createOrder } from "@/api/order";
 
 const CheckoutWrapper = () => {
-  const [data, setdata] = useState({});
+  const [data, setdata] = useState(null);
   const [loading, setloading] = useState(true);
 
   const { setAlert } = useAlert();
 
   const { cart, setcart, currentUser } = useContext(AuthContext);
 
+  const [originalTotal, setoriginalTotal] = useState(0);
+
   useEffect(() => {
+    if (cart.items.length > 0) {
+      let disAm = 0;
+      let total = 0;
+      cart.items.map((item) => {
+        total += item.quantity * item.product.price;
+        disAm +=
+          item.quantity * (item.product.price - item.product.discountedPrice);
+      });
+      setoriginalTotal(total);
+      setdiscountAmount(disAm);
+    }
+
     setdata(cart);
     setloading(false);
-  }, []);
+  }, [cart]);
 
   const router = useRouter();
   // address
@@ -97,18 +111,6 @@ const CheckoutWrapper = () => {
 
   const [discountAmount, setdiscountAmount] = useState(0);
 
-  useEffect(() => {
-    if (cart.items.length > 0) {
-      let disAm = 0;
-
-      cart.items.map((item) => {
-        disAm +=
-          item.quantity * (item.product.price - item.product.discountedPrice);
-      });
-      setdiscountAmount(disAm);
-    }
-  }, [cart]);
-
   const [deliveryFee, setdeliveryFee] = useState(0);
 
   useEffect(() => {
@@ -136,6 +138,7 @@ const CheckoutWrapper = () => {
       if (!flag || !isValid) {
         return setAlert("Please fill all delivery details", "danger");
       }
+
       data.name = formData.username;
       data.email = formData.email;
       data.country = formData.country;
@@ -168,8 +171,8 @@ const CheckoutWrapper = () => {
 
     data.items = cart.items.map((item) => {
       return {
-        ...item,
-        product: item.product._id,
+        quantity: item.quantity,
+        id: item.product._id,
         price: item.product.discountedPrice,
       };
     });
@@ -190,6 +193,14 @@ const CheckoutWrapper = () => {
         router.push("/orderSuccess");
       })
       .catch((err) => {});
+  };
+
+  const handleMethodChange = (name) => {
+    setdeliveryMethod(name);
+    setcart({
+      ...cart,
+      total: name == "online" ? cart.total + 15 : cart.total - 15,
+    });
   };
 
   return (
@@ -221,7 +232,7 @@ const CheckoutWrapper = () => {
                       type="radio"
                       className="!accent-black cursor-pointer"
                       checked={deliveryMethod == "pickup"}
-                      onChange={() => setdeliveryMethod("pickup")}
+                      onChange={() => handleMethodChange("pickup")}
                     />
                     <label className="font-semibold text-sm">
                       Pickup from Store
@@ -233,7 +244,7 @@ const CheckoutWrapper = () => {
                       type="radio"
                       className="!accent-black cursor-pointer"
                       checked={deliveryMethod == "online"}
-                      onChange={() => setdeliveryMethod("online")}
+                      onChange={() => handleMethodChange("online")}
                     />
                     <label className="font-semibold text-sm">
                       Online Delievery
@@ -471,7 +482,7 @@ const CheckoutWrapper = () => {
               </div>
               <div className="flex justify-between items-center">
                 <p className="font-bold">SubTotal</p>
-                <p className="font-bold">${data.total}</p>
+                <p className="font-bold">${originalTotal}</p>
               </div>
               <div className="flex justify-between items-center">
                 <p className="font-bold">Discount</p>
@@ -483,7 +494,7 @@ const CheckoutWrapper = () => {
               </div>
               <div className="flex justify-between items-center text-xl font-bold">
                 <p>Grand Total</p>
-                <p>${cart.total - discountAmount + deliveryFee}</p>
+                <p>${data.total}</p>
               </div>
               <div>
                 <TransparentButton

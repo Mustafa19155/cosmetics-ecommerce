@@ -12,7 +12,7 @@ const CartItem = ({ item, index }) => {
     if (item.quantity > 1) {
       const cartCopy = { ...cart };
       cartCopy.items[index].quantity -= 1;
-      cartCopy.total -= item.product.price;
+      cartCopy.total -= item.product.discountedPrice;
       setcart(cartCopy);
     }
   };
@@ -20,7 +20,7 @@ const CartItem = ({ item, index }) => {
     if (item.quantity < item.product.quantity) {
       const cartCopy = { ...cart };
       cartCopy.items[index].quantity += 1;
-      cartCopy.total += item.product.price;
+      cartCopy.total += item.product.discountedPrice;
       setcart(cartCopy);
     }
   };
@@ -28,7 +28,7 @@ const CartItem = ({ item, index }) => {
     setcart({
       ...cart,
       items: cart.items.filter((c) => item.product._id != c.product._id),
-      total: cart.total - item.quantity * item.product.price,
+      total: cart.total - item.quantity * item.product.discountedPrice,
     });
   };
 

@@ -48,7 +48,7 @@ const ProductTop = ({ product }) => {
       setcart({
         ...cart,
         items: [...cart.items, { product, quantity }],
-        total: cart.total + product.price * quantity,
+        total: cart.total + product.discountedPrice * quantity,
       });
     }
 

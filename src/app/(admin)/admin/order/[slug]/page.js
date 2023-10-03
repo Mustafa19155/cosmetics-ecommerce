@@ -3,6 +3,8 @@ import ProImg from "@/assets/images/product-detail.png";
 import OrderTop from "@/components/admin/order/OrderTop";
 import Details from "@/components/admin/order/Details";
 import ProductInformation from "@/components/admin/order/ProductInformation";
+import { getSingleOrder } from "@/api/order";
+import { headers } from "next/headers";
 
 const getData = async () => {
   return {
@@ -49,10 +51,16 @@ const getData = async () => {
 };
 
 const Page = async () => {
-  const data = await getData();
+  const headersList = headers();
+  const activePath = headersList.get("x-invoke-path");
+
+  const data = await getSingleOrder({
+    id: activePath.split("/")[activePath.split("/").length - 1],
+  });
+
   return (
     <div>
-      <OrderTop />
+      <OrderTop order={data} />
       <div className="mt-16">
         <Details order={data} />
       </div>

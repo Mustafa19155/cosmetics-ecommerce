@@ -16,15 +16,15 @@ const ProductInformation = ({ order }) => {
               </tr>
             </thead>
             <tbody>
-              {order.orderDetails.items.map((item) => {
+              {order.items.map((item) => {
                 return (
                   <tr class="bg-white border-b border-primary">
                     <td class="flex gap-2 items-center py-4">
-                      <Image src={item.image} className="h-[90px] w-[90px]" />
+                      <Image src={item.id.images[0]} width={90} height={90} />
                       <div className="flex flex-col justify-center overflow-hidden">
-                        <p className="text-lg font-bold">{item.name}</p>
+                        <p className="text-lg font-bold">{item.id.name}</p>
                         <p className="text-secondary max-w-[120px] sm:max-w-[300px] md:max-w-[150px] lg:max-w-[280px] truncate line-clamp-2 whitespace-normal">
-                          {item.description}
+                          {item.id.description}
                         </p>
                       </div>
                     </td>
@@ -36,7 +36,7 @@ const ProductInformation = ({ order }) => {
               <tr>
                 <td className="text-xl font-bold p-2">Grand Total</td>
                 <td></td>
-                <td className="text-xl font-bold p-2">${order.finalTotal}</td>
+                <td className="text-xl font-bold p-2">${order.total}</td>
               </tr>
             </tbody>
           </table>

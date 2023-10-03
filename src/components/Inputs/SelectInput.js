@@ -8,6 +8,7 @@ const SelectInput = ({
   active,
   setactive,
   placeholder,
+  disabled,
 }) => {
   const [showDropdown, setshowDropdown] = useState(false);
 
@@ -17,9 +18,15 @@ const SelectInput = ({
         className={`bg-white shadow-select-input flex justify-between items-center p-4 rounded-lg gap-4 cursor-pointer ${
           className ? className : ""
         }`}
-        onClick={() => setshowDropdown(!showDropdown)}
+        onClick={() => {
+          !disabled && setshowDropdown(!showDropdown);
+        }}
       >
-        <p className={`whitespace-nowrap ${active ? "" : "text-gray-500"}`}>
+        <p
+          className={`whitespace-nowrap ${
+            active && !disabled ? "" : "text-gray-500"
+          }`}
+        >
           {active ? active.name : placeholder}
         </p>
         <svg

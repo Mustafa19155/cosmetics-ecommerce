@@ -12,7 +12,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "@/components/CheckoutForm";
 
-const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
+// const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
 
 export default function RootLayout({ children }) {
   const router = useRouter();
@@ -39,7 +39,7 @@ export default function RootLayout({ children }) {
             foundItem.quantity = pro.quantity;
           }
           foundItem.product = pro;
-          cartCopy.total += foundItem.quantity * pro.price;
+          cartCopy.total += foundItem.quantity * pro.discountedPrice;
         });
 
         setcart(cartCopy);
@@ -71,26 +71,26 @@ export default function RootLayout({ children }) {
   };
 
   return (
-    <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Manrope&display=swap"
-          rel="stylesheet"
-        ></link>
-      </head>
-      {/* <Elements options={options} stripe={stripePromise}> */}
-      <ProductFilterProvider>
-        <body className="overflow-x-hidden">
-          <WhatsappIcon />
-          <Navbar />
-          {/* <CheckoutForm /> */}
-          <div className="container mx-auto">{children}</div>
-          <Footer />
-        </body>
-      </ProductFilterProvider>
-      {/* </Elements> */}
-    </html>
+    // <html lang="en">
+    //   <head>
+    //     <link rel="preconnect" href="https://fonts.googleapis.com" />
+    //     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    //     <link
+    //       href="https://fonts.googleapis.com/css2?family=Manrope&display=swap"
+    //       rel="stylesheet"
+    //     ></link>
+    //   </head>
+    //   <Elements options={options} stripe={stripePromise}>
+    <ProductFilterProvider>
+      <div className="overflow-x-hidden relative !top-0">
+        <WhatsappIcon />
+        <Navbar />
+        {/* <CheckoutForm /> */}
+        <div className="container mx-auto">{children}</div>
+        <Footer />
+      </div>
+    </ProductFilterProvider>
+    //   </Elements>
+    // </html>
   );
 }

@@ -56,13 +56,14 @@ export default function Navbar() {
     };
   }, []);
 
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const [screenWidth, setScreenWidth] = useState(0);
 
   const updateScreenWidth = () => {
     setScreenWidth(window.innerWidth);
   };
 
   useEffect(() => {
+    updateScreenWidth();
     window.addEventListener("resize", updateScreenWidth);
 
     return () => {

@@ -3,7 +3,6 @@ import { axiosClient } from "./axios";
 export const getBrands = async () => {
   try {
     const res = await axiosClient.get("/api/brands");
-
     return res.data;
   } catch (err) {
     throw err.response?.data?.message;

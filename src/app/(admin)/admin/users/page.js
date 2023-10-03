@@ -13,7 +13,6 @@ const Page = () => {
   const handleGetUsersData = async ({ page }) => {
     setloading(true);
     const data = await getUsers({ page });
-    console.log(data);
     setusersData(data);
     setloading(false);
   };
