@@ -8,13 +8,17 @@ import { getUsers } from "@/api/users";
 const Page = () => {
   const [usersData, setusersData] = useState(null);
 
-  const [loading, setloading] = useState(true);
+  // const [loading, setloading] = useState(true);
 
   const handleGetUsersData = async ({ page }) => {
-    setloading(true);
+    // setloading(true);
     const data = await getUsers({ page });
     setusersData(data);
-    setloading(false);
+    // setloading(false);
+  };
+
+  const handlePagination = ({ page }) => {
+    handleGetUsersData({ page });
   };
 
   useEffect(() => {
@@ -23,16 +27,17 @@ const Page = () => {
 
   return (
     <div>
-      {loading ? (
+      {!usersData ? (
         ""
       ) : (
         <>
           <TableWrapper
+            totalData={usersData.totalUsers}
             products={usersData.users}
-            setcurrentPage={() => handleGetUsersData({ page })}
+            setcurrentPage={handlePagination}
             Table={UsersTable}
             currentPage={usersData.currentPage}
-            totalPages={usersData.currentPage}
+            totalPages={usersData.totalPages}
             itemsPerPage={usersData.perPage}
             searchCols={["name", "email"]}
             showFilters={false}

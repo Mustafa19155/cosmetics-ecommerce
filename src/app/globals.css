@@ -9,13 +9,18 @@
   @variants responsive {
     /* Hide scrollbar for Chrome, Safari and Opera */
     .home-pro-wrapper::-webkit-scrollbar,
-    .image-gallery-bot::-webkit-scrollbar {
+    .modal-content-wrapper::-webkit-scrollbar,
+    .image-gallery-bot::-webkit-scrollbar,
+    .brand-select-drop::-webkit-scrollbar,
+    .product-drop::-webkit-scrollbar {
       display: none;
     }
-
     /* Hide scrollbar for IE, Edge and Firefox */
     .home-pro-wrapper,
-    .image-gallery-bot {
+    .modal-content-wrapper,
+    .image-gallery-bot,
+    .brand-select-drop,
+    .product-drop {
       -ms-overflow-style: none; /* IE and Edge */
       scrollbar-width: none; /* Firefox */
     }
@@ -125,4 +130,8 @@
 }
 .VIpgJd-ZVi9od-aZ2wEe-wOHMyf.VIpgJd-ZVi9od-aZ2wEe-wOHMyf-ti6hGc {
   display: none;
+}
+
+.brand-video-wrapper > div {
+  width: 100% !important;
 }

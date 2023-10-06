@@ -108,25 +108,25 @@ const ManageProduct = ({ product, categories }) => {
           );
         }
       });
-      // if (isEditing) {
-      //   editProduct({ data: formData, id: product._id })
-      //     .then((res) => {
-      //       setapiCalled(false);
-      //       setAlert("Product Updated Successfully", "success");
-      //     })
-      //     .catch((err) => {
-      //       setAlert(err, "danger");
-      //     });
-      // } else {
-      //   addProduct({ data: formData })
-      //     .then((res) => {
-      //       setapiCalled(false);
-      //       setAlert("Product Added Successfully", "success");
-      //     })
-      //     .catch((err) => {
-      //       setAlert(err, "danger");
-      //     });
-      // }
+      if (isEditing) {
+        editProduct({ data: formData, id: product._id })
+          .then((res) => {
+            setapiCalled(false);
+            setAlert("Product Updated Successfully", "success");
+          })
+          .catch((err) => {
+            setAlert(err, "danger");
+          });
+      } else {
+        addProduct({ data: formData })
+          .then((res) => {
+            setapiCalled(false);
+            setAlert("Product Added Successfully", "success");
+          })
+          .catch((err) => {
+            setAlert(err, "danger");
+          });
+      }
     } else {
       setAlert("Fill all fields", "danger");
     }

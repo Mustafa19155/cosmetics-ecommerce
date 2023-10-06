@@ -8,11 +8,9 @@ import SubCategoryTable from "../Tables/SubCategoryTable";
 import { getAdminProducts } from "@/api/products";
 
 const ProductWrapper = ({
-  setproducts,
   products,
-  setbrands,
+  setproducts,
   brands,
-  setsubCategories,
   subCategories,
   productPagination,
   catsPagination,
@@ -28,13 +26,14 @@ const ProductWrapper = ({
     },
     {
       name: "Availability",
-      value: "availability",
+      value: "quantity",
     },
     {
       name: "Price",
       value: "price",
     },
   ];
+  const [productFilter, setproductFilter] = useState(filterOptions[0]);
 
   const handlePagination = ({ page }) => {
     if (currentTab == "products") {
@@ -46,6 +45,24 @@ const ProductWrapper = ({
     }
   };
 
+  useEffect(() => {
+    if (currentTab == "products") {
+      let sortedData = [...products.products];
+      if (productFilter.value == "quantity") {
+        sortedData.sort((a, b) => b.quantity - a.quantity);
+      } else if (productFilter.value == "price") {
+        sortedData.sort((a, b) => b.price - a.price);
+      } else {
+        sortedData.sort((a, b) => {
+          const nameA = a.name.toLowerCase();
+          const nameB = b.name.toLowerCase();
+          return nameA.localeCompare(nameB);
+        });
+      }
+      setproducts({ ...products, products: sortedData });
+    }
+  }, [productFilter]);
+
   return (
     <div>
       <ProductTop
@@ -55,7 +72,22 @@ const ProductWrapper = ({
       />
 
       <TableWrapper
-        brands={brands.brands}
+        // mainData={
+        //   currentTab == "products"
+        //     ? products
+        //     : currentTab == "brands"
+        //     ? brands
+        //     : subCategories
+        // }
+        activeFilter={productFilter}
+        setactiveFilter={setproductFilter}
+        totalData={
+          currentTab == "products"
+            ? products.totalProducts
+            : currentTab == "brands"
+            ? brands.totalBrand
+            : subCategories.totalCategories
+        }
         showFilters={currentTab == "products" ? true : false}
         filterOptions={filterOptions}
         searchCols={searchCols}

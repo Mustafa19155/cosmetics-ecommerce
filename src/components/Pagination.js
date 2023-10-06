@@ -11,7 +11,6 @@ export default function Pagination({
   const handlePageChange = (pageNumber) => {
     setCurrentPage({ page: pageNumber });
   };
-
   const generatePageNumbers = () => {
     const pageNumbers = [];
     const visiblePages = 7;
@@ -57,7 +56,7 @@ export default function Pagination({
                   : "py-2 px-4"
               } ${
                 currentPage === pageNumber
-                  ? " bg-primary rounded-full text-white"
+                  ? " bg-primary rounded-full text-white cursor-pointer"
                   : ""
               } `}
               onClick={() => handlePageChange(pageNumber)}

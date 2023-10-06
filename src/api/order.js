@@ -19,6 +19,18 @@ export const getAdminOrders = async ({ page }) => {
   }
 };
 
+export const getAdminFilteredOrders = async ({ page, filter }) => {
+  try {
+    const res = await axiosClient.get(
+      `/admin/orders/filter?page=${page}&&filter=${filter}`
+    );
+
+    return res.data;
+  } catch (err) {
+    throw err.response?.data?.message;
+  }
+};
+
 export const deleteOrder = async ({ id }) => {
   try {
     const res = await axiosClient.delete(`admin/order/delete/${id}`);

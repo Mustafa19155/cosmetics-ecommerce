@@ -4,64 +4,116 @@ import PrimaryInput from "../Inputs/PrimaryInput";
 import TransparentButton from "../buttons/TransparentButton";
 import PinkButton from "../buttons/PinkButton";
 import SelectInput from "../Inputs/SelectInput";
+import useAlert from "@/hooks/useAlert";
+import { getBrands } from "@/api/brands";
 
-const SubCategoryModal = ({
-  open,
-  onclose,
-  subcategory,
-  onconfirm,
-  brands,
-}) => {
+const SubCategoryModal = ({ open, onclose, subcategory, onconfirm }) => {
   const [category, setcategory] = useState("");
   const [activeBrand, setactiveBrand] = useState(null);
+  const [image, setimage] = useState("");
+  const [randId, setrandId] = useState("");
+  const [apiCalled, setapiCalled] = useState(false);
+  const [brands, setbrands] = useState([]);
+
+  const { setAlert } = useAlert();
+
+  const handleGetAllBrands = () => {
+    getBrands()
+      .then((res) => {
+        setbrands(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const handleAddCategory = () => {
+    if (category && activeBrand && image) {
+      const formData = new FormData();
+      formData.append("name", category);
+      formData.append("brand", activeBrand._id);
+      formData.append("images", image);
+      onconfirm({ data: formData });
+    } else {
+      setAlert("Please fill all fields", "danger");
+    }
+  };
+
   useEffect(() => {
     setcategory(subcategory?.name);
-    brands = brands.map((cat) => {
-      return {
-        ...cat,
-        name: cat.name,
-        value: cat._id,
-      };
-    });
-    setactiveBrand(brands[0]);
+    setimage(subcategory?.image);
+    setrandId(Math.random() * 10);
+    setactiveBrand(brands[0]?.data);
   }, [subcategory]);
+  useEffect(() => {
+    handleGetAllBrands();
+  }, []);
 
   return (
     <ModalWrapper open={open}>
-      <div>
-        <p className="p-5">{subcategory ? "Edit" : "Create"} Subcategory</p>
+      <div className="w-[800px] max-w-[100vw]">
+        <p className="p-5">{subcategory ? "Edit" : "Create"} Brand</p>
         <hr />
-        <div className="p-8">
-          <div className="">
-            <label>Name</label>
-            <PrimaryInput
-              className={"mt-1"}
-              placeholder={"Perfume"}
-              changeHandler={(e) => setcategory(e.target.value)}
-              value={category}
-            />
-          </div>
-          <div className="mt-10 flex flex-col gap-3">
-            <label>Select Brand</label>
-            <SelectInput
-              placeholder={"Brand"}
-              options={brands}
-              dropdownClassName={"top-12"}
-              active={activeBrand}
-              setactive={setactiveBrand}
-            />
-          </div>
-          <div className="flex items-center justify-between gap-5 mt-8">
-            <TransparentButton text={"CANCEL"} clickHandler={onclose} />
-            <PinkButton
-              text={`${subcategory ? "EDIT" : "ADD"}`}
-              clickHandler={() => {
-                if (category && activeBrand) {
-                  onconfirm({ name: category, brand: activeBrand.value });
+        <div className="flex p-8 justify-between flex-wrap">
+          <div className="flex flex-col gap-5 w-[100%] md:w-[50%] order-2 md:order-1">
+            <div className="flex flex-col gap-1">
+              <label>Category Name</label>
+              <PrimaryInput
+                placeholder={"Perfume"}
+                changeHandler={(e) => setcategory(e.target.value)}
+                value={category}
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <label>Select Brand</label>
+              <SelectInput
+                placeholder={"Brand"}
+                options={brands}
+                dropdownClassName={
+                  "!top-12 max-h-[140px] overflow-scroll brand-select-drop"
                 }
-              }}
-            />
+                active={activeBrand}
+                setactive={(e) => setactiveBrand(e)}
+              />
+            </div>
           </div>
+          <div className="w-[100%] md:w-[50%] flex justify-center items-center relative p-8 order-1 md:order-2">
+            <label
+              for={`upload-image-input-${randId}`}
+              class={`cursor-pointer`}
+            >
+              {image ? (
+                <img
+                  src={
+                    image instanceof File ? URL.createObjectURL(image) : image
+                  }
+                  className="h-[200px] w-[200px] object-cover"
+                />
+              ) : (
+                <div class="flex gap-3 border-dashed border-primary border w-fit p-12">
+                  <p className="font-bold text-lg">+ Add Photo</p>
+                </div>
+              )}
+              <input
+                accept="image/*"
+                id={`upload-image-input-${randId}`}
+                type="file"
+                class="hidden"
+                onChange={(e) => setimage(e.target.files[0])}
+              />
+            </label>
+          </div>
+        </div>
+        <div className="flex items-center justify-between gap-5 px-8 pb-5">
+          <TransparentButton
+            text={"CANCEL"}
+            clickHandler={onclose}
+            disabled={apiCalled}
+          />
+          <PinkButton
+            disabled={apiCalled}
+            text={`${subcategory ? "EDIT" : "ADD"}`}
+            clickHandler={() => handleAddCategory()}
+          />
         </div>
       </div>
     </ModalWrapper>

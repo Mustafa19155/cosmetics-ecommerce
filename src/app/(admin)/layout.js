@@ -11,7 +11,7 @@ export default async function RootLayout({ children }) {
   const activePath = headersList.get("x-invoke-path");
 
   try {
-    await getAdminBrands();
+    await getAdminBrands({ page: 1 });
   } catch (err) {
     redirect("/adminLogin");
   }

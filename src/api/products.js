@@ -9,7 +9,15 @@ export const getProducts = async () => {
     throw err.response?.data?.message;
   }
 };
+export const getProductsByCategory = async ({ name }) => {
+  try {
+    const res = await axiosClient.get(`/api/products/${name}`);
 
+    return res.data;
+  } catch (err) {
+    throw err.response?.data?.message;
+  }
+};
 export const getAdminProducts = async ({ page }) => {
   if (!page) {
     page = 1;

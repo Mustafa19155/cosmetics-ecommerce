@@ -82,18 +82,26 @@ const Footer = () => {
       </div>
 
       <div className="container mx-auto mt-16 lg:mt-8">
-        <div className="flex flex-col items-center md:flex-row justify-center gap-5 md:gap-10">
+        <div className="flex flex-col items-center lg:flex-row justify-center gap-5 md:gap-10">
           <p>
             <span className="whitespace-nowrap">
               COPYRIGHT © 2023 Aliyaa Beauty.
             </span>
           </p>
-          <Link href={"/"}>
-            <p>Terms and Conditions</p>
-          </Link>
-          <Link href={"/"}>
-            <p>Privacy Policy</p>
-          </Link>
+          <div className="flex flex-col sm:flex-row items-center gap-5 whitespace-nowrap">
+            <Link href={"/termsAndConditions"}>
+              <p>Terms and Conditions</p>
+            </Link>
+            <Link href={"/privacyPolicy"}>
+              <p>Privacy Policy</p>
+            </Link>
+            <Link href={"/cookiePolicy"}>
+              <p>Cookie Policy</p>
+            </Link>
+            <Link href={"/legalWarning"}>
+              <p>Legal Warning</p>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

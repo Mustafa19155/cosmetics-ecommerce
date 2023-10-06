@@ -18,11 +18,11 @@ const Page = () => {
   };
 
   const handleGetBrands = async ({ page }) => {
-    setbrandsData(await getAdminBrands());
+    setbrandsData(await getAdminBrands({ page }));
   };
 
   const handleGetCats = async ({ page }) => {
-    setcatsData(await getAdminCategories());
+    setcatsData(await getAdminCategories({ page }));
   };
 
   useEffect(() => {

@@ -11,19 +11,25 @@ const ProductTop = ({ currentTab, setcurrentTab, brands }) => {
   const [brandModalOpen, setbrandModalOpen] = useState(false);
   const [subCategoryModalOpen, setsubCategoryModalOpen] = useState(false);
 
-  const handleAddCategory = ({ name }) => {
-    addBrand({ name })
+  const { setAlert } = useAlert();
+
+  const handleAddCategory = ({ data }) => {
+    addBrand({ data })
       .then((res) => {
         window.location.reload();
       })
-      .catch((err) => {});
+      .catch((err) => {
+        setAlert("Brand with this name already exists", "danger");
+      });
   };
-  const handleAddSubCategory = ({ name, brand }) => {
-    addCategory({ name, brand })
+  const handleAddSubCategory = ({ data }) => {
+    addCategory({ data })
       .then((res) => {
         window.location.reload();
       })
-      .catch((err) => {});
+      .catch((err) => {
+        setAlert("Category with this name already exists", "danger");
+      });
   };
 
   return (

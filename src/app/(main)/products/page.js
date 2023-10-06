@@ -1,19 +1,33 @@
 import ProductFilters from "@/components/ProductFilters";
 import ProductsWrapper from "@/components/Products/ProductsWrapper";
 import React from "react";
-import { getLatestProducts, searchProduct } from "@/api/products";
+import {
+  getLatestProducts,
+  getProductsByCategory,
+  searchProduct,
+} from "@/api/products";
+import { redirect } from "next/navigation";
 
 const Page = async ({ params, searchParams }) => {
-  const data = await searchProduct({ name: searchParams.name });
+  let data = null;
+  if (searchParams.name) {
+    data = await searchProduct({ name: searchParams.name });
+  } else if (searchParams.category) {
+    data = await getProductsByCategory({ name: searchParams.category });
+  } else {
+    redirect("/");
+  }
 
   return (
     <div className="my-16">
       <div className="text-center">
         <p className="font-bold  text-3xl">
-          {searchParams ? `Showing '${searchParams.name}'` : "Perfume"}
+          {searchParams.name
+            ? `Showing '${searchParams.name}'`
+            : searchParams.category}
         </p>
         <p className="text-secondary mt-1">
-          {searchParams
+          {searchParams.name
             ? `Found ${data.length} results for your search`
             : "Indulge in Luxury: Explore our Exquisite Perfume Gift Sets Collection"}
         </p>

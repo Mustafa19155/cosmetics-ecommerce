@@ -4,6 +4,7 @@ import Pagination from "@/components/Pagination";
 import TableSearch from "./TableSearch";
 
 const TableWrapper = ({
+  mainData,
   products,
   Table,
   searchCols,
@@ -14,36 +15,14 @@ const TableWrapper = ({
   totalPages,
   setcurrentPage,
   itemsPerPage,
+  totalData,
+  activeFilter,
+  setactiveFilter,
 }) => {
-  const [prosCopy, setprosCopy] = useState([...products]);
-
-  //pagination
-  // const itemsPerPage = 10;
-  // const [currentPage, setcurrentPage] = useState(1);
-  // const [totalPages, settotalPages] = useState(1);
-  // const [startIndex, setstartIndex] = useState(0);
-  // const [endIndex, setendIndex] = useState(0);
-
-  // useEffect(() => {
-  //   settotalPages(
-  //     prosCopy.length > 0 ? Math.ceil(prosCopy.length / itemsPerPage) : 1
-  //   );
-  // }, [prosCopy]);
-
-  // useEffect(() => {
-  //   const start = (currentPage - 1) * itemsPerPage;
-  //   const end = start + itemsPerPage;
-  //   setstartIndex(start);
-  //   setendIndex(end);
-  // }, [currentPage, prosCopy]);
-
-  // useEffect(() => {
-  //   setcurrentPage(1);
-  // }, [prosCopy]);
-
+  const [prosCopy, setprosCopy] = useState([]);
   useEffect(() => {
     setprosCopy([...products]);
-  }, [products]);
+  }, [products, mainData]);
 
   // search
   const [searchValue, setsearchValue] = useState("");
@@ -66,6 +45,8 @@ const TableWrapper = ({
   return (
     <div className="max-w-[calc(100vw_-_100px)]">
       <TableSearch
+        activeFilter={activeFilter}
+        setactiveFilter={setactiveFilter}
         showFilters={showFilters}
         searchValue={searchValue}
         setsearchValue={setsearchValue}
@@ -79,7 +60,7 @@ const TableWrapper = ({
           {currentPage * itemsPerPage > prosCopy.length
             ? prosCopy.length
             : currentPage * itemsPerPage}{" "}
-          of {prosCopy.length} entries
+          of {totalData} entries
         </p>
         <Pagination
           currentPage={currentPage}

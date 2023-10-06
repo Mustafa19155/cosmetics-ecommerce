@@ -10,7 +10,7 @@ export default function ModalWrapper({ children, open }) {
         background: "rgba(0,0,0,0.8)",
       }}
     >
-      <div className="w-[450px] max-w-[100vw] bg-white min-h-fit">
+      <div className="w-[450px] max-w-[100vw] bg-white min-h-fit min-w-fit overflow-y-scroll modal-content-wrapper">
         {children}
       </div>
     </div>

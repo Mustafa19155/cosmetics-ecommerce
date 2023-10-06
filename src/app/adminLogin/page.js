@@ -61,15 +61,15 @@ export default function Page() {
                   setpassword(e.target.value);
                 }}
               />
-              <Link href={"/resetPassword"}>
+              {/* <Link href={"/resetPassword"}>
                 <p className="text-sm text-end mt-1 underline">
                   Forgot Password
                 </p>
-              </Link>
+              </Link> */}
             </div>
 
             <PinkButton text={"LOGIN"} clickHandler={handleLogin} />
-            <TransparentButton
+            {/* <TransparentButton
               clickHandler={() =>
                 router.push(
                   `${process.env.NEXT_PUBLIC_BASE_URL}/users/auth/google`
@@ -77,15 +77,15 @@ export default function Page() {
               }
               text={"Continue with Google"}
               icon={GoogleIcon}
-            />
+            /> */}
           </div>
         </div>
-        <p className="text-sm text-center mt-2 flex gap-1">
+        {/* <p className="text-sm text-center mt-2 flex gap-1">
           Dont Have an Account?
           <Link className="font-bold underline" href="/signup">
             Signup
           </Link>
-        </p>
+        </p> */}
       </div>
       <div
         className="w-[50%] h-full hidden md:block"

@@ -5,7 +5,14 @@ import FilterIcon from "@/assets/icons/filter.svg";
 import Image from "next/image";
 import Dropdown from "@/components/Dropdowns/Dropdown";
 
-const TableSearch = ({ searchValue, setsearchValue, options, showFilters }) => {
+const TableSearch = ({
+  searchValue,
+  setsearchValue,
+  options,
+  showFilters,
+  activeFilter,
+  setactiveFilter,
+}) => {
   const [showFilterDropdown, setshowFilterDropdown] = useState(false);
 
   return (
@@ -22,6 +29,7 @@ const TableSearch = ({ searchValue, setsearchValue, options, showFilters }) => {
       {showFilters && (
         <div className="relative">
           <Dropdown
+            setactive={setactiveFilter}
             show={showFilterDropdown}
             setshow={setshowFilterDropdown}
             options={options}

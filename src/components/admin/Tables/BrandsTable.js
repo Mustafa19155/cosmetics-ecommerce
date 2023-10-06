@@ -4,7 +4,7 @@ import DeleteIcon from "@/assets/icons/delete-gray.svg";
 import EditIcon from "@/assets/icons/edit-gray.svg";
 import DeleteModal from "@/components/Modals/DeleteModal";
 import CategoryModal from "@/components/Modals/BrandModal";
-import { deleteBrand } from "@/api/brands";
+import { deleteBrand, editBrand, getBrands } from "@/api/brands";
 
 const CategoryTable = ({ mainPros, setmainPros }) => {
   const [allChecked, setallChecked] = useState(false);
@@ -43,15 +43,21 @@ const CategoryTable = ({ mainPros, setmainPros }) => {
   };
 
   const handleDelete = () => {
-    deleteBrand({ id: activeModalData._id })
+    deleteBrand({ id: activeModalData.data._id })
       .then((res) => {
         window.location.reload();
       })
       .catch((err) => {});
     setdeleteModalOpen(false);
   };
-  const handleEdit = () => {
-    seteditModalOpen(false);
+  const handleEdit = ({ data }) => {
+    editBrand({ data, id: activeModalData.data._id })
+      .then((res) => {
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   useEffect(() => {
@@ -90,6 +96,9 @@ const CategoryTable = ({ mainPros, setmainPros }) => {
               />
             </th>
             <th className="p-3" scope="col">
+              Image
+            </th>
+            <th className="p-3" scope="col">
               Brand Name
             </th>
             <th className="p-3" scope="col">
@@ -110,6 +119,12 @@ const CategoryTable = ({ mainPros, setmainPros }) => {
                     type="checkbox"
                     className="accent-black h-5 w-5 cursor-pointer"
                     checked={item.selected}
+                  />
+                </td>
+                <td class="px-3 py-4">
+                  <img
+                    src={item.data?.image}
+                    className="h-[36px] w-[36px] object-cover"
                   />
                 </td>
                 <td class="px-3 py-4">

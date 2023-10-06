@@ -1,5 +1,5 @@
 "use client";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer";
 import WhatsappIcon from "@/components/WhatsappIcon";
 import { useContext, useEffect, useState } from "react";
@@ -31,15 +31,19 @@ export default function RootLayout({ children }) {
     cartCopy.total = 0;
     validateCart({ array: cart.items.map((item) => item.product._id) })
       .then((res) => {
-        res.map((pro) => {
-          const foundItem = cartCopy.items.find(
-            (item) => item.product._id == pro._id
-          );
-          if (pro.quantity < foundItem.quantity) {
-            foundItem.quantity = pro.quantity;
+        res.map((pro, index) => {
+          if (!pro) {
+            cartCopy.items.splice(index, 1);
+          } else {
+            const foundItem = cartCopy.items.find(
+              (item) => item.product._id == pro._id
+            );
+            if (pro.quantity < foundItem.quantity) {
+              foundItem.quantity = pro.quantity;
+            }
+            foundItem.product = pro;
+            cartCopy.total += foundItem.quantity * pro.discountedPrice;
           }
-          foundItem.product = pro;
-          cartCopy.total += foundItem.quantity * pro.discountedPrice;
         });
 
         setcart(cartCopy);

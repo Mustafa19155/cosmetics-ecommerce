@@ -6,12 +6,14 @@ import DeleteModal from "@/components/Modals/DeleteModal";
 import CategoryModal from "@/components/Modals/BrandModal";
 import SubCategoryModal from "@/components/Modals/SubCategoryModal";
 import { deleteCategory } from "@/api/categories";
+import { getBrands } from "@/api/brands";
 
-const SubCategoryTable = ({ mainPros, setmainPros, brands }) => {
+const SubCategoryTable = ({ mainPros, setmainPros }) => {
   const [allChecked, setallChecked] = useState(false);
   const [deleteModalOpen, setdeleteModalOpen] = useState(false);
   const [editModalOpen, seteditModalOpen] = useState(false);
   const [activeModalData, setactiveModalData] = useState(null);
+  const [brands, setbrands] = useState([]);
 
   const handleCheckPro = (index) => {
     setmainPros(
@@ -92,6 +94,9 @@ const SubCategoryTable = ({ mainPros, setmainPros, brands }) => {
               />
             </th>
             <th className="p-3" scope="col">
+              Image
+            </th>
+            <th className="p-3" scope="col">
               Category Name
             </th>
             <th className="p-3" scope="col">
@@ -117,6 +122,13 @@ const SubCategoryTable = ({ mainPros, setmainPros, brands }) => {
                     checked={item.selected}
                   />
                 </td>
+                <td class="px-3 py-4">
+                  <img
+                    src={item.data?.image}
+                    className="h-[36px] w-[36px] object-cover"
+                  />
+                </td>
+
                 <td class="px-3 py-4">
                   <p className="sm:max-w-[300px] md:max-w-[150px] lg:max-w-[400px] truncate line-clamp-3 whitespace-normal">
                     {item.data?.name}

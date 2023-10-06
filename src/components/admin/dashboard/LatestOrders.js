@@ -2,26 +2,13 @@
 import React from "react";
 import TableWrapper from "../Tables/TableWrapper";
 import OrdersTable from "../Tables/OrdersTable";
+import OrdersWrapper from "../order/OrdersWrapper";
 
-const LatestOrders = ({ orders }) => {
-  const searchCols = ["id", "username"];
-
-  const filterOptions = [
-    { name: "All Orders", value: "" },
-    { name: "Orders Completed", value: "completed" },
-    { name: "Orders in queue", value: "queue" },
-  ];
-
+const LatestOrders = () => {
   return (
     <div>
       <p className="font-bold text-3xl">Latest Orders</p>
-      <TableWrapper
-        showFilters={true}
-        Table={OrdersTable}
-        products={orders}
-        searchCols={searchCols}
-        filterOptions={filterOptions}
-      />
+      <OrdersWrapper />
     </div>
   );
 };
