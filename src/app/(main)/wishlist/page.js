@@ -1,10 +1,11 @@
 "use client";
 import ProductFilters from "@/components/ProductFilters";
-import ProductsWrapper from "@/components/Products/ProductsWrapper";
 import PinkButton from "@/components/buttons/PinkButton";
 import React, { useContext, useEffect, useState } from "react";
 import FoundationImg from "../../../assets/images/home/foundation.png";
 import { AuthContext } from "@/contexts/userContext";
+import ProductCard from "@/components/Products/ProductCard";
+import ProductsWrapper from "@/components/Products/ProductsWrapper";
 
 const Page = () => {
   const [loading, setloading] = useState(true);
@@ -25,9 +26,6 @@ const Page = () => {
       </div>
       {data.length > 0 ? (
         <div>
-          <div className="my-16">
-            <ProductFilters />
-          </div>
           <ProductsWrapper products={data} />
           {/* <div className="w-fit mt-16 m-auto">
             <PinkButton text={"VIEW MORE"} className={"px-16"} />

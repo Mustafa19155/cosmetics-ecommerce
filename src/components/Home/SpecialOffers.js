@@ -3,8 +3,7 @@ import React, { useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import MainImg from "../../assets/images/home/section1.png";
 
-const SpecialOffers = () => {
-  const [images, setimages] = useState([MainImg, MainImg, MainImg]);
+const SpecialOffers = ({ offers }) => {
   const settings = {
     showArrows: false,
     // interval: 3500,
@@ -14,7 +13,7 @@ const SpecialOffers = () => {
     showStatus: false,
     transitionTime: 500,
     showThumbs: false,
-    // showIndicators: true,
+    showIndicators: offers.length > 1 ? true : false,
     swipeable: true,
     emulateTouch: true,
     autoPlay: true,
@@ -53,16 +52,18 @@ const SpecialOffers = () => {
               );
             }}
           >
-            {images.map((image) => (
-              <div
-                className="h-[35vw] min-h-[350px] max-h-[600px] w-[100%] rounded-lg"
-                style={{
-                  backgroundImage: `url(${image.src})`,
-                  backgroundRepeat: "no-repeat",
-                  backgroundSize: "100% 100%",
-                  backgroundPosition: "center center",
-                }}
-              />
+            {offers.map((offer) => (
+              <>
+                <div
+                  className="h-[35vw] min-h-[350px] max-h-[600px] w-[100%] rounded-lg"
+                  style={{
+                    backgroundImage: `url(${offer.images[0]})`,
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center center",
+                  }}
+                />
+              </>
             ))}
           </Carousel>
         </div>

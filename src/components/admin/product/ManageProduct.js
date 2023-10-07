@@ -63,7 +63,7 @@ const ManageProduct = ({ product, categories }) => {
       category &&
       images.length > 0
     ) {
-      setapiCalled(true);
+      // setapiCalled(true);
       const formData = new FormData();
       formData.append("name", name);
       formData.append("description", description);
@@ -88,14 +88,6 @@ const ManageProduct = ({ product, categories }) => {
           // };
 
           // request.send();
-          axiosClient
-            .get(img)
-            .then((res) => {
-              console.log(res);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
           const response = await fetch(img);
           const data = await response.blob();
 
@@ -108,25 +100,25 @@ const ManageProduct = ({ product, categories }) => {
           );
         }
       });
-      if (isEditing) {
-        editProduct({ data: formData, id: product._id })
-          .then((res) => {
-            setapiCalled(false);
-            setAlert("Product Updated Successfully", "success");
-          })
-          .catch((err) => {
-            setAlert(err, "danger");
-          });
-      } else {
-        addProduct({ data: formData })
-          .then((res) => {
-            setapiCalled(false);
-            setAlert("Product Added Successfully", "success");
-          })
-          .catch((err) => {
-            setAlert(err, "danger");
-          });
-      }
+      // if (isEditing) {
+      //   editProduct({ data: formData, id: product._id })
+      //     .then((res) => {
+      //       setapiCalled(false);
+      //       setAlert("Product Updated Successfully", "success");
+      //     })
+      //     .catch((err) => {
+      //       setAlert(err, "danger");
+      //     });
+      // } else {
+      //   addProduct({ data: formData })
+      //     .then((res) => {
+      //       setapiCalled(false);
+      //       setAlert("Product Added Successfully", "success");
+      //     })
+      //     .catch((err) => {
+      //       setAlert(err, "danger");
+      //     });
+      // }
     } else {
       setAlert("Fill all fields", "danger");
     }

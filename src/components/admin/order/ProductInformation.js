@@ -20,11 +20,11 @@ const ProductInformation = ({ order }) => {
                 return (
                   <tr class="bg-white border-b border-primary">
                     <td class="flex gap-2 items-center py-4">
-                      <Image src={item.id.images[0]} width={90} height={90} />
+                      <Image src={item.id?.images[0]} width={90} height={90} />
                       <div className="flex flex-col justify-center overflow-hidden">
-                        <p className="text-lg font-bold">{item.id.name}</p>
+                        <p className="text-lg font-bold">{item.id?.name}</p>
                         <p className="text-secondary max-w-[120px] sm:max-w-[300px] md:max-w-[150px] lg:max-w-[280px] truncate line-clamp-2 whitespace-normal">
-                          {item.id.description}
+                          {item.id?.description}
                         </p>
                       </div>
                     </td>

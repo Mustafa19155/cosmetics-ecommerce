@@ -9,6 +9,15 @@ export const getOffers = async () => {
   }
 };
 
+export const getUserOffers = async () => {
+  try {
+    const res = await axiosClient.get("/api/offers");
+    return res.data;
+  } catch (err) {
+    throw err.response?.data?.message;
+  }
+};
+
 export const addOffer = async ({ data }) => {
   try {
     axiosClient.defaults.headers = {

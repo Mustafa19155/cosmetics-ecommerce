@@ -9,11 +9,6 @@ const ProductFilters = () => {
     { name: "Children's", value: "children" },
   ]);
 
-  const [sortOptions, setsortOptions] = useState([
-    { name: "Highest Price", value: "highest" },
-    { name: "Lowest Price", value: "lowest" },
-  ]);
-
   return (
     <div className="flex justify-center sm:justify-end gap-5  text-center sm:text-start">
       {/* <div className="w-[25%] min-w-fit">

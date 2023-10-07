@@ -66,12 +66,12 @@ export default function Navbar() {
   return (
     <>
       <div
-        className={`sticky top-0 z-50 duration-100 ${
+        className={`fixed w-full top-0 z-50 duration-100 ${
           screenTop == 0 ? "" : "shadow-custom-1 bg-white"
         }`}
       >
         <div
-          className={`flex justify-between  py-3 z-10 px-5 items-center whitespace-nowrap container mx-auto ${
+          className={`flex justify-between sticky py-3 z-10 px-5 items-center whitespace-nowrap container mx-auto ${
             showSearchbar ? "" : ""
           }`}
         >

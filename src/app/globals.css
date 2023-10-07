@@ -134,4 +134,7 @@
 
 .brand-video-wrapper > div {
   width: 100% !important;
+  max-height: 500px !important;
+  min-height: 350px !important;
+  height: 70vh !important;
 }

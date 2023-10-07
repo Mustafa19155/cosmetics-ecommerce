@@ -1,5 +1,4 @@
 import ProductFilters from "@/components/ProductFilters";
-import ProductsWrapper from "@/components/Products/ProductsWrapper";
 import React from "react";
 import {
   getLatestProducts,
@@ -7,6 +6,8 @@ import {
   searchProduct,
 } from "@/api/products";
 import { redirect } from "next/navigation";
+import ProductCard from "@/components/Products/ProductCard";
+import ProductsWrapper from "@/components/Products/ProductsWrapper";
 
 const Page = async ({ params, searchParams }) => {
   let data = null;
@@ -31,9 +32,6 @@ const Page = async ({ params, searchParams }) => {
             ? `Found ${data.length} results for your search`
             : "Indulge in Luxury: Explore our Exquisite Perfume Gift Sets Collection"}
         </p>
-      </div>
-      <div className="my-16">
-        <ProductFilters />
       </div>
       <ProductsWrapper products={data} />
     </div>

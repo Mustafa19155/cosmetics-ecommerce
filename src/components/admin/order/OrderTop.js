@@ -54,7 +54,7 @@ const OrderTop = ({ order }) => {
           />
         )}
         <SelectInput
-          disabled={true}
+          disabled={order.status == "completed"}
           active={currStatus}
           setactive={(st) => {
             setcurrStatus(st);

@@ -14,20 +14,22 @@ const CartRight = () => {
   const [originalTotal, setoriginalTotal] = useState(0);
 
   useEffect(() => {
-    if (cart.items.length > 0) {
-      let disAm = 0;
-      let disPer = 0;
-      let total = 0;
-      cart.items.map((item) => {
-        total += item.quantity * item.product.price;
-        disPer += item.product.discount;
-        disAm +=
-          item.quantity * (item.product.price - item.product.discountedPrice);
-      });
-      setoriginalTotal(total);
-      setdiscountPercent((disPer / cart.items.length).toFixed(0));
-      setdiscountAmount(disAm);
-    }
+    // if (cart.items.length > 0) {
+    let disAm = 0;
+    let disPer = 0;
+    let total = 0;
+    cart.items.map((item) => {
+      total += item.quantity * item.product.price;
+      disPer += item.product.discount;
+      disAm +=
+        item.quantity * (item.product.price - item.product.discountedPrice);
+    });
+    setoriginalTotal(total);
+    setdiscountPercent(
+      (disPer / cart.items.length > 0 ? cart.items.length : 0).toFixed(0)
+    );
+    setdiscountAmount(disAm);
+    // }
   }, [cart]);
 
   return (

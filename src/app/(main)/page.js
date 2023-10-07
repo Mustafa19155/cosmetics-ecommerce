@@ -7,10 +7,12 @@ import TrendingProducts from "@/components/Home/TrendingProducts";
 import FoundationImg from "@/assets/images/home/foundation.png";
 import { getAllCategories } from "@/api/categories";
 import { getLatestProducts } from "@/api/products";
+import { getUserOffers } from "@/api/offers";
 
 export default async function Home() {
   const categories = (await getAllCategories()).slice(0, 4);
   const latestProducts = await getLatestProducts();
+  const offers = await getUserOffers();
 
   return (
     <div className=" relative top-[-74px] ">
@@ -19,7 +21,7 @@ export default async function Home() {
         <Categories categories={categories} />
         <TrendingProducts products={latestProducts} />
         <AboutProduct />
-        <SpecialOffers />
+        {offers.length > 0 && <SpecialOffers offers={offers} />}
         <Testimonials />
       </div>
     </div>

@@ -5,14 +5,13 @@ import WhatsappIcon from "@/components/WhatsappIcon";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "@/contexts/userContext";
 import { useRouter } from "next/navigation";
-import ProductFilterProvider from "@/contexts/productFilterConext";
 import { getUser } from "@/api/user";
 import { validateCart } from "@/api/cart";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-import CheckoutForm from "@/components/CheckoutForm";
+import OffersContextProvider from "@/contexts/OffersConext";
 
-// const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
+const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
 
 export default function RootLayout({ children }) {
   const router = useRouter();
@@ -52,7 +51,7 @@ export default function RootLayout({ children }) {
   }, []);
 
   const [clientSecret, setClientSecret] = useState(
-    "sk_test_4eC39HqLyjWDarjtT1zdp7dc"
+    "sk_test_51I5EU6DbwDQYqmKoHRVYU2jw4jtzB8aQa6byuVIMyfDvYl3lxHOzmIRUZ6SabMmk1TV0jNu4w9akIgPY4E3krUbj00ewcroCvC"
   );
 
   // useEffect(() => {
@@ -66,12 +65,18 @@ export default function RootLayout({ children }) {
   //     .then((data) => setClientSecret(data.clientSecret));
   // }, []);
 
-  const appearance = {
-    theme: "stripe",
-  };
+  // const appearance = {
+  //   theme: "stripe",
+  // };
+  // const options = {
+  //   clientSecret,
+  //   appearance,
+  // };
+
   const options = {
-    clientSecret,
-    appearance,
+    mode: "payment",
+    currency: "usd",
+    amount: 1099,
   };
 
   return (
@@ -84,17 +89,18 @@ export default function RootLayout({ children }) {
     //       rel="stylesheet"
     //     ></link>
     //   </head>
-    //   <Elements options={options} stripe={stripePromise}>
-    <ProductFilterProvider>
-      <div className="overflow-x-hidden relative !top-0">
-        <WhatsappIcon />
-        <Navbar />
-        {/* <CheckoutForm /> */}
-        <div className="container mx-auto">{children}</div>
-        <Footer />
-      </div>
-    </ProductFilterProvider>
-    //   </Elements>
+    <Elements stripe={stripePromise} options={options}>
+      <OffersContextProvider>
+        <div className="overflow-x-hidden relative !top-0">
+          <WhatsappIcon />
+          <Navbar />
+          <div className="container mx-auto relative top-[75px]">
+            <div className="mb-[150px]">{children}</div>
+          </div>
+          <Footer />
+        </div>
+      </OffersContextProvider>
+    </Elements>
     // </html>
   );
 }

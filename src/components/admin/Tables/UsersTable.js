@@ -1,10 +1,6 @@
 "use client";
-import Image from "next/image";
-import React, { useEffect, useState } from "react";
-import DeleteIcon from "@/assets/icons/delete-gray.svg";
-import EditIcon from "@/assets/icons/edit-gray.svg";
-import moment from "moment";
 import Link from "next/link";
+import React, { useEffect, useState } from "react";
 
 const UsersTable = ({ mainPros, setmainPros }) => {
   return (
@@ -32,9 +28,7 @@ const UsersTable = ({ mainPros, setmainPros }) => {
             return (
               <tr class="bg-white border-b border-gray-2 rounded-lg">
                 <td className="px-3 py-4 border-r">
-                  {/* <Link href={"/admin/users/1"}> */}
-                  {item.name}
-                  {/* </Link> */}
+                  <Link href={`/admin/users/${item._id}`}>{item.name}</Link>
                 </td>
                 <td class="px-3 py-4 border-r">{item.email}</td>
                 <td class="px-3 py-4 border-r">${item.spent}</td>

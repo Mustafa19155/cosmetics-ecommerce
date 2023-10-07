@@ -1,8 +1,5 @@
 "use client";
 import React, { useContext, useEffect, useState } from "react";
-import CheckoutLeft from "@/components/Checkout/CheckoutLeft";
-import CheckoutRight from "@/components/Checkout/CheckoutRight";
-import Link from "next/link";
 import TransparentButton from "../buttons/TransparentButton";
 import PrimaryInput from "../Inputs/PrimaryInput";
 import { Country, State, City } from "country-state-city";
@@ -17,6 +14,8 @@ import { useRouter } from "next/navigation";
 import { AuthContext } from "@/contexts/userContext";
 import useAlert from "@/hooks/useAlert";
 import { createOrder } from "@/api/order";
+import CheckoutForm from "../CheckoutForm";
+import { CardElement, PaymentElement } from "@stripe/react-stripe-js";
 
 const CheckoutWrapper = () => {
   const [data, setdata] = useState(null);
@@ -209,6 +208,8 @@ const CheckoutWrapper = () => {
         ""
       ) : (
         <div className="flex flex-wrap my-16 justify-center gap-10 md:gap-0">
+          {/* <CardElement /> */}
+          {/* <CheckoutForm /> */}
           <div className="w-full md:w-[57%] xl:w-[65%]">
             <div>
               <div className="flex flex-col gap-8">
@@ -398,7 +399,21 @@ const CheckoutWrapper = () => {
                       </div>
                     </div>
                     {paymentMethod == "card" && (
-                      <div className="border-t border-primary p-5">
+                      <>
+                        <PaymentElement
+                          className="border-none p-5"
+                          options={
+                            {
+                              // layout: {
+                              //   type: "accordion",
+                              //   defaultCollapsed: false,
+                              //   radios: true,
+                              //   spacedAccordionItems: false,
+                              // },
+                            }
+                          }
+                        />
+                        {/* <div className="border-t border-primary p-5">
                         <div className="flex flex-col gap-8">
                           <PrimaryInput
                             type="number"
@@ -433,7 +448,8 @@ const CheckoutWrapper = () => {
                             }}
                           />
                         </div>
-                      </div>
+                      </div> */}
+                      </>
                     )}
                   </div>
                 </div>

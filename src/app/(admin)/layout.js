@@ -1,5 +1,6 @@
 // "use client";
 import { getAdminBrands } from "@/api/brands";
+import { getAdmin } from "@/api/user";
 import Navbar from "@/components/admin/Navbar";
 import Sidebar from "@/components/admin/Sidebar";
 import { headers } from "next/headers";
@@ -11,7 +12,7 @@ export default async function RootLayout({ children }) {
   const activePath = headersList.get("x-invoke-path");
 
   try {
-    await getAdminBrands({ page: 1 });
+    await getAdmin();
   } catch (err) {
     redirect("/adminLogin");
   }

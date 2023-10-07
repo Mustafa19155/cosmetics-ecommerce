@@ -5,7 +5,7 @@ import Image from "next/image";
 import { AuthContext } from "@/contexts/userContext";
 import CartItem from "./CartItem";
 
-const CartLeft = ({ data }) => {
+const CartLeft = () => {
   const { cart, setcart } = useContext(AuthContext);
 
   return (

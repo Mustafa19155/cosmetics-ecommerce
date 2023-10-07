@@ -26,11 +26,13 @@ const Page = async () => {
         {/* <p>{data.brand.url}</p> */}
       </div>
       <div>
-        {data.brand.url && <Video url={data.brand.url} />}
+        <div className="my-12">
+          {data.brand.url && <Video url={data.brand.url} />}
+        </div>
         {/* <p className="text-3xl font-bold text-center">Categories</p> */}
         <div className="mt-12 flex flex-col gap-2">
           <p className="text-2xl font-bold">Categories</p>
-          <div className="flex justify-center sm:justify-start flex-wrap px-5 md:px-10 xl:px-20 mt-8 w-[90%] mx-auto">
+          <div className="flex justify-center sm:justify-start flex-wrap mt-8 w-full">
             {data.categories.map((cat) => (
               <Link
                 href={`/products/?category=${cat.name}`}

@@ -62,7 +62,7 @@ const OrdersTable = ({ mainPros, setmainPros }) => {
                     {moment(item.createdAt).format("MMM, D, YYYY")}
                   </p>
                 </td>
-                <td class="px-3 py-4">{item.name}</td>
+                <td class="px-3 py-4">{item.name ? item.name : item.email}</td>
                 <td
                   class={`px-3 py-4 ${
                     item.status == "pending"
