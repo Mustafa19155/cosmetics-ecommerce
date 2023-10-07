@@ -13,7 +13,7 @@ const Page = async () => {
   return (
     <div className="my-16">
       <div>
-        <div className="flex items-center justify-between w-[75%] sm:w-[50%]">
+        <div className="flex items-center justify-between">
           <div className="w-full h-[300px]">
             <img src={data.brand.image} className="object-cover" />
           </div>

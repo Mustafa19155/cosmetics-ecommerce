@@ -41,7 +41,7 @@ const ProductTop = ({ product }) => {
         setcart({
           ...cart,
           items: itemsCopy,
-          total: product.price * itemsCopy[itemIndex].quantity,
+          total: product.discountedPrice * itemsCopy[itemIndex].quantity,
         });
       }
     } else {
@@ -98,7 +98,13 @@ const ProductTop = ({ product }) => {
             disabled={product.quantity == 0}
             text={"BUY NOW"}
             className={"text-primary"}
-            clickHandler={() => router.push("/checkout")}
+            clickHandler={() => {
+              setcart({
+                total: product.discountedPrice * quantity,
+                items: [{ product, quantity }],
+              });
+              router.push("/checkout");
+            }}
           />
           <PinkButton
             disabled={product.quantity == 0}

@@ -34,7 +34,7 @@ const ProductsWrapper = ({ products }) => {
                 options={options}
                 active={currentFilter}
                 setactive={(e) => setcurrentFilter(e)}
-                dropdownClassName={"top-10"}
+                dropdownClassName={"!top-12"}
               />
             </div>
           </div>

@@ -22,11 +22,11 @@ const CategoryModal = ({ open, onclose, category, onconfirm }) => {
   }, [category]);
 
   const handleAddBrand = () => {
-    if (categoryName && description && url && image) {
+    if (categoryName && description && image) {
       const formData = new FormData();
       formData.append("name", categoryName);
       formData.append("description", description);
-      formData.append("url", url);
+      if (url) formData.append("url", url);
       formData.append("images", image);
       onconfirm({ data: formData });
     } else {
@@ -40,7 +40,7 @@ const CategoryModal = ({ open, onclose, category, onconfirm }) => {
         <p className="p-5">{category ? "Edit" : "Create"} Brand</p>
         <hr />
         <div className="flex p-8 justify-between flex-wrap">
-          <div className="flex flex-col gap-5 w-[100%] md:w-[50%] order-2 md:order-1">
+          <div className="flex flex-col gap-5 w-[100%] md:w-[40%] order-2 md:order-1">
             <div className="flex flex-col gap-1">
               <label>Brand Name</label>
               <PrimaryInput
@@ -59,7 +59,7 @@ const CategoryModal = ({ open, onclose, category, onconfirm }) => {
               />
             </div>
             <div className="flex flex-col gap-1">
-              <label>Brand Url</label>
+              <label>Youtube video url</label>
               <PrimaryInput
                 placeholder={"URL"}
                 changeHandler={(e) => seturl(e.target.value)}
@@ -67,7 +67,7 @@ const CategoryModal = ({ open, onclose, category, onconfirm }) => {
               />
             </div>
           </div>
-          <div className="w-[100%] md:w-[50%] flex justify-center items-center relative p-8 order-1 md:order-2">
+          <div className="w-[100%] md:w-[60%] flex justify-center items-center relative p-8 order-1 md:order-2">
             <label
               for={`upload-image-input-${category?.data._id}`}
               class={`cursor-pointer`}
@@ -77,10 +77,10 @@ const CategoryModal = ({ open, onclose, category, onconfirm }) => {
                   src={
                     image instanceof File ? URL.createObjectURL(image) : image
                   }
-                  className="h-[200px] w-[200px] object-cover"
+                  className="h-[200px] w-[350px] object-fit"
                 />
               ) : (
-                <div class="flex gap-3 border-dashed border-primary border w-fit p-12">
+                <div class="flex gap-3 border-dashed border-primary border w-[350px] p-12 justify-center">
                   <p className="font-bold text-lg">+ Add Photo</p>
                 </div>
               )}

@@ -28,6 +28,16 @@ export const loginUser = async ({ email, password }) => {
   }
 };
 
+export const getUser = async () => {
+  try {
+    const res = await axiosClient.get("/users/user");
+
+    return res.data;
+  } catch (err) {
+    throw err.response?.data?.message;
+  }
+};
+
 export const logout = async () => {
   try {
     const res = await axiosClient.get("/users/logout");

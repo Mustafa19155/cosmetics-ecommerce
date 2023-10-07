@@ -14,11 +14,18 @@ import { useRouter } from "next/navigation";
 import { AuthContext } from "@/contexts/userContext";
 import useAlert from "@/hooks/useAlert";
 import { createOrder } from "@/api/order";
-import CheckoutForm from "../CheckoutForm";
-import { CardElement, PaymentElement } from "@stripe/react-stripe-js";
+import {
+  CardElement,
+  PaymentElement,
+  useElements,
+  useStripe,
+} from "@stripe/react-stripe-js";
 
 const CheckoutWrapper = () => {
+  const stripe = useStripe();
+  const elements = useElements();
   const [data, setdata] = useState(null);
+
   const [loading, setloading] = useState(true);
 
   const { setAlert } = useAlert();
@@ -208,7 +215,6 @@ const CheckoutWrapper = () => {
         ""
       ) : (
         <div className="flex flex-wrap my-16 justify-center gap-10 md:gap-0">
-          {/* <CardElement /> */}
           {/* <CheckoutForm /> */}
           <div className="w-full md:w-[57%] xl:w-[65%]">
             <div>
@@ -400,19 +406,7 @@ const CheckoutWrapper = () => {
                     </div>
                     {paymentMethod == "card" && (
                       <>
-                        <PaymentElement
-                          className="border-none p-5"
-                          options={
-                            {
-                              // layout: {
-                              //   type: "accordion",
-                              //   defaultCollapsed: false,
-                              //   radios: true,
-                              //   spacedAccordionItems: false,
-                              // },
-                            }
-                          }
-                        />
+                        <PaymentElement className="border-none p-5" />
                         {/* <div className="border-t border-primary p-5">
                         <div className="flex flex-col gap-8">
                           <PrimaryInput
