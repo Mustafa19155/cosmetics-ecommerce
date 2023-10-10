@@ -9,6 +9,7 @@ import ConfirmModal from "@/components/Modals/ConfirmModal";
 import PinkButton from "@/components/buttons/PinkButton";
 
 const OrderTop = ({ order }) => {
+  const [apiCalled, setapiCalled] = useState(false);
   const statusOptions = [
     { name: "Pending", value: "pending" },
     // { name: "In Progress", value: "inprogress" },
@@ -22,11 +23,14 @@ const OrderTop = ({ order }) => {
   );
 
   const handleCompleteOrder = () => {
+    setapiCalled(true);
     completeOrder({ id: order._id })
       .then((res) => {
         window.location.reload();
       })
-      .catch((err) => {});
+      .catch((err) => {
+        setapiCalled(false);
+      });
   };
 
   return (
@@ -48,6 +52,7 @@ const OrderTop = ({ order }) => {
       <div className="flex gap-3 items-center flex-wrap">
         {currStatus.value == "completed" && order.status != "completed" && (
           <PinkButton
+            disabled={apiCalled}
             text={"Update Status"}
             className={"px-8 !w-fit"}
             clickHandler={() => setconfirmModalOpen(true)}

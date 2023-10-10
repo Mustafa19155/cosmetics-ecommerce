@@ -6,15 +6,26 @@ import moment from "moment";
 import Link from "next/link";
 import PinkButton from "@/components/buttons/PinkButton";
 import { AuthContext } from "@/contexts/userContext";
+import { recalculateDiscount } from "@/actions/recalculateDiscount";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
+  const router = useRouter();
   const [deliveryInformation, setdeliveryInformation] = useState(null);
   const [loading, setloading] = useState(true);
+  const [originalTotal, setoriginalTotal] = useState(0);
+
+  const { offers } = useContext(AuthContext);
 
   useEffect(() => {
-    setdeliveryInformation(
-      JSON.parse(localStorage.getItem("deliveryInformation"))
-    );
+    const info = JSON.parse(localStorage.getItem("deliveryInformation"));
+    if (info) {
+      setdeliveryInformation(
+        JSON.parse(localStorage.getItem("deliveryInformation"))
+      );
+    } else {
+      return router.push("/");
+    }
 
     setloading(false);
   }, []);
@@ -24,11 +35,19 @@ const Page = () => {
   useEffect(() => {
     if (deliveryInformation?.items.length > 0) {
       let disAm = 0;
-
+      let total = 0;
       deliveryInformation?.items.map((item) => {
+        total += item.quantity * item.product.price;
+        item.product = recalculateDiscount({
+          products: [item.product],
+          allOffers: offers,
+        })[0];
+
         disAm +=
-          item.quantity * (item.product.price - item.product.discountedPrice);
+          item.quantity *
+          (item.product.price - item.product.discountedPrice).toFixed(0);
       });
+      setoriginalTotal(total);
       setdiscountAmount(disAm);
     }
   }, [deliveryInformation]);
@@ -85,7 +104,7 @@ const Page = () => {
                         <p className="font-bold max-w-[120px] sm:max-w-[300px] md:max-w-[150px] lg:max-w-[280px] truncate line-clamp-2 whitespace-normal">
                           {item.product.name}
                         </p>
-                        <p>${item.product.price}</p>
+                        <p>€{item.product.discountedPrice}</p>
                       </div>
                       <p className="text-secondary text-sm">
                         {item.product.description}
@@ -98,25 +117,24 @@ const Page = () => {
             </div>
             <div className="flex justify-between items-center">
               <p className="font-bold">SubTotal</p>
-              <p className="font-bold">${deliveryInformation.total}</p>
+              <p className="font-bold">€{originalTotal}</p>
             </div>
             <div className="flex justify-between items-center">
               <p className="font-bold">Discount</p>
-              <p className="text-secondary">${discountAmount}</p>
+              <p className="text-secondary">€{discountAmount}</p>
             </div>
             <div className="flex justify-between items-center">
               <p className="font-bold">Delivery fee</p>
               <p className="text-secondary">
-                $ {deliveryInformation?.method == "online" ? 15 : 0}
+                € {deliveryInformation?.method == "online" ? 15 : 0}
               </p>
             </div>
 
             <div className="flex justify-between items-center text-xl font-bold">
               <p>Grand Total</p>
               <p>
-                $
+                €
                 {deliveryInformation.total -
-                  discountAmount +
                   (deliveryInformation?.online ? 15 : 0)}
               </p>
             </div>
@@ -150,7 +168,10 @@ const Page = () => {
               </div>
             )}
 
-            <Link href={"/"}>
+            <Link
+              href={"/"}
+              onClick={() => localStorage.removeItem("deliveryInformation")}
+            >
               <PinkButton text={"CONTINUE SHOPPING"} />
             </Link>
           </div>

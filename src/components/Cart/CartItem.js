@@ -69,7 +69,7 @@ const CartItem = ({ item, index }) => {
           <p>Remove</p>
         </div>
       </td>
-      <td class="text-lg font-bold pb-6">${item.product.discountedPrice}</td>
+      <td class="text-lg font-bold pb-6">€{item.product.discountedPrice}</td>
     </tr>
   );
 };

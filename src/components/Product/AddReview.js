@@ -10,9 +10,11 @@ const AddReview = ({ productId }) => {
   const [email, setemail] = useState("");
   const [description, setdescription] = useState("");
   const [rating, setrating] = useState(0);
+  const [apiCalled, setapiCalled] = useState(false);
 
   const handleAddReview = () => {
-    if (name && description && rating > 0)
+    if (name && description && rating > 0) {
+      setapiCalled(true);
       addReview({
         data: { name, email, description, product: productId, rating },
       })
@@ -20,6 +22,7 @@ const AddReview = ({ productId }) => {
           window.location.reload();
         })
         .catch((err) => {});
+    }
   };
 
   return (
@@ -58,6 +61,7 @@ const AddReview = ({ productId }) => {
           />
         </div>
         <PinkButton
+          disabled={apiCalled}
           clickHandler={handleAddReview}
           text={"SUBMIT"}
           className={"w-[35%] sm:w-[30%]"}

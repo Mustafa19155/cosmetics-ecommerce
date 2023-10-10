@@ -7,6 +7,8 @@ import DeleteIcon from "@/assets/icons/modals/delete-pink.svg";
 import Image from "next/image";
 
 const DeleteModal = ({ open, onclose, onconfirm, type }) => {
+  const [apiCalled, setapiCalled] = useState(false);
+
   return (
     <ModalWrapper open={open}>
       <div className="p-8 text-black">
@@ -18,7 +20,13 @@ const DeleteModal = ({ open, onclose, onconfirm, type }) => {
         </div>
         <div className="flex items-center justify-between gap-5 mt-8">
           <TransparentButton text={"CANCEL"} clickHandler={onclose} />
-          <PinkButton text={"DELETE"} clickHandler={onconfirm} />
+          <PinkButton
+            text={"DELETE"}
+            clickHandler={() => {
+              setapiCalled(true);
+              onconfirm();
+            }}
+          />
         </div>
       </div>
     </ModalWrapper>

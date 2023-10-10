@@ -28,6 +28,7 @@ const SubCategoryModal = ({ open, onclose, subcategory, onconfirm }) => {
   };
   const handleAddCategory = () => {
     if (category && activeBrand && image) {
+      setapiCalled(true);
       const formData = new FormData();
       formData.append("name", category);
       formData.append("brand", activeBrand._id);
@@ -104,11 +105,7 @@ const SubCategoryModal = ({ open, onclose, subcategory, onconfirm }) => {
           </div>
         </div>
         <div className="flex items-center justify-between gap-5 px-8 pb-5">
-          <TransparentButton
-            text={"CANCEL"}
-            clickHandler={onclose}
-            disabled={apiCalled}
-          />
+          <TransparentButton text={"CANCEL"} clickHandler={onclose} />
           <PinkButton
             disabled={apiCalled}
             text={`${subcategory ? "EDIT" : "ADD"}`}

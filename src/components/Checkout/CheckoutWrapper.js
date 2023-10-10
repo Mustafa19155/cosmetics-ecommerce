@@ -34,6 +34,8 @@ const CheckoutWrapper = () => {
 
   const [originalTotal, setoriginalTotal] = useState(0);
 
+  const [apiCalled, setapiCalled] = useState(false);
+
   useEffect(() => {
     if (cart.items.length > 0) {
       let disAm = 0;
@@ -189,9 +191,10 @@ const CheckoutWrapper = () => {
     } else {
       data.email = email;
     }
-
+    setapiCalled(true);
     createOrder({ data })
       .then((res) => {
+        setapiCalled(false);
         localStorage.setItem(
           "deliveryInformation",
           JSON.stringify({ ...data, items: cart.items })
@@ -199,7 +202,9 @@ const CheckoutWrapper = () => {
         setcart({ total: 0, items: [] });
         router.push("/orderSuccess");
       })
-      .catch((err) => {});
+      .catch((err) => {
+        setapiCalled(false);
+      });
   };
 
   const handleMethodChange = (name) => {
@@ -480,7 +485,7 @@ const CheckoutWrapper = () => {
                           <p className="font-bold max-w-[120px] sm:max-w-[300px] md:max-w-[150px] lg:max-w-[280px] truncate line-clamp-2 whitespace-normal">
                             {item.product.name}
                           </p>
-                          <p>${item.product.discountedPrice}</p>
+                          <p>€{item.product.discountedPrice}</p>
                         </div>
                         <p className="text-secondary text-sm">
                           {item.product.description}
@@ -493,22 +498,23 @@ const CheckoutWrapper = () => {
               </div>
               <div className="flex justify-between items-center">
                 <p className="font-bold">SubTotal</p>
-                <p className="font-bold">${originalTotal}</p>
+                <p className="font-bold">€{originalTotal}</p>
               </div>
               <div className="flex justify-between items-center">
                 <p className="font-bold">Discount</p>
-                <p className="text-secondary">${discountAmount}</p>
+                <p className="text-secondary">€{discountAmount}</p>
               </div>
               <div className="flex justify-between items-center">
                 <p className="font-bold">Delivery fee</p>
-                <p className="text-secondary">$ {deliveryFee}</p>
+                <p className="text-secondary">€{deliveryFee}</p>
               </div>
               <div className="flex justify-between items-center text-xl font-bold">
                 <p>Grand Total</p>
-                <p>${data.total}</p>
+                <p>€{data.total}</p>
               </div>
               <div>
                 <TransparentButton
+                  disabled={apiCalled}
                   text={"PLACE ORDER"}
                   clickHandler={handleCreateOrder}
                 />

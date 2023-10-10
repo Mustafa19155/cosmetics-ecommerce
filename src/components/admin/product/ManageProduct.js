@@ -20,6 +20,7 @@ import moment from "moment";
 
 const ManageProduct = ({ product, categories }) => {
   const router = useRouter();
+
   const [isEditing, setisEditing] = useState(product ? true : false);
   const [name, setname] = useState(product?.name);
   const [description, setdescription] = useState(product?.description);
@@ -64,7 +65,7 @@ const ManageProduct = ({ product, categories }) => {
       category &&
       images.length > 0
     ) {
-      // setapiCalled(true);
+      setapiCalled(true);
       const formData = new FormData();
       formData.append("name", name);
       formData.append("description", description);
@@ -106,6 +107,7 @@ const ManageProduct = ({ product, categories }) => {
             setAlert("Product Added Successfully", "success");
           })
           .catch((err) => {
+            setapiCalled(false);
             setAlert(err, "danger");
           });
       }
@@ -133,7 +135,6 @@ const ManageProduct = ({ product, categories }) => {
         </div>
         <div className="flex items-center gap-4 flex-wrap xs:flex-nowrap">
           <TransparentButton
-            disabled={apiCalled}
             text={"DISCARD"}
             className={"px-16"}
             clickHandler={() => setconfirmModalOpen(true)}

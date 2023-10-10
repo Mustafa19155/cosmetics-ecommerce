@@ -19,7 +19,7 @@ export default function PinkButton({
       onClick={clickHandler}
     >
       {icon && <Image src={icon} />}
-      {text}
+      {disabled ? "Loading..." : text}
     </button>
   );
 }

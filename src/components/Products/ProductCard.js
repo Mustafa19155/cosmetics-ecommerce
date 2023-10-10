@@ -55,8 +55,8 @@ const ProductCard = ({ product }) => {
           />
         </div>
         <div className="flex items-end gap-3">
-          <p className="font-semibold">${product.discountedPrice}</p>
-          <p className="text-sm text-gray-500 line-through">${product.price}</p>
+          <p className="font-semibold">€{product.discountedPrice}</p>
+          <p className="text-sm text-gray-500 line-through">€{product.price}</p>
         </div>
         <PinkButton
           text={"Buy Now"}

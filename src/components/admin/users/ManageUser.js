@@ -11,6 +11,8 @@ const ManageUser = ({ data, onconfirm }) => {
   const [email, setemail] = useState(data?.email);
   const [image, setimage] = useState(data?.picture);
   const [isEditing, setisEditing] = useState(false);
+  const [apiCalled, setapiCalled] = useState(false);
+
   useEffect(() => {
     setusername(data?.name);
     setemail(data?.email);
@@ -20,6 +22,7 @@ const ManageUser = ({ data, onconfirm }) => {
 
   const handleConfirm = async () => {
     if (username && email && image) {
+      setapiCalled(true);
       const formData = new FormData();
 
       formData.append("name", username);
@@ -96,6 +99,7 @@ const ManageUser = ({ data, onconfirm }) => {
           <div className="flex justify-center">
             {isEditing ? (
               <PinkButton
+                disabled={apiCalled}
                 text={"SAVE"}
                 className={"px-16"}
                 clickHandler={handleConfirm}

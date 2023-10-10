@@ -37,7 +37,7 @@ const CartRight = () => {
     <div className="flex flex-col gap-2">
       <div className="flex justify-between items-center">
         <p className="font-bold">SubTotal</p>
-        <p className="font-bold">$ {originalTotal}</p>
+        <p className="font-bold">€ {originalTotal}</p>
       </div>
       <div className="flex gap-3 text-sm items-center">
         <input type="checkbox" className="accent-primary bg-primary" />
@@ -50,12 +50,12 @@ const CartRight = () => {
       </div>
       <div className="flex justify-between items-center">
         <p className="font-bold">Discount Amount</p>
-        <p className="text-secondary">${discountAmount}</p>
+        <p className="text-secondary">€{discountAmount}</p>
       </div>
       <div className="flex justify-between items-center text-xl font-bold">
         <p>Grand Total</p>
-        <p>${cart.total}</p>
-        {/* <p>${total}</p> */}
+        <p>€{cart.total}</p>
+        {/* <p>€{total}</p> */}
       </div>
       <PinkButton
         text={"CHECKOUT NOW"}

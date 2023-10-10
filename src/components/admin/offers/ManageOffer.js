@@ -13,6 +13,8 @@ import { useRouter } from "next/navigation";
 import ConfirmModal from "@/components/Modals/ConfirmModal";
 import { addOffer, editOffer } from "@/api/offers";
 import useAlert from "@/hooks/useAlert";
+import "react-datepicker/dist/react-datepicker.css";
+import ReactDatePicker from "react-datepicker";
 
 const ManageOffer = ({ offer, brands }) => {
   const router = useRouter();
@@ -22,12 +24,17 @@ const ManageOffer = ({ offer, brands }) => {
   const [confirmModalOpen, setconfirmModalOpen] = useState(false);
   const [brand, setbrand] = useState("");
   const [starting_date, setstarting_date] = useState(
-    offer ? moment(offer.starting_date).format("DD MMM, YYYY") : ""
+    offer
+      ? moment(offer.starting).format("MM / DD / YYYY")
+      : moment(Date.now()).format("DD / MM / YYYY")
   );
   const [ending_date, setending_date] = useState(
-    offer ? moment(offer.ending_date).format("DD MMM, YYYY") : ""
+    offer
+      ? moment(offer.ending).format("MM / DD / YYYY")
+      : moment(Date.now()).format("DD /MM / YYYY")
   );
   const [discount, setdiscount] = useState(offer?.discount);
+  const [apiCalled, setapiCalled] = useState(false);
 
   const { setAlert } = useAlert();
 
@@ -45,6 +52,7 @@ const ManageOffer = ({ offer, brands }) => {
 
   const handleAddOffer = () => {
     if (name && starting_date && ending_date && discount) {
+      // setapiCalled(true);
       const formData = new FormData();
 
       formData.append("name", name);
@@ -124,6 +132,7 @@ const ManageOffer = ({ offer, brands }) => {
           />
 
           <PinkButton
+            disabled={apiCalled}
             text={isEditing ? "Save Changes" : "Save"}
             className={"px-16 whitespace-nowrap"}
             clickHandler={handleAddOffer}
@@ -145,24 +154,24 @@ const ManageOffer = ({ offer, brands }) => {
             Starting Date
           </label>
 
-          <PrimaryInput
-            type={"date"}
-            className={"!p-3"}
+          <ReactDatePicker
             value={starting_date}
-            changeHandler={(e) => setstarting_date(e.target.value)}
-            placeholder={moment(Date.now()).format("DD MMM, YYYY")}
+            onChange={(e) => {
+              setstarting_date(moment(e).format("MM / DD / YYYY"));
+            }}
+            className={`h-full w-full outline-none bg-gray-1 shadow-custom-1 py-2 px-2 rounded-md flex gap-2 items-center`}
           />
         </div>
         <div className="flex flex-col gap-2 mt-5">
           <label className="text-sm font-inter font-semibold">
             Ending Date
           </label>
-          <PrimaryInput
-            type={"date"}
-            className={"!p-3"}
+          <ReactDatePicker
             value={ending_date}
-            changeHandler={(e) => setending_date(e.target.value)}
-            placeholder={moment(Date.now()).format("DD MMM, YYYY")}
+            onChange={(e) => {
+              setending_date(moment(e).format("MM / DD / YYYY"));
+            }}
+            className={`h-full w-full outline-none bg-gray-1 shadow-custom-1 py-2 px-2 rounded-md flex gap-2 items-center`}
           />
         </div>
         <div className="flex flex-col gap-2 mt-5">

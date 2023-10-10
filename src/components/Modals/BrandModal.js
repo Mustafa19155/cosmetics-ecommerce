@@ -23,6 +23,7 @@ const CategoryModal = ({ open, onclose, category, onconfirm }) => {
 
   const handleAddBrand = () => {
     if (categoryName && description && image) {
+      setapiCalled(true);
       const formData = new FormData();
       formData.append("name", categoryName);
       formData.append("description", description);
@@ -95,11 +96,7 @@ const CategoryModal = ({ open, onclose, category, onconfirm }) => {
           </div>
         </div>
         <div className="flex items-center justify-between gap-5 px-8 pb-5">
-          <TransparentButton
-            text={"CANCEL"}
-            clickHandler={onclose}
-            disabled={apiCalled}
-          />
+          <TransparentButton text={"CANCEL"} clickHandler={onclose} />
           <PinkButton
             disabled={apiCalled}
             text={`${category ? "EDIT" : "ADD"}`}

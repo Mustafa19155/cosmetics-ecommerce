@@ -7,6 +7,8 @@ import DeleteIcon from "@/assets/icons/confirm-modal.svg";
 import Image from "next/image";
 
 const ConfirmModal = ({ open, onclose, onconfirm, description }) => {
+  const [apiCalled, setapiCalled] = useState(false);
+
   return (
     <ModalWrapper open={open}>
       <div className="p-8 text-black">
@@ -16,7 +18,14 @@ const ConfirmModal = ({ open, onclose, onconfirm, description }) => {
         </div>
         <div className="flex items-center justify-between gap-5 mt-8">
           <TransparentButton text={"CANCEL"} clickHandler={onclose} />
-          <PinkButton text={"CONFIRM"} clickHandler={onconfirm} />
+          <PinkButton
+            disabled={apiCalled}
+            text={"CONFIRM"}
+            clickHandler={() => {
+              setapiCalled(true);
+              onconfirm();
+            }}
+          />
         </div>
       </div>
     </ModalWrapper>
