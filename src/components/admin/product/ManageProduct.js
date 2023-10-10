@@ -16,6 +16,7 @@ import { addProduct, editProduct } from "@/api/products";
 import useAlert from "@/hooks/useAlert";
 import axios from "axios";
 import { axiosClient } from "@/api/axios";
+import moment from "moment";
 
 const ManageProduct = ({ product, categories }) => {
   const router = useRouter();
@@ -75,50 +76,39 @@ const ManageProduct = ({ product, categories }) => {
         if (img instanceof File) {
           formData.append("images", img);
         } else {
-          // var request = new XMLHttpRequest();
-          // request.open("GET", img, true);
-          // request.responseType = "blob";
-          // request.onload = function () {
-          //   var reader = new FileReader();
-          //   reader.readAsDataURL(request.response);
-          //   console.log(reader);
-          //   reader.onload = function (e) {
-          //     console.log("DataURL:", e.target.result);
-          //   };
-          // };
-
-          // request.send();
           const response = await fetch(img);
+
           const data = await response.blob();
 
-          const fileName = "updatedImage";
+          const fileName = "updatedImage.png";
+
           formData.append(
             "images",
             new File([data], fileName, {
-              type: response.headers.get("content-type"),
+              type: data.type,
             })
           );
         }
       });
-      // if (isEditing) {
-      //   editProduct({ data: formData, id: product._id })
-      //     .then((res) => {
-      //       setapiCalled(false);
-      //       setAlert("Product Updated Successfully", "success");
-      //     })
-      //     .catch((err) => {
-      //       setAlert(err, "danger");
-      //     });
-      // } else {
-      //   addProduct({ data: formData })
-      //     .then((res) => {
-      //       setapiCalled(false);
-      //       setAlert("Product Added Successfully", "success");
-      //     })
-      //     .catch((err) => {
-      //       setAlert(err, "danger");
-      //     });
-      // }
+      if (isEditing) {
+        editProduct({ data: formData, id: product._id })
+          .then((res) => {
+            setapiCalled(false);
+            setAlert("Product Updated Successfully", "success");
+          })
+          .catch((err) => {
+            setAlert(err, "danger");
+          });
+      } else {
+        addProduct({ data: formData })
+          .then((res) => {
+            setapiCalled(false);
+            setAlert("Product Added Successfully", "success");
+          })
+          .catch((err) => {
+            setAlert(err, "danger");
+          });
+      }
     } else {
       setAlert("Fill all fields", "danger");
     }

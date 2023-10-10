@@ -14,12 +14,13 @@ import ConfirmModal from "@/components/Modals/ConfirmModal";
 import { addOffer, editOffer } from "@/api/offers";
 import useAlert from "@/hooks/useAlert";
 
-const ManageOffer = ({ offer }) => {
+const ManageOffer = ({ offer, brands }) => {
   const router = useRouter();
   const [isEditing, setisEditing] = useState(offer ? true : false);
   const [name, setname] = useState(offer?.name);
   const [images, setimages] = useState(offer ? offer.images : []);
   const [confirmModalOpen, setconfirmModalOpen] = useState(false);
+  const [brand, setbrand] = useState("");
   const [starting_date, setstarting_date] = useState(
     offer ? moment(offer.starting_date).format("DD MMM, YYYY") : ""
   );
@@ -48,35 +49,25 @@ const ManageOffer = ({ offer }) => {
 
       formData.append("name", name);
       formData.append("starting_date", starting_date);
+      formData.append("starting", moment(starting_date).unix());
       formData.append("ending_date", ending_date);
+      formData.append("ending", moment(ending_date).unix());
       formData.append("discount", discount);
+      if (brand && brand._id) formData.append("brand", brand._id);
+      formData.append("all", brand && brand._id ? false : true);
       images.map(async (img) => {
         if (img instanceof File) {
           formData.append("images", img);
         } else {
-          // var request = new XMLHttpRequest();
-          // request.open("GET", img, true);
-          // request.responseType = "blob";
-          // request.onload = function () {
-          //   var reader = new FileReader();
-          //   reader.readAsDataURL(request.response);
-          //   console.log(reader);
-          //   reader.onload = function (e) {
-          //     console.log("DataURL:", e.target.result);
-          //   };
-          // };
-          // request.send();
+          const response = await fetch(img);
 
-          const response = await fetch(img, {
-            mode: "no-cors",
-          });
           const data = await response.blob();
 
-          const fileName = "updatedImage";
+          const fileName = "updatedImage.png";
           formData.append(
             "images",
             new File([data], fileName, {
-              type: response.headers.get("content-type"),
+              type: data.type,
             })
           );
         }
@@ -153,7 +144,9 @@ const ManageOffer = ({ offer }) => {
           <label className="text-sm font-inter font-semibold">
             Starting Date
           </label>
+
           <PrimaryInput
+            type={"date"}
             className={"!p-3"}
             value={starting_date}
             changeHandler={(e) => setstarting_date(e.target.value)}
@@ -165,6 +158,7 @@ const ManageOffer = ({ offer }) => {
             Ending Date
           </label>
           <PrimaryInput
+            type={"date"}
             className={"!p-3"}
             value={ending_date}
             changeHandler={(e) => setending_date(e.target.value)}
@@ -209,6 +203,16 @@ const ManageOffer = ({ offer }) => {
               onChange={(e) => setimages([...images, e.target.files[0]])}
             />
           </label>
+        </div>
+        <div className="flex flex-col gap-2 mt-5">
+          <label className="text-sm font-inter font-semibold">Brand</label>
+          <SelectInput
+            active={brand}
+            setactive={setbrand}
+            options={[{ name: "All Brands", value: "" }, ...brands]}
+            className={"!p-3 !bg-gray-1"}
+            dropdownClassName={"relative !top-1"}
+          />
         </div>
       </div>
     </div>

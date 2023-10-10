@@ -41,7 +41,8 @@ const CheckoutWrapper = () => {
       cart.items.map((item) => {
         total += item.quantity * item.product.price;
         disAm +=
-          item.quantity * (item.product.price - item.product.discountedPrice);
+          item.quantity *
+          (item.product.price - item.product.discountedPrice).toFixed(0);
       });
       setoriginalTotal(total);
       setdiscountAmount(disAm);

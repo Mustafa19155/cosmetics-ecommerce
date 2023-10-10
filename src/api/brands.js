@@ -73,7 +73,7 @@ export const deleteBrand = async ({ id }) => {
 export const getAllUserBrands = async () => {
   try {
     const res = await axiosClient.get(`/api/categories/products`);
-    return res.data;
+    return res.data.data;
   } catch (err) {
     throw err.response?.data?.message;
   }

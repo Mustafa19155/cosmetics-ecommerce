@@ -1,10 +1,13 @@
+import { getBrands } from "@/api/brands";
 import ManageOffer from "@/components/admin/offers/ManageOffer";
 import React from "react";
 
-const Page = () => {
+const Page = async () => {
+  const brands = await getBrands();
+
   return (
     <div>
-      <ManageOffer />
+      <ManageOffer brands={brands} />
     </div>
   );
 };

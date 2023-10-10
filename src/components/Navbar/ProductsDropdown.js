@@ -17,7 +17,9 @@ const ProductsDropdown = ({ screenWidth }) => {
       .then((res) => {
         setproductOptions(res);
       })
-      .catch((err) => {});
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   // useClickOutside(ref, () => setshowProductsDropdown(false));

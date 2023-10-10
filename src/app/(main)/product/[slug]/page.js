@@ -8,14 +8,22 @@ import Reviews from "@/components/Product/Reviews";
 import { headers } from "next/headers";
 import { getSingleProduct, getUserSingleProduct } from "@/api/products";
 import { getReviewsOfProduct } from "@/api/reviews";
+import { recalculateDiscount } from "@/actions/recalculateDiscount";
+import { getUserOffers } from "@/api/offers";
 
 const Page = async () => {
   const headersList = headers();
   const activePath = headersList.get("x-invoke-path");
   const id = activePath.split("/")[activePath.split("/").length - 1];
-  const product = await getUserSingleProduct({
-    id,
-  });
+  const offers = await getUserOffers();
+  const product = recalculateDiscount({
+    products: [
+      await getUserSingleProduct({
+        id,
+      }),
+    ],
+    allOffers: offers,
+  })[0];
   const reviews = await getReviewsOfProduct({
     id,
   });

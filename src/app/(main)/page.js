@@ -8,11 +8,17 @@ import FoundationImg from "@/assets/images/home/foundation.png";
 import { getAllCategories } from "@/api/categories";
 import { getLatestProducts } from "@/api/products";
 import { getUserOffers } from "@/api/offers";
+import { recalculateDiscount } from "@/actions/recalculateDiscount";
 
 export default async function Home() {
   const categories = (await getAllCategories()).slice(0, 4);
-  const latestProducts = await getLatestProducts();
+  // const latestProducts = (await getLatestProducts()).slice(0, 4);
   const offers = await getUserOffers();
+
+  const latestProducts = recalculateDiscount({
+    products: (await getLatestProducts()).slice(0, 4),
+    allOffers: offers,
+  });
 
   return (
     <div className=" relative top-[-74px] ">

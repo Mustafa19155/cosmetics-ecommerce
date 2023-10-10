@@ -5,7 +5,7 @@ import TrendingProducts from "@/components/Home/TrendingProducts";
 import { getLatestProducts } from "@/api/products";
 
 const Page = async () => {
-  const data = await getLatestProducts();
+  const data = (await getLatestProducts()).slice(0, 4);
   return (
     <div className="my-16 px-3 sm:px-0">
       <AboutTop />

@@ -8,13 +8,22 @@ import {
 import { redirect } from "next/navigation";
 import ProductCard from "@/components/Products/ProductCard";
 import ProductsWrapper from "@/components/Products/ProductsWrapper";
+import { recalculateDiscount } from "@/actions/recalculateDiscount";
+import { getUserOffers } from "@/api/offers";
 
 const Page = async ({ params, searchParams }) => {
+  const offers = await getUserOffers();
   let data = null;
   if (searchParams.name) {
-    data = await searchProduct({ name: searchParams.name });
+    data = await recalculateDiscount({
+      products: await searchProduct({ name: searchParams.name }),
+      allOffers: offers,
+    });
   } else if (searchParams.category) {
-    data = await getProductsByCategory({ name: searchParams.category });
+    data = recalculateDiscount({
+      products: await getProductsByCategory({ name: searchParams.category }),
+      allOffers: offers,
+    });
   } else {
     redirect("/");
   }

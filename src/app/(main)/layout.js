@@ -10,14 +10,33 @@ import { validateCart } from "@/api/cart";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import OffersContextProvider from "@/contexts/OffersConext";
+import { recalculateDiscount } from "@/actions/recalculateDiscount";
+import { getUserOffers } from "@/api/offers";
 
 const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
 
 export default function RootLayout({ children }) {
   const router = useRouter();
-  const { currentUser, setUser, cart, setcart } = useContext(AuthContext);
+  const {
+    currentUser,
+    setUser,
+    cart,
+    setcart,
+    offers,
+    setoffers,
+    wishlist,
+    setwishlist,
+  } = useContext(AuthContext);
 
-  useEffect(() => {
+  const handleGetOffers = () => {
+    getUserOffers()
+      .then((res) => {
+        setoffers(res);
+      })
+      .catch((err) => {});
+  };
+
+  const handleCartRecal = () => {
     getUser()
       .then((res) => {
         setUser(res.user);
@@ -26,14 +45,22 @@ export default function RootLayout({ children }) {
         setUser(null);
       });
 
+    setwishlist(recalculateDiscount({ products: wishlist, allOffers: offers }));
+
     const cartCopy = { ...cart };
+
     cartCopy.total = 0;
     validateCart({ array: cart.items.map((item) => item.product._id) })
       .then((res) => {
-        res.map((pro, index) => {
+        res.map(async (pro, index) => {
           if (!pro) {
             cartCopy.items.splice(index, 1);
           } else {
+            pro = recalculateDiscount({
+              products: [pro],
+              allOffers: offers,
+            })[0];
+
             const foundItem = cartCopy.items.find(
               (item) => item.product._id == pro._id
             );
@@ -48,6 +75,14 @@ export default function RootLayout({ children }) {
         setcart(cartCopy);
       })
       .catch((err) => {});
+  };
+
+  useEffect(() => {
+    handleCartRecal();
+  }, [offers]);
+
+  useEffect(() => {
+    handleGetOffers();
   }, []);
 
   const [clientSecret, setClientSecret] = useState(

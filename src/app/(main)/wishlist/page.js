@@ -6,6 +6,7 @@ import FoundationImg from "../../../assets/images/home/foundation.png";
 import { AuthContext } from "@/contexts/userContext";
 import ProductCard from "@/components/Products/ProductCard";
 import ProductsWrapper from "@/components/Products/ProductsWrapper";
+import { recalculateDiscount } from "@/actions/recalculateDiscount";
 
 const Page = () => {
   const [loading, setloading] = useState(true);
@@ -13,9 +14,13 @@ const Page = () => {
 
   const { wishlist } = useContext(AuthContext);
 
-  useEffect(() => {
+  const handleSetData = () => {
     setdata(wishlist);
     setloading(false);
+  };
+
+  useEffect(() => {
+    handleSetData();
   }, [wishlist]);
 
   return (
