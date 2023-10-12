@@ -13,7 +13,25 @@ export const getReviewsOfProduct = async ({ id }) => {
 export const addReview = async ({ data }) => {
   try {
     const res = await axiosClient.post(`/users/review/add`, data);
-    console.log(res);
+    // return res.data;
+  } catch (err) {
+    throw err.response?.data?.message;
+  }
+};
+
+export const getAdminReviews = async ({ id, page }) => {
+  try {
+    const res = await axiosClient.get(`/admin/reviews/${id}?page=${page}`);
+
+    return res.data;
+  } catch (err) {
+    throw err.response?.data?.message;
+  }
+};
+
+export const deleteReview = async ({ id }) => {
+  try {
+    const res = await axiosClient.delete(`/admin/review/delete/${id}`);
     // return res.data;
   } catch (err) {
     throw err.response?.data?.message;

@@ -77,16 +77,22 @@ const ManageProduct = ({ product, categories }) => {
         if (img instanceof File) {
           formData.append("images", img);
         } else {
-          const response = await fetch(img);
-
+          const response = await fetch(
+            img,
+            // "https://blogposts.s3.ap-northeast-1.amazonaws.com/1689577634481/32735073444_10cec6868e_o.jpg",
+            {
+              headers: {
+                Accept: "application/octet-stream", // Specify the desired MIME type
+              },
+            }
+          );
           const data = await response.blob();
-
           const fileName = "updatedImage.png";
 
           formData.append(
             "images",
             new File([data], fileName, {
-              type: data.type,
+              type: "image/jpeg",
             })
           );
         }
@@ -98,6 +104,7 @@ const ManageProduct = ({ product, categories }) => {
             setAlert("Product Updated Successfully", "success");
           })
           .catch((err) => {
+            setapiCalled(false);
             setAlert(err, "danger");
           });
       } else {
