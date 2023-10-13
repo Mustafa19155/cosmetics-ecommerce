@@ -31,7 +31,7 @@ export default async function Home() {
         <TrendingProducts products={latestProducts} />
         <AboutProduct />
         {offers.length > 0 && <SpecialOffers offers={offers} />}
-        <Testimonials reviews={reviews} />
+        {reviews.length > 0 && <Testimonials reviews={reviews} />}
       </div>
     </div>
   );
