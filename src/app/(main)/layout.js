@@ -12,8 +12,10 @@ import { Elements } from "@stripe/react-stripe-js";
 import OffersContextProvider from "@/contexts/OffersConext";
 import { recalculateDiscount } from "@/actions/recalculateDiscount";
 import { getUserOffers } from "@/api/offers";
+import { createPayment } from "@/api/payment";
+import { deleteCookie, setCookie } from "@/actions/serverActions";
 
-const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_PUBLISHABLE_KEY);
 
 export default function RootLayout({ children }) {
   const router = useRouter();
@@ -26,6 +28,7 @@ export default function RootLayout({ children }) {
     setoffers,
     wishlist,
     setwishlist,
+    setpaymentIntentId,
   } = useContext(AuthContext);
 
   const handleGetOffers = () => {
@@ -41,7 +44,8 @@ export default function RootLayout({ children }) {
       .then((res) => {
         setUser(res.user);
       })
-      .catch((err) => {
+      .catch(async (err) => {
+        await deleteCookie({ cookieName: "jwt" });
         setUser(null);
       });
 
@@ -85,33 +89,32 @@ export default function RootLayout({ children }) {
     handleGetOffers();
   }, []);
 
-  const [clientSecret, setClientSecret] = useState(
-    "sk_test_51I5EU6DbwDQYqmKoHRVYU2jw4jtzB8aQa6byuVIMyfDvYl3lxHOzmIRUZ6SabMmk1TV0jNu4w9akIgPY4E3krUbj00ewcroCvC"
-  );
+  const [clientSecret, setClientSecret] = useState("");
 
-  // useEffect(() => {
-  //   // Create PaymentIntent as soon as the page loads
-  //   fetch("/create-payment-intent", {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({ items: [{ id: "xl-tshirt" }] }),
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => setClientSecret(data.clientSecret));
-  // }, []);
+  useEffect(() => {
+    createPayment({ amount: 10 })
+      .then((res) => {
+        setpaymentIntentId(res.id);
+        setClientSecret(res.clientSecret);
+      })
+      .catch((err) => {});
+  }, []);
 
-  // const appearance = {
-  //   theme: "stripe",
-  // };
   // const options = {
-  //   clientSecret,
-  //   appearance,
+  //   mode: "payment",
+  //   amount: 1099,
+  //   currency: "eur",
+  //   appearance: {
+  //     theme: "stripe",
+  //   },
   // };
 
+  const appearance = {
+    theme: "stripe",
+  };
   const options = {
-    mode: "payment",
-    currency: "usd",
-    amount: 1099,
+    clientSecret,
+    appearance,
   };
 
   return (
@@ -124,18 +127,22 @@ export default function RootLayout({ children }) {
     //       rel="stylesheet"
     //     ></link>
     //   </head>
-    <Elements stripe={stripePromise} options={options}>
-      <OffersContextProvider>
-        <div className="overflow-x-hidden relative !top-0">
-          <WhatsappIcon />
-          <Navbar />
-          <div className="container mx-auto relative top-[75px]">
-            <div className="mb-[150px]">{children}</div>
-          </div>
-          <Footer />
-        </div>
-      </OffersContextProvider>
-    </Elements>
+    <>
+      {clientSecret && (
+        <Elements stripe={stripePromise} options={options}>
+          <OffersContextProvider>
+            <div className="overflow-x-hidden relative !top-0">
+              <WhatsappIcon />
+              <Navbar />
+              <div className="container mx-auto relative top-[75px]">
+                <div className="mb-[150px]">{children}</div>
+              </div>
+              <Footer />
+            </div>
+          </OffersContextProvider>
+        </Elements>
+      )}
+    </>
     // </html>
   );
 }

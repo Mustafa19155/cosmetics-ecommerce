@@ -75,11 +75,12 @@ const Page = () => {
             <p className="font-bold text-lg">Payment Method</p>
             {deliveryInformation.payment_method == "card" ? (
               <p className="text-secondary text-sm">
-                Mastercard ending with{" "}
+                Payment with card
+                {/* Mastercard ending with{" "}
                 {deliveryInformation.card_number.slice(
                   deliveryInformation.card_number.length - 4,
                   deliveryInformation.card_number.length
-                )}
+                )} */}
               </p>
             ) : (
               <p className="text-secondary text-sm">Cash on Delivery</p>

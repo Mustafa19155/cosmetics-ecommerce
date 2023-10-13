@@ -10,6 +10,7 @@ function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useLocalStorage("user", null);
   const [wishlist, setwishlist] = useLocalStorage("wishlist", []);
   const [cart, setcart] = useLocalStorage("cart", { total: 0, items: [] });
+  const [paymentIntentId, setpaymentIntentId] = useState("");
   const [offers, setoffers] = useState([]);
 
   const value = {
@@ -20,6 +21,8 @@ function AuthProvider({ children }) {
     currentUser,
     setUser: setCurrentUser,
     offers,
+    paymentIntentId,
+    setpaymentIntentId,
     setoffers,
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

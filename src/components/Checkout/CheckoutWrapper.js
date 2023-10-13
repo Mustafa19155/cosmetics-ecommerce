@@ -20,6 +20,7 @@ import {
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
+import { createPayment, updatePayment } from "@/api/payment";
 
 const CheckoutWrapper = () => {
   const stripe = useStripe();
@@ -30,7 +31,8 @@ const CheckoutWrapper = () => {
 
   const { setAlert } = useAlert();
 
-  const { cart, setcart, currentUser } = useContext(AuthContext);
+  const { cart, setcart, currentUser, paymentIntentId } =
+    useContext(AuthContext);
 
   const [originalTotal, setoriginalTotal] = useState(0);
 
@@ -126,16 +128,14 @@ const CheckoutWrapper = () => {
     deliveryMethod == "pickup" ? setdeliveryFee(0) : setdeliveryFee(15);
   }, [deliveryMethod]);
 
-  const handleCreateOrder = () => {
+  const handleCreateOrder = async () => {
     if (!currentUser && !email) {
       return setAlert("Please provide an email address", "danger");
     }
-
     const data = {
       method: deliveryMethod,
       delivery_charges: deliveryMethod == "online" ? 15 : 0,
     };
-
     if (deliveryMethod == "online") {
       let flag = true;
       for (const [key, value] of Object.entries(formData)) {
@@ -143,11 +143,9 @@ const CheckoutWrapper = () => {
           flag = false;
         }
       }
-
       if (!flag || !isValid) {
         return setAlert("Please fill all delivery details", "danger");
       }
-
       data.name = formData.username;
       data.email = formData.email;
       data.country = formData.country;
@@ -156,28 +154,24 @@ const CheckoutWrapper = () => {
       data.address = formData.address;
       data.number = value;
     }
-
     data.payment_method = paymentMethod;
-
-    if (paymentMethod == "card") {
-      if (!cardNo || !nameOnCard || !cvv || !expiry) {
-        return setAlert("Invalid Card Details", "danger");
-      }
-      data.card_number = cardNo;
-      data.card_name = nameOnCard;
-      data.card_cvv = cvv;
-      data.card_date = expiry;
-    }
+    // if (paymentMethod == "card") {
+    //   if (!cardNo || !nameOnCard || !cvv || !expiry) {
+    //     return setAlert("Invalid Card Details", "danger");
+    //   }
+    //   data.card_number = cardNo;
+    //   data.card_name = nameOnCard;
+    //   data.card_cvv = cvv;
+    //   data.card_date = expiry;
+    // }
     if (currentUser) {
       data.user = currentUser._id;
     }
     //cart info
-
     if (cart.items.length <= 0) {
       return setAlert("Your Cart is Empty", "danger");
     }
     data.total = cart.total;
-
     data.items = cart.items.map((item) => {
       return {
         quantity: item.quantity,
@@ -185,11 +179,30 @@ const CheckoutWrapper = () => {
         price: item.product.discountedPrice,
       };
     });
-
     if (currentUser) {
       data.email = currentUser.email;
     } else {
       data.email = email;
+    }
+    if (paymentMethod == "card") {
+      await updatePayment({ amount: cart.total, id: paymentIntentId });
+
+      setapiCalled(true);
+      if (elements == null) {
+        return;
+      }
+      const { error: submitError } = await elements.submit();
+      if (submitError) {
+        return;
+      }
+
+      await stripe.confirmPayment({
+        elements,
+        confirmParams: {
+          return_url: `${window.location.origin}/orderSuccess`,
+        },
+        redirect: "if_required",
+      });
     }
     setapiCalled(true);
     createOrder({ data })

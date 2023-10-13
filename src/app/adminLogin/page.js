@@ -2,7 +2,7 @@
 
 import PinkButton from "@/components/buttons/PinkButton";
 import TransparentButton from "@/components/buttons/TransparentButton";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import GoogleIcon from "../../assets/icons/google.svg";
 import Link from "next/link";
 import LoginMainImg from "../../assets/images/login.png";
@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { getAdmin, getUser, loginAdmin, loginUser } from "@/api/user";
 import { AuthContext } from "@/contexts/userContext";
 import useAlert from "@/hooks/useAlert";
+import { deleteCookie } from "@/actions/serverActions";
 
 export default function Page() {
   const router = useRouter();
@@ -35,6 +36,14 @@ export default function Page() {
         setAlert(err, "danger");
       });
   };
+
+  const handleDeleteCookie = async () => {
+    await deleteCookie({ cookieName: "jwt" });
+  };
+
+  useEffect(() => {
+    handleDeleteCookie();
+  }, []);
 
   return (
     <div className="flex h-screen">
