@@ -9,6 +9,7 @@ import { getAllCategories } from "@/api/categories";
 import { getLatestProducts } from "@/api/products";
 import { getUserOffers } from "@/api/offers";
 import { recalculateDiscount } from "@/actions/recalculateDiscount";
+import { getRandomReviews } from "@/api/reviews";
 
 export default async function Home() {
   const categories = (await getAllCategories()).slice(0, 4);
@@ -20,6 +21,8 @@ export default async function Home() {
     allOffers: offers,
   });
 
+  const reviews = await getRandomReviews();
+
   return (
     <div className=" relative top-[-74px] ">
       <SectionOne />
@@ -28,7 +31,7 @@ export default async function Home() {
         <TrendingProducts products={latestProducts} />
         <AboutProduct />
         {offers.length > 0 && <SpecialOffers offers={offers} />}
-        <Testimonials />
+        <Testimonials reviews={reviews} />
       </div>
     </div>
   );

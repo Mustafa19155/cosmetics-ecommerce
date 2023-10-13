@@ -24,14 +24,12 @@ const ManageOffer = ({ offer, brands }) => {
   const [confirmModalOpen, setconfirmModalOpen] = useState(false);
   const [brand, setbrand] = useState("");
   const [starting_date, setstarting_date] = useState(
-    offer
-      ? moment(offer.starting).format("MM / DD / YYYY")
-      : moment(Date.now()).format("DD / MM / YYYY")
+    offer ? moment(offer.starting).format("MM / DD / YYYY") : ""
+    // : moment(Date.now()).format("DD / MM / YYYY")
   );
   const [ending_date, setending_date] = useState(
-    offer
-      ? moment(offer.ending).format("MM / DD / YYYY")
-      : moment(Date.now()).format("DD /MM / YYYY")
+    offer ? moment(offer.ending).format("MM / DD / YYYY") : ""
+    // : moment(Date.now()).format("DD /MM / YYYY")
   );
   const [discount, setdiscount] = useState(offer?.discount);
   const [apiCalled, setapiCalled] = useState(false);
@@ -50,9 +48,9 @@ const ManageOffer = ({ offer, brands }) => {
     router.push("/admin/offers");
   };
 
-  const handleAddOffer = () => {
+  const handleAddOffer = async () => {
     if (name && starting_date && ending_date && discount) {
-      // setapiCalled(true);
+      setapiCalled(true);
       const formData = new FormData();
 
       formData.append("name", name);
@@ -63,24 +61,25 @@ const ManageOffer = ({ offer, brands }) => {
       formData.append("discount", discount);
       if (brand && brand._id) formData.append("brand", brand._id);
       formData.append("all", brand && brand._id ? false : true);
-      images.map(async (img) => {
-        if (img instanceof File) {
-          formData.append("images", img);
-        } else {
-          const response = await fetch(img);
+      await Promise.all(
+        images.map(async (img) => {
+          if (img instanceof File) {
+            formData.append("images", img);
+          } else {
+            const response = await fetch(img);
 
-          const data = await response.blob();
+            const data = await response.blob();
 
-          const fileName = "updatedImage.png";
-          formData.append(
-            "images",
-            new File([data], fileName, {
-              type: data.type,
-            })
-          );
-        }
-      });
-
+            const fileName = "updatedImage";
+            formData.append(
+              "images",
+              new File([data], fileName, {
+                type: data.type,
+              })
+            );
+          }
+        })
+      );
       if (!isEditing) {
         addOffer({
           data: formData,
@@ -94,9 +93,11 @@ const ManageOffer = ({ offer, brands }) => {
       } else {
         editOffer({ data: formData, id: offer._id })
           .then((res) => {
+            setapiCalled(false);
             setAlert("Offer Updated Successfully", "success");
           })
           .catch((err) => {
+            setapiCalled(false);
             setAlert(err, "danger");
           });
       }

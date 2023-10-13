@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import { Carousel } from "react-responsive-carousel";
-import MainImg from "../../assets/images/home/section1.png";
 
 const SpecialOffers = ({ offers }) => {
   const settings = {

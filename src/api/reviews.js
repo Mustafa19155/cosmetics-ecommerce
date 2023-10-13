@@ -37,3 +37,13 @@ export const deleteReview = async ({ id }) => {
     throw err.response?.data?.message;
   }
 };
+
+export const getRandomReviews = async () => {
+  try {
+    const res = await axiosClient.get(`/api/reviews/limit`);
+
+    return res.data.reviews;
+  } catch (err) {
+    throw err.response?.data?.message;
+  }
+};

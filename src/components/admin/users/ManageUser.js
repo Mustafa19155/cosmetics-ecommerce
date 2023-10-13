@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import PortfileImg from "@/assets/icons/profile.svg";
 import PrimaryInput from "@/components/Inputs/PrimaryInput";
 import PinkButton from "@/components/buttons/PinkButton";
+import useAlert from "@/hooks/useAlert";
 
 const ManageUser = ({ data, onconfirm }) => {
   const [loading, setloading] = useState(true);
@@ -12,6 +13,8 @@ const ManageUser = ({ data, onconfirm }) => {
   const [image, setimage] = useState(data?.picture);
   const [isEditing, setisEditing] = useState(false);
   const [apiCalled, setapiCalled] = useState(false);
+
+  const { setAlert } = useAlert();
 
   useEffect(() => {
     setusername(data?.name);
@@ -39,11 +42,18 @@ const ManageUser = ({ data, onconfirm }) => {
         formData.append(
           "images",
           new File([imgData], fileName, {
-            type: response.headers.get("content-type"),
+            type: imgData.type,
           })
         );
       }
-      onconfirm({ data: formData, id: data._id });
+      onconfirm({ data: formData, id: data._id })
+        .then((res) => {
+          setAlert("User successfully updated", "success");
+          setapiCalled(false);
+        })
+        .catch((err) => {
+          setapiCalled(false);
+        });
     }
   };
 

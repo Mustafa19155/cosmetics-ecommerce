@@ -55,7 +55,7 @@ const ManageProduct = ({ product, categories }) => {
     router.push("/admin/product");
   };
 
-  const handleAddProduct = () => {
+  const handleAddProduct = async () => {
     if (
       name &&
       description &&
@@ -73,30 +73,23 @@ const ManageProduct = ({ product, categories }) => {
       formData.append("discount", discount);
       formData.append("price", price);
       formData.append("category", category.value);
-      images.map(async (img) => {
-        if (img instanceof File) {
-          formData.append("images", img);
-        } else {
-          const response = await fetch(
-            img,
-            // "https://blogposts.s3.ap-northeast-1.amazonaws.com/1689577634481/32735073444_10cec6868e_o.jpg",
-            {
-              headers: {
-                Accept: "application/octet-stream", // Specify the desired MIME type
-              },
-            }
-          );
-          const data = await response.blob();
-          const fileName = "updatedImage.png";
-
-          formData.append(
-            "images",
-            new File([data], fileName, {
-              type: "image/jpeg",
-            })
-          );
-        }
-      });
+      await Promise.all(
+        images.map(async (img) => {
+          if (img instanceof File) {
+            formData.append("images", img);
+          } else {
+            const response = await fetch(img);
+            const data = await response.blob();
+            const fileName = "updatedImage";
+            formData.append(
+              "images",
+              new File([data], fileName, {
+                type: data.type,
+              })
+            );
+          }
+        })
+      );
       if (isEditing) {
         editProduct({ data: formData, id: product._id })
           .then((res) => {

@@ -5,7 +5,7 @@ import EditIcon from "@/assets/icons/edit-gray.svg";
 import DeleteModal from "@/components/Modals/DeleteModal";
 import CategoryModal from "@/components/Modals/BrandModal";
 import SubCategoryModal from "@/components/Modals/SubCategoryModal";
-import { deleteCategory } from "@/api/categories";
+import { deleteCategory, editCategory } from "@/api/categories";
 import { getBrands } from "@/api/brands";
 
 const SubCategoryTable = ({ mainPros, setmainPros }) => {
@@ -53,8 +53,14 @@ const SubCategoryTable = ({ mainPros, setmainPros }) => {
       .catch((err) => {});
     setdeleteModalOpen(false);
   };
-  const handleEdit = () => {
-    seteditModalOpen(false);
+  const handleEdit = ({ data }) => {
+    editCategory({ id: activeModalData.data._id, data })
+      .then((res) => {
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   useEffect(() => {
@@ -76,9 +82,8 @@ const SubCategoryTable = ({ mainPros, setmainPros }) => {
         type={"Category"}
       />
       <SubCategoryModal
-        brands={brands}
         open={editModalOpen}
-        category={activeModalData}
+        subcategory={activeModalData}
         onclose={() => seteditModalOpen(false)}
         onconfirm={handleEdit}
       />

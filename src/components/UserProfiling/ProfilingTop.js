@@ -28,26 +28,47 @@ const ProfilingTop = () => {
   const [name, setname] = useState("");
   const [email, setemail] = useState("");
   const [image, setimage] = useState("");
+  const [apiCalled, setapiCalled] = useState(false);
+  const [loading, setloading] = useState(true);
 
   const [isEditing, setisEditing] = useState(false);
 
-  const handleUpdateProfile = () => {
+  const handleUpdateProfile = async () => {
     if (email && name) {
+      setapiCalled(true);
       const formData = new FormData();
 
       formData.append("email", email);
       formData.append("name", name);
-      if (image instanceof File) formData.append("images", image);
+      if (image instanceof File) {
+        formData.append("images", image);
+      } else {
+        const response = await fetch(image);
+
+        const imgData = await response.blob();
+
+        const fileName = "updatedImage";
+        formData.append(
+          "images",
+          new File([imgData], fileName, {
+            type: imgData.type,
+          })
+        );
+      }
 
       updateUser({ data: formData })
         .then((res) => {
+          setapiCalled(false);
           window.location.reload();
         })
-        .catch((err) => {});
+        .catch((err) => {
+          setapiCalled(false);
+        });
     }
   };
 
   useEffect(() => {
+    setloading(false);
     if (currentUser) {
       setname(currentUser.name);
       setemail(currentUser.email);
@@ -57,95 +78,106 @@ const ProfilingTop = () => {
 
   return (
     <div>
-      <div className="shadow-cart-wrapper border-[rgba(251,107,144,0.2)] border p-6 flex flex-col gap-5 items-center w-[95%] sm:w-[70%] mx-auto">
-        <div className="flex flex-col gap-1 items-center">
-          <label for="file" className={`${isEditing ? "cursor-pointer" : ""}`}>
-            <img
-              src={
-                image
-                  ? image instanceof File
-                    ? URL.createObjectURL(image)
-                    : image
-                  : ProfileImg.src
-              }
-              className="h-[167px] w-[167px] rounded-full"
-            />
-
-            <input
-              disabled={!isEditing}
-              type="file"
-              id="file"
-              name="file"
-              className="hidden"
-              onChange={(e) => {
-                if (e.target.files.length > 0) {
-                  setimage(e.target.files[0]);
+      {loading ? (
+        ""
+      ) : (
+        <div className="shadow-cart-wrapper border-[rgba(251,107,144,0.2)] border p-6 flex flex-col gap-5 items-center w-[95%] sm:w-[70%] mx-auto">
+          <div className="flex flex-col gap-1 items-center">
+            <label
+              for="file"
+              className={`${isEditing ? "cursor-pointer" : ""}`}
+            >
+              <img
+                src={
+                  image
+                    ? image instanceof File
+                      ? URL.createObjectURL(image)
+                      : image
+                    : ProfileImg.src
                 }
-              }}
-            />
-          </label>
+                className="h-[167px] w-[167px] rounded-full"
+              />
 
-          <div className="flex items-center justify-center gap-2 relative mb-2 w-full">
+              <input
+                disabled={!isEditing}
+                type="file"
+                id="file"
+                name="file"
+                className="hidden"
+                onChange={(e) => {
+                  if (e.target.files.length > 0) {
+                    setimage(e.target.files[0]);
+                  }
+                }}
+              />
+            </label>
+
+            <div className="flex items-center justify-center gap-2 relative mb-2 w-full">
+              {isEditing ? (
+                <PrimaryInput
+                  textCenter={true}
+                  disabled={!isEditing}
+                  className={`${isEditing ? "" : "bg-white shadow-none"}`}
+                  value={name}
+                  changeHandler={(e) => setname(e.target.value)}
+                />
+              ) : (
+                <p>{name}</p>
+              )}
+              <Image
+                src={EditIcon}
+                className="h-[16px] w-[16px] cursor-pointer absolute right-0"
+                onClick={() => setisEditing(!isEditing)}
+              />
+            </div>
             {isEditing ? (
               <PrimaryInput
                 textCenter={true}
                 disabled={!isEditing}
                 className={`${isEditing ? "" : "bg-white shadow-none"}`}
-                value={name}
-                changeHandler={(e) => setname(e.target.value)}
+                value={email}
+                changeHandler={(e) => setemail(e.target.value)}
               />
             ) : (
-              <p>{name}</p>
+              <p>{email}</p>
             )}
-            <Image
-              src={EditIcon}
-              className="h-[16px] w-[16px] cursor-pointer absolute right-0"
-              onClick={() => setisEditing(!isEditing)}
-            />
+            <div className="flex items-center gap-1">
+              <Image src={DollarIcon} />
+              <p>{currentUser?.coins} points</p>
+            </div>
+            {isEditing && (
+              <PinkButton
+                text={"Save"}
+                clickHandler={handleUpdateProfile}
+                disabled={apiCalled}
+              />
+            )}
           </div>
-          {isEditing ? (
-            <PrimaryInput
-              textCenter={true}
-              disabled={!isEditing}
-              className={`${isEditing ? "" : "bg-white shadow-none"}`}
-              value={email}
-              changeHandler={(e) => setemail(e.target.value)}
-            />
-          ) : (
-            <p>{email}</p>
-          )}
-          <div className="flex items-center gap-1">
-            <Image src={DollarIcon} />
-            <p>{currentUser?.coins} points</p>
-          </div>
-          {isEditing && (
-            <PinkButton text={"Save"} clickHandler={handleUpdateProfile} />
-          )}
+          <PinkButton
+            text={"Rateu Us"}
+            icon={WhiteArrow}
+            className={"justify-between flex-row-reverse px-8"}
+          />
+          <PinkButton
+            clickHandler={() => router.push("/wishlist")}
+            text={"Favourites"}
+            icon={WhiteArrow}
+            className={"justify-between flex-row-reverse px-8"}
+          />
+          <PinkButton
+            text={"Change Password"}
+            icon={WhiteArrow}
+            className={"justify-between flex-row-reverse px-8"}
+            clickHandler={() => router.push("/profileResetPassword")}
+          />
+          <PinkButton
+            text={"Logout"}
+            icon={WhiteArrow}
+            className={"justify-between flex-row-reverse px-8"}
+            clickHandler={handleLogout}
+          />
         </div>
-        <PinkButton
-          text={"Rateu Us"}
-          icon={WhiteArrow}
-          className={"justify-between flex-row-reverse px-8"}
-        />
-        <PinkButton
-          clickHandler={() => router.push("/wishlist")}
-          text={"Favourites"}
-          icon={WhiteArrow}
-          className={"justify-between flex-row-reverse px-8"}
-        />
-        <PinkButton
-          text={"Change Password"}
-          icon={WhiteArrow}
-          className={"justify-between flex-row-reverse px-8"}
-          clickHandler={() => router.push("/profileResetPassword")}
-        />
-        <PinkButton
-          text={"Logout"}
-          icon={WhiteArrow}
-          className={"justify-between flex-row-reverse px-8"}
-          clickHandler={handleLogout}
-        />
-      </div>
+      )}
     </div>
   );
 };

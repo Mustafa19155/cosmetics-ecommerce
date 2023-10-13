@@ -6,8 +6,11 @@ import { addCategory } from "@/api/categories";
 import SubCategoryModal from "@/components/Modals/SubCategoryModal";
 import { addBrand } from "@/api/brands";
 import useAlert from "@/hooks/useAlert";
+import { useRouter } from "next/navigation";
 
 const ProductTop = ({ currentTab, setcurrentTab, brands }) => {
+  const router = useRouter();
+
   const [brandModalOpen, setbrandModalOpen] = useState(false);
   const [subCategoryModalOpen, setsubCategoryModalOpen] = useState(false);
 
@@ -54,7 +57,7 @@ const ProductTop = ({ currentTab, setcurrentTab, brands }) => {
                 ? "!bg-gray-1 !text-primary hover:!shadow-trans-btn"
                 : ""
             }`}
-            clickHandler={() => setcurrentTab("products")}
+            clickHandler={() => router.replace("product#products")}
           />
           <PinkButton
             text={"Brands"}
@@ -63,7 +66,7 @@ const ProductTop = ({ currentTab, setcurrentTab, brands }) => {
                 ? "!bg-gray-1 !text-primary hover:!shadow-trans-btn"
                 : ""
             }`}
-            clickHandler={() => setcurrentTab("brands")}
+            clickHandler={() => router.replace("product#brands")}
           />
           <PinkButton
             text={"Categories"}
@@ -72,7 +75,7 @@ const ProductTop = ({ currentTab, setcurrentTab, brands }) => {
                 ? "!bg-gray-1 !text-primary hover:!shadow-trans-btn"
                 : ""
             }`}
-            clickHandler={() => setcurrentTab("subcategories")}
+            clickHandler={() => router.replace("product#subcategories")}
           />
         </div>
         <div className="self-end">

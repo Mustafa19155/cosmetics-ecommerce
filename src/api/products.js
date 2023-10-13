@@ -76,7 +76,6 @@ export const editProduct = async ({ data, id }) => {
     axiosClient.defaults.headers = {
       "Content-Type": "multipart/form-data",
     };
-
     const res = await axiosClient.patch(`admin/product/edit/${id}`, data);
 
     axiosClient.defaults.headers = {
@@ -84,7 +83,7 @@ export const editProduct = async ({ data, id }) => {
       Accept: "application/json",
     };
 
-    return res.data;
+    // return res.data;
   } catch (err) {
     throw err.response?.data?.message;
   }

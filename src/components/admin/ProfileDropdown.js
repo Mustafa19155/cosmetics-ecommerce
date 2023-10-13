@@ -17,7 +17,7 @@ const ProfileDropdown = ({ show, setshow }) => {
       name: "Logout",
       value: "logout",
       clickHandler: () => {
-        router.push("/login");
+        router.push("/adminLogin");
       },
     },
   ];

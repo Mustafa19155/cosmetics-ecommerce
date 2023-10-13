@@ -40,14 +40,12 @@ const SubCategoryModal = ({ open, onclose, subcategory, onconfirm }) => {
   };
 
   useEffect(() => {
-    setcategory(subcategory?.name);
-    setimage(subcategory?.image);
+    handleGetAllBrands();
+    setcategory(subcategory?.data.name);
+    setimage(subcategory?.data.image);
     setrandId(Math.random() * 10);
     setactiveBrand(brands[0]?.data);
   }, [subcategory]);
-  useEffect(() => {
-    handleGetAllBrands();
-  }, []);
 
   return (
     <ModalWrapper open={open}>

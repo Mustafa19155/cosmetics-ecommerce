@@ -6,6 +6,7 @@ import TableWrapper from "../Tables/TableWrapper";
 import CategoryTable from "../Tables/BrandsTable";
 import SubCategoryTable from "../Tables/SubCategoryTable";
 import { getAdminProducts } from "@/api/products";
+import { useParams, useRouter } from "next/navigation";
 
 const ProductWrapper = ({
   products,
@@ -16,6 +17,8 @@ const ProductWrapper = ({
   catsPagination,
   brandsPagination,
 }) => {
+  const params = useParams();
+
   const [currentTab, setcurrentTab] = useState("products");
 
   const searchCols = ["name"];
@@ -62,6 +65,17 @@ const ProductWrapper = ({
       setproducts({ ...products, products: sortedData });
     }
   }, [productFilter]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    window.location.hash
+      ? window.location.hash == "#products"
+        ? setcurrentTab("products")
+        : window.location.hash == "#brands"
+        ? setcurrentTab("brands")
+        : setcurrentTab("subcategories")
+      : setcurrentTab("products");
+  }, [params]);
 
   return (
     <div>
