@@ -44,7 +44,7 @@ axiosClient.interceptors.response.use(
         // Redirect({ to: "/login" });
         if (typeof window != "undefined") {
           if (error.response.config.url.includes("/admin")) {
-            window.location.href = "/adminLogin";
+            // window.location.href = "/adminLogin";
           } else {
             window.location.href = "/login";
           }
