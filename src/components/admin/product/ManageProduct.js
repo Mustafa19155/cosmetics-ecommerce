@@ -177,7 +177,9 @@ const ManageProduct = ({ product, categories }) => {
           <PrimaryInput
             className={"!p-3"}
             value={price}
-            changeHandler={(e) => setprice(e.target.value)}
+            changeHandler={(e) => {
+              if (e.target.value > 0) setprice(e.target.value);
+            }}
             placeholder={"Price"}
             type={"number"}
           />
@@ -217,7 +219,9 @@ const ManageProduct = ({ product, categories }) => {
           <PrimaryInput
             className={"!p-3"}
             value={discount}
-            changeHandler={(e) => setdiscount(e.target.value)}
+            changeHandler={(e) => {
+              if (e.target.value >= 0) setdiscount(e.target.value);
+            }}
             placeholder={"50%"}
             type={"number"}
           />

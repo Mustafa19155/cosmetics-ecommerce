@@ -37,14 +37,16 @@ const CartItem = ({ item, index }) => {
       <td class="flex gap-2 items-center py-4">
         <div className="h-[90px] w-[90px] relative">
           {item.product.images[0] != "" && (
-            <Image fill src={item.product.images[0]} className="object-cover" />
+            <img src={item.product.images[0]} className="object-cover" />
           )}
         </div>
         <div className="flex flex-col justify-center overflow-hidden">
           <p className="text-lg font-bold max-w-[120px] sm:max-w-[300px] md:max-w-[150px] lg:max-w-[280px] truncate line-clamp-4 whitespace-normal">
             {item.product.name}
           </p>
-          <p className="text-secondary">{item.product.description}</p>
+          <p className="text-secondary truncate line-clamp-2 whitespace-normal max-w-[280px]">
+            {item.product.description}
+          </p>
         </div>
       </td>
       <td class="py-4">
