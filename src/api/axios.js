@@ -1,5 +1,5 @@
 import { Redirect } from "@/actions/redirect";
-import { getCookie, setCookie } from "@/actions/serverActions";
+import { deleteCookie, getCookie, setCookie } from "@/actions/serverActions";
 import axios from "axios";
 import { redirect } from "next/navigation";
 
@@ -38,14 +38,20 @@ axiosClient.interceptors.response.use(
         error.response.config.url != "/users/login" &&
         error.response.config.url != "/users/user"
       ) {
-        await setCookie({ cookieName: "jwt", cookieValue: null });
-        // redirect("/das");
+        await deleteCookie({ cookieName: "jwt" });
+        // await setCookie({ cookieName: "jwt", cookieValue: null });
         // Redirect({ to: "/login" });
         if (typeof window != "undefined") {
           if (error.response.config.url.includes("/admin")) {
             window.location.href = "/adminLogin";
           } else {
             window.location.href = "/login";
+          }
+        } else {
+          try {
+            redirect("/login");
+          } catch (err) {
+            redirect("/login");
           }
         }
       }

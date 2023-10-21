@@ -15,7 +15,7 @@ export default async function RootLayout({ children }) {
   try {
     await getAdmin();
   } catch (err) {
-    redirect("/adminLogin");
+    // redirect("/adminLogin");
   }
 
   return (
