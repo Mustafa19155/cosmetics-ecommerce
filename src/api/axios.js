@@ -18,6 +18,7 @@ axiosClient.interceptors.request.use(
   async (config) => {
     try {
       const token = await getCookie({ cookieName: "jwt" });
+      console.log(token);
       axiosClient.defaults.headers.common["Cookie"] = `jwt=${token.value}`;
     } catch (err) {}
     return config;
