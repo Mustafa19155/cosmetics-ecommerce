@@ -1,11 +1,15 @@
 import { getOffers } from "@/api/offers";
 import OfferCard from "@/components/admin/offers/OfferCard";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import React from "react";
 
 const Page = async () => {
-  const data = await getOffers();
-
+  try {
+    const data = await getOffers();
+  } catch (err) {
+    redirect("/adminLogin");
+  }
   return (
     <div>
       <p className="text-3xl font-bold">Offers</p>
