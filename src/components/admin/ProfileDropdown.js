@@ -1,6 +1,7 @@
 import React from "react";
 import Dropdown from "../Dropdowns/Dropdown";
 import { useRouter } from "next/navigation";
+import { deleteCookie } from "@/actions/serverActions";
 
 const ProfileDropdown = ({ show, setshow }) => {
   const router = useRouter();
@@ -16,7 +17,8 @@ const ProfileDropdown = ({ show, setshow }) => {
     {
       name: "Logout",
       value: "logout",
-      clickHandler: () => {
+      clickHandler: async () => {
+        await deleteCookie({ cookieName: "jwt" });
         router.push("/adminLogin");
       },
     },
