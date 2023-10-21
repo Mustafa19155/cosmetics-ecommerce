@@ -41,7 +41,7 @@ const ProductGallery = ({ images }) => {
       <div className="overflow-hidden">
         <img
           src={images[selectedImageIndex]}
-          className="h-[400px] object-contain"
+          className="h-[400px] object-contain mx-auto"
         />
       </div>
       <div className="flex items-center gap-3 justify-between">

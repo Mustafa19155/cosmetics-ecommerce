@@ -500,7 +500,7 @@ const CheckoutWrapper = () => {
                           </p>
                           <p>€{item.product.discountedPrice}</p>
                         </div>
-                        <p className="text-secondary text-sm">
+                        <p className="text-secondary text-sm truncate whitespace-normal line-clamp-2">
                           {item.product.description}
                         </p>
                         <p className="text-sm">x{item.quantity}</p>
