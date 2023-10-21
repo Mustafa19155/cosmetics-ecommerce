@@ -29,7 +29,9 @@ const ManageProduct = ({ product, categories }) => {
   const [confirmModalOpen, setconfirmModalOpen] = useState(false);
   const [discount, setdiscount] = useState(product ? product.discount : 0);
   const [quantity, setquantity] = useState(product ? product.quantity : 0);
-  const [category, setcategory] = useState(product?.category);
+  const [category, setcategory] = useState(
+    product ? product.category : categories[0]
+  );
   const [apiCalled, setapiCalled] = useState(false);
 
   const { setAlert } = useAlert();

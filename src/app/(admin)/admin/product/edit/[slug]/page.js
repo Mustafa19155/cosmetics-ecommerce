@@ -1,6 +1,6 @@
 import React from "react";
 import ManageProduct from "@/components/admin/product/ManageProduct";
-import { getAllCategories } from "@/api/categories";
+import { getAllAdminCategories, getAllCategories } from "@/api/categories";
 import { cookies, headers } from "next/headers";
 import { getSingleProduct } from "@/api/products";
 import { getAdminReviews } from "@/api/reviews";
@@ -17,9 +17,9 @@ const Page = async () => {
     id,
   });
 
-  const categories = (await getAllCategories()).map((cat) => {
+  const categories = (await getAllAdminCategories()).map((cat) => {
     return {
-      name: cat.name,
+      name: `${cat.name} (${cat.brand?.name})`,
       value: cat._id,
     };
   });

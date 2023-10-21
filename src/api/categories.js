@@ -10,6 +10,16 @@ export const getAllCategories = async () => {
   }
 };
 
+export const getAllAdminCategories = async () => {
+  try {
+    const res = await axiosClient.get("/admin/category/all");
+
+    return res.data.categories;
+  } catch (err) {
+    throw err.response?.data?.message;
+  }
+};
+
 export const getAdminCategories = async ({ page }) => {
   try {
     if (!page) {

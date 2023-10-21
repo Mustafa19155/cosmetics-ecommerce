@@ -15,19 +15,19 @@ const Page = async () => {
       <div>
         <div className="flex items-center justify-between">
           <div className="w-full h-[300px]">
-            <img src={data.brand.image} className="object-cover h-full" />
+            <img src={data.brand?.image} className="object-cover h-full" />
           </div>
           {/* <p className="text-4xl font-bold">{data.brand.name}</p> */}
         </div>
         <div className="mt-12 flex flex-col gap-2">
           <p className="text-2xl font-bold">Description</p>
-          <p>{data.brand.description}</p>
+          <p>{data.brand?.description}</p>
         </div>
         {/* <p>{data.brand.url}</p> */}
       </div>
       <div>
         <div className="my-12">
-          {data.brand.url && <Video url={data.brand.url} />}
+          {data.brand?.url && <Video url={data.brand?.url} />}
         </div>
         {/* <p className="text-3xl font-bold text-center">Categories</p> */}
         <div className="mt-12 flex flex-col gap-2">
