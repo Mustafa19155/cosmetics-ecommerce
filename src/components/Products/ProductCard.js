@@ -36,13 +36,7 @@ const ProductCard = ({ product }) => {
         </p>
       </div>
       <div className="relative h-[15vw] min-h-[270px] mb-2">
-        <Image
-          src={product.images[0]}
-          fill
-          // width={30}
-          // height={30}
-          className="w-full object-cover"
-        />
+        <img src={product.images[0]} className="w-full object-cover" />
       </div>
       <Stars rating={product.review} starColor={"#FDCC0D"} />
       <div className="flex flex-col gap-2 mt-2">
