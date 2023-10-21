@@ -29,12 +29,17 @@ const ProductCard = ({ product }) => {
   };
 
   return (
-    <div className="w-[90%] sm:w-[48%] lg:w-[23.5%] mt-10 relative">
-      <div className="absolute top-0 right-0 bg-primary w-[50%] px-3 py-2 text-center min-w-fit z-20">
-        <p className="text-white whitespace-nowrap">
-          {product.discount} % discount
-        </p>
-      </div>
+    <div
+      className="w-[90%] sm:w-[48%] lg:w-[23.5%] mt-10 relative cursor-pointer"
+      onClick={() => router.push(`/product/${product._id}`)}
+    >
+      {product.discount > 0 && (
+        <div className="absolute top-0 right-0 bg-primary w-[50%] px-3 py-2 text-center min-w-fit z-20">
+          <p className="text-white whitespace-nowrap">
+            {product.discount} % discount
+          </p>
+        </div>
+      )}
       <div className="relative h-[15vw] min-h-[270px] mb-2">
         <img src={product.images[0]} className="w-full object-cover h-full" />
       </div>
@@ -52,10 +57,7 @@ const ProductCard = ({ product }) => {
           <p className="font-semibold">€{product.discountedPrice}</p>
           <p className="text-sm text-gray-500 line-through">€{product.price}</p>
         </div>
-        <PinkButton
-          text={"Buy Now"}
-          clickHandler={() => router.push(`/product/${product._id}`)}
-        />
+        <PinkButton text={"Buy Now"} />
       </div>
     </div>
   );

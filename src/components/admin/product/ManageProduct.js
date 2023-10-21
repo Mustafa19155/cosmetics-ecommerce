@@ -27,7 +27,7 @@ const ManageProduct = ({ product, categories }) => {
   const [price, setprice] = useState(product?.price);
   const [images, setimages] = useState(product ? product.images : []);
   const [confirmModalOpen, setconfirmModalOpen] = useState(false);
-  const [discount, setdiscount] = useState(product?.discount);
+  const [discount, setdiscount] = useState(product ? product.discount : 0);
   const [quantity, setquantity] = useState(product ? product.quantity : 0);
   const [category, setcategory] = useState(product?.category);
   const [apiCalled, setapiCalled] = useState(false);
@@ -61,7 +61,7 @@ const ManageProduct = ({ product, categories }) => {
       description &&
       quantity > 0 &&
       price &&
-      discount &&
+      discount >= 0 &&
       category &&
       images.length > 0
     ) {

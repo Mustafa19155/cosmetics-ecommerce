@@ -15,7 +15,7 @@ const Page = async () => {
       <div>
         <div className="flex items-center justify-between">
           <div className="w-full h-[300px]">
-            <img src={data.brand.image} className="object-cover" />
+            <img src={data.brand.image} className="object-cover h-full" />
           </div>
           {/* <p className="text-4xl font-bold">{data.brand.name}</p> */}
         </div>
@@ -38,7 +38,10 @@ const Page = async () => {
                 href={`/products/?category=${cat.name}`}
                 className="w-[85%] sm:w-[44%] lg:w-[28%] text-center mt-10"
               >
-                <img src={cat.image} className="w-full h-[9vw] min-h-[170px]" />
+                <img
+                  src={cat.image}
+                  className="w-full h-[9vw] min-h-[170px] object-contain"
+                />
                 <p className="text-xl mt-4 font-semibold">{cat.name}</p>
               </Link>
             ))}
