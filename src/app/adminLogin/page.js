@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 import { getAdmin, getUser, loginAdmin, loginUser } from "@/api/user";
 import { AuthContext } from "@/contexts/userContext";
 import useAlert from "@/hooks/useAlert";
-import { deleteCookie } from "@/actions/serverActions";
+import { deleteCookie, setCookie } from "@/actions/serverActions";
 
 export default function Page() {
   const router = useRouter();
@@ -24,7 +24,8 @@ export default function Page() {
 
   const handleLogin = () => {
     loginAdmin({ email, password })
-      .then((res) => {
+      .then(async (res) => {
+        await setCookie({ cookieName: "jwt", cookieValue: res.jwt });
         getAdmin()
           .then((res) => {
             setUser({ name: res.name, email: res.email, picture: res.picture });
