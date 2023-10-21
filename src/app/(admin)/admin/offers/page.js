@@ -5,11 +5,8 @@ import { redirect } from "next/navigation";
 import React from "react";
 
 const Page = async () => {
-  try {
-    const data = await getOffers();
-  } catch (err) {
-    redirect("/adminLogin");
-  }
+  const data = await getOffers();
+
   return (
     <div>
       <p className="text-3xl font-bold">Offers</p>
