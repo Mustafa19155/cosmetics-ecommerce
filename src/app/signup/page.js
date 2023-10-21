@@ -20,18 +20,22 @@ export default function Page() {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [confirmPassword, setconfirmPassword] = useState();
+  const [apiCalled, setapiCalled] = useState(false);
 
   const handleRegister = () => {
     if (email && password && name)
       if (password == confirmPassword) {
+        setapiCalled(true);
         registerUser({ name, email, password })
           .then((res) => {
+            setapiCalled(false);
             setAlert(
               "Account created succesfully. Please Login to continue",
               "success"
             );
           })
           .catch((err) => {
+            setapiCalled(false);
             setAlert(err, "danger");
           });
       } else {

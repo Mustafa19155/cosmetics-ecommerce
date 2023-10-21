@@ -18,10 +18,12 @@ export default function Page() {
   const [email, setemail] = useState("");
   const { setAlert } = useAlert();
   const [password, setpassword] = useState("");
+  const [apiCalled, setapiCalled] = useState(false);
 
   const { setUser } = useContext(AuthContext);
 
   const handleLogin = () => {
+    setapiCalled(true);
     loginUser({ email, password })
       .then((res) => {
         router.push("/");
@@ -31,10 +33,12 @@ export default function Page() {
             router.push("/");
           })
           .catch((err) => {
+            setapiCalled(false);
             setAlert(err, "danger");
           });
       })
       .catch((err) => {
+        setapiCalled(false);
         setAlert(err, "danger");
       });
   };
@@ -76,7 +80,11 @@ export default function Page() {
               </Link>
             </div>
 
-            <PinkButton text={"LOGIN"} clickHandler={handleLogin} />
+            <PinkButton
+              text={"LOGIN"}
+              clickHandler={handleLogin}
+              disabled={apiCalled}
+            />
             <TransparentButton
               clickHandler={() =>
                 router.push(

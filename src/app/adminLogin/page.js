@@ -19,21 +19,27 @@ export default function Page() {
   const [email, setemail] = useState("");
   const { setAlert } = useAlert();
   const [password, setpassword] = useState("");
+  const [apiCalled, setapiCalled] = useState(false);
 
   const { setUser } = useContext(AuthContext);
 
   const handleLogin = () => {
+    setapiCalled(true);
     loginAdmin({ email, password })
       .then(async (res) => {
         await setCookie({ cookieName: "jwt", cookieValue: res.jwt });
         getAdmin()
           .then((res) => {
+            setapiCalled(false);
             setUser({ name: res.name, email: res.email, picture: res.picture });
             router.push("/admin");
           })
-          .catch((err) => {});
+          .catch((err) => {
+            setapiCalled(false);
+          });
       })
       .catch((err) => {
+        setapiCalled(false);
         setAlert(err, "danger");
       });
   };
@@ -83,7 +89,11 @@ export default function Page() {
               </Link> */}
             </div>
 
-            <PinkButton text={"LOGIN"} clickHandler={handleLogin} />
+            <PinkButton
+              text={"LOGIN"}
+              clickHandler={handleLogin}
+              disabled={apiCalled}
+            />
             {/* <TransparentButton
               clickHandler={() =>
                 router.push(
