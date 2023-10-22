@@ -10,6 +10,7 @@ const Page = async () => {
   const id = activePath.split("/")[activePath.split("/").length - 1];
 
   const data = await getUserSingleBrand({ id });
+
   return (
     <div className="my-16">
       <div>

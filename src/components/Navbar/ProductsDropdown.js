@@ -1,26 +1,28 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Dropdown from "../Dropdowns/Dropdown";
 import Link from "next/link";
 import { redirect, usePathname, useRouter } from "next/navigation";
 import { getAllUserBrands } from "@/api/brands";
 import useClickOutside from "@/hooks/useClickOutside";
+import { BrandsContext } from "@/contexts/brandsContext";
 
 const ProductsDropdown = ({ screenWidth }) => {
   const ref = useRef(null);
   const pathname = usePathname();
 
   const [showProductsDropdown, setshowProductsDropdown] = useState(false);
-  const [productOptions, setproductOptions] = useState([]);
 
-  useEffect(() => {
-    getAllUserBrands()
-      .then((res) => {
-        setproductOptions(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  const { brands } = useContext(BrandsContext);
+
+  // const [productOptions, setproductOptions] = useState([]);
+
+  // useEffect(() => {
+  //   getAllUserBrands()
+  //     .then((res) => {
+  //       setproductOptions(res);
+  //     })
+  //     .catch((err) => {});
+  // }, []);
 
   // useClickOutside(ref, () => setshowProductsDropdown(false));
 
@@ -43,7 +45,7 @@ const ProductsDropdown = ({ screenWidth }) => {
           showProductsDropdown ? "block" : "hidden"
         }`}
       >
-        {productOptions.map((opt, index) => (
+        {brands.map((opt, index) => (
           <div
             className="text-secondary p-3 cursor-pointer whitespace-nowrap h-fit w-[25%] min-w-[150px]"
             onClick={() => {

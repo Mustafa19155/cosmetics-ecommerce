@@ -29,7 +29,6 @@ const Footer = () => {
                 />
               </svg>
             </div>
-            {/* <Image src={FacebookIcon} /> */}
           </Link>
           <Link
             href={"https://www.instagram.com/aliyaabeautyintl/"}
@@ -48,7 +47,6 @@ const Footer = () => {
                 />
               </svg>
             </div>
-            {/* <Image src={TwitterIcon} /> */}
           </Link>
           <Link href={"https://www.tiktok.com/@aliyaabeauty"} target="_blank">
             <div className="bg-white rounded-lg p-1">
@@ -64,7 +62,6 @@ const Footer = () => {
                 />
               </svg>
             </div>
-            {/* <Image src={LinkedInIcon} /> */}
           </Link>
         </div>
         <div className="flex justify-between flex-wrap">
@@ -80,27 +77,31 @@ const Footer = () => {
             <p className="text-2xl font-semibold mb-2">Information</p>
             <div className="flex flex-col gap-2">
               <Link
-                className="hover:text-primary duration-75"
+                className="hover:text-primary duration-75 w-fit"
                 href={"/userProfiling"}
               >
                 <p>My account</p>
               </Link>
               <Link
-                className="hover:text-primary duration-75"
+                className="hover:text-primary duration-75 w-fit"
                 href={"/checkout"}
               >
                 <p>Checkout</p>
               </Link>
-              <Link className="hover:text-primary duration-75" href={"/cart"}>
+              <Link
+                className="hover:text-primary duration-75"
+                href={"/cart"}
+                w-fit
+              >
                 <p>Cart</p>
               </Link>
               <Link
-                className="hover:text-primary duration-75"
+                className="hover:text-primary duration-75 w-fit"
                 href={"/products"}
               >
                 <p>Shop</p>
               </Link>
-              <Link className="hover:text-primary duration-75" href={"/"}>
+              <Link className="hover:text-primary duration-75" href={"/"} w-fit>
                 <p>Sample Page</p>
               </Link>
             </div>
@@ -109,28 +110,32 @@ const Footer = () => {
             <p className="text-2xl font-semibold mb-2">Quick Links</p>
             <div className="flex flex-col gap-2">
               <Link
-                className="hover:text-primary duration-75"
+                className="hover:text-primary duration-75 w-fit"
                 href={"/wishlist"}
               >
                 <p>Wishlist</p>
               </Link>
               <Link
-                className="hover:text-primary duration-75"
+                className="hover:text-primary duration-75 w-fit"
                 href={"/userProfiling"}
               >
                 <p>My account</p>
               </Link>
               <Link
-                className="hover:text-primary duration-75"
+                className="hover:text-primary duration-75 w-fit"
                 href={"/checkout"}
               >
                 <p>Checkout</p>
               </Link>
-              <Link className="hover:text-primary duration-75" href={"/cart"}>
+              <Link
+                className="hover:text-primary duration-75"
+                href={"/cart"}
+                w-fit
+              >
                 <p>Cart</p>
               </Link>
               <Link
-                className="hover:text-primary duration-75"
+                className="hover:text-primary duration-75 w-fit"
                 href={"/products"}
               >
                 <p>Shop</p>
@@ -162,25 +167,25 @@ const Footer = () => {
           </p>
           <div className="flex flex-col sm:flex-row items-center gap-5 whitespace-nowrap">
             <Link
-              className="hover:text-primary duration-75"
+              className="hover:text-primary duration-75 w-fit"
               href={"/termsAndConditions"}
             >
               <p>Terms and Conditions</p>
             </Link>
             <Link
-              className="hover:text-primary duration-75"
+              className="hover:text-primary duration-75 w-fit"
               href={"/privacyPolicy"}
             >
               <p>Privacy Policy</p>
             </Link>
             <Link
-              className="hover:text-primary duration-75"
+              className="hover:text-primary duration-75 w-fit"
               href={"/cookiePolicy"}
             >
               <p>Cookie Policy</p>
             </Link>
             <Link
-              className="hover:text-primary duration-75"
+              className="hover:text-primary duration-75 w-fit"
               href={"/legalWarning"}
             >
               <p>Legal Warning</p>

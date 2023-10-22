@@ -14,6 +14,7 @@ import { recalculateDiscount } from "@/actions/recalculateDiscount";
 import { getUserOffers } from "@/api/offers";
 import { createPayment } from "@/api/payment";
 import { deleteCookie, setCookie } from "@/actions/serverActions";
+import BrandsContextProvider from "@/contexts/brandsContext";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_PUBLISHABLE_KEY);
 
@@ -131,14 +132,16 @@ export default function RootLayout({ children }) {
       {clientSecret && (
         <Elements stripe={stripePromise} options={options}>
           <OffersContextProvider>
-            <div className="overflow-x-hidden relative !top-0">
-              <WhatsappIcon />
-              <Navbar />
-              <div className="container mx-auto relative top-[75px]">
-                <div className="mb-[150px]">{children}</div>
+            <BrandsContextProvider>
+              <div className="overflow-x-hidden relative !top-0">
+                <WhatsappIcon />
+                <Navbar />
+                <div className="container mx-auto relative top-[75px]">
+                  <div className="mb-[150px]">{children}</div>
+                </div>
+                <Footer />
               </div>
-              <Footer />
-            </div>
+            </BrandsContextProvider>
           </OffersContextProvider>
         </Elements>
       )}

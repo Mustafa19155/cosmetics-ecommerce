@@ -19,9 +19,9 @@ const Page = () => {
           <br />
           You can exercise, at any time, the rights of access, rectification,
           cancellation and opposition of your personal data by email addressed
-          to aliyaabeauty@aliyaabeauty.com or by writing to Avenida san memes
-          local 15 código postal 24007 León Spain, always accompanying a
-          photocopy of your ID
+          to info@aliyaabeauty.com or by writing to Avenida san memes local 15
+          código postal 24007 León Spain, always accompanying a photocopy of
+          your ID
         </p>
       </div>
       <div>

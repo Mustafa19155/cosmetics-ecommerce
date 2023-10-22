@@ -46,7 +46,7 @@ const CheckoutWrapper = () => {
         total += item.quantity * item.product.price;
         disAm +=
           item.quantity *
-          (item.product.price - item.product.discountedPrice).toFixed(0);
+          (item.product.price - item.product.discountedPrice).toFixed(1);
       });
       setoriginalTotal(total);
       setdiscountAmount(disAm);

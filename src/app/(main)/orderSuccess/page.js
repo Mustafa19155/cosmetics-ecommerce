@@ -45,7 +45,7 @@ const Page = () => {
 
         disAm +=
           item.quantity *
-          (item.product.price - item.product.discountedPrice).toFixed(0);
+          (item.product.price - item.product.discountedPrice).toFixed(1);
       });
       setoriginalTotal(total);
       setdiscountAmount(disAm);

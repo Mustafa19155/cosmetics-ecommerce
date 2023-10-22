@@ -14,6 +14,7 @@ export const recalculateDiscount = ({ products, allOffers }) => {
       const disPrice = pro.price * (activeOffer.discount / 100);
       return {
         ...pro,
+        price: pro.price.toFixed(0),
         discount: activeOffer.discount.toFixed(0),
         discountedPrice: (pro.price - disPrice).toFixed(0),
       };
@@ -27,12 +28,16 @@ export const recalculateDiscount = ({ products, allOffers }) => {
         const disPrice = pro.price * (foundOffer.discount / 100);
         return {
           ...pro,
+          price: pro.price.toFixed(0),
           discount: foundOffer.discount.toFixed(0),
           discountedPrice: (pro.price - disPrice).toFixed(0),
         };
       } else {
         return {
           ...pro,
+          price: pro.price.toFixed(0),
+          discount: pro.discount.toFixed(0),
+          discountedPrice: pro.discountedPrice.toFixed(0),
         };
       }
     });

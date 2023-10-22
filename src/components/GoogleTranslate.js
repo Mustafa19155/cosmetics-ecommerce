@@ -5,28 +5,14 @@ import { getCookie, hasCookie, setCookie } from "cookies-next";
 import Dropdown from "./Dropdowns/Dropdown";
 
 const GoogleTranslate = () => {
-  const languages = [
-    { name: "English", value: "/auto/en" },
-    { name: `Русский`, value: "/auto/ru" },
-    { name: "Polski", value: "/auto/pl" },
-  ];
-
-  const [selected, setSelected] = useState(null);
-
   useEffect(() => {
     var addScript = document.createElement("script");
     addScript.setAttribute(
       "src",
-      "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+      "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
     );
     document.body.appendChild(addScript);
     window.googleTranslateElementInit = googleTranslateElementInit;
-
-    if (hasCookie("googtrans")) {
-      setSelected(getCookie("googtrans"));
-    } else {
-      setSelected("/auto/en");
-    }
   }, []);
 
   const googleTranslateElementInit = () => {
@@ -35,21 +21,10 @@ const GoogleTranslate = () => {
         pageLanguage: "auto",
         autoDisplay: false,
         // includedLanguages: "ru,en,pl", // If you remove it, by default all google supported language will be included
-        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+        // layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
       },
       "google_translate_element"
     );
-  };
-
-  const langChange = (e) => {
-    if (hasCookie("googtrans")) {
-      setCookie("googtrans", decodeURI(e.target.value));
-      setSelected(e.target.value);
-    } else {
-      setCookie("googtrans", e.target.value);
-      setSelected(e.target.value);
-    }
-    window.location.reload();
   };
 
   return (

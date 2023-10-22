@@ -55,7 +55,7 @@ const AddReview = ({ productId }) => {
           <textarea
             value={description}
             onChange={(e) => setdescription(e.target.value)}
-            placeholder="Nars Foundation is a make up must have"
+            placeholder="Review Description"
             className="resize-none bg-white shadow-custom-1 p-2 outline-none rounded-md"
             rows={6}
           />

@@ -82,11 +82,10 @@
     margin-left: -50vw;
   }
 }
-
+/* google translate */
 .skiptranslate {
   z-index: -9999;
   opacity: 0;
-  /* display: none; */
 }
 
 .skiptranslate.goog-te-gadget {
@@ -131,6 +130,13 @@
 .VIpgJd-ZVi9od-aZ2wEe-wOHMyf.VIpgJd-ZVi9od-aZ2wEe-wOHMyf-ti6hGc {
   display: none;
 }
+.skiptranslate.goog-te-gadget .VIpgJd-ZVi9od-l4eHX-hSRGPd {
+  display: none;
+}
+.skiptranslate.goog-te-gadget {
+  font-size: 0;
+}
+/* google translate end */
 
 .brand-video-wrapper > div {
   width: 100% !important;

@@ -77,8 +77,8 @@ const ProductTop = ({ product }) => {
         </div>
         <p>{product.desc}</p>
         <div className="flex items-center gap-3">
-          <p className="text-3xl font-bold">${product.discountedPrice}</p>
-          <p className="line-through text-secondary">${product.price}</p>
+          <p className="text-3xl font-bold">€{product.discountedPrice}</p>
+          <p className="line-through text-secondary">€{product.price}</p>
         </div>
         <div className="flex gap-8 text-lg items-center px-4 py-2 border-primary border w-fit">
           <Image

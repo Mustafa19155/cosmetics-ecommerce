@@ -25,7 +25,7 @@ const Page = () => {
           CIF/NIF B01641075, domiciled at Avenida san memes local 15 código
           postal 24007 León Spain. Any communication can be directed to the
           registered office or to the telephone number 987078177 or the email
-          address aliyaabeauty@aliyaabeauty.com.
+          address info@aliyaabeauty.com.
         </p>
       </div>
       <div>
