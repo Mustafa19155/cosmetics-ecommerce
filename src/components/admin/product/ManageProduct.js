@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BackIcon from "@/assets/icons/back.svg";
 import Image from "next/image";
 import TransparentButton from "@/components/buttons/TransparentButton";
@@ -18,9 +18,8 @@ import axios from "axios";
 import { axiosClient } from "@/api/axios";
 import moment from "moment";
 
-const ManageProduct = ({ product, categories }) => {
+const ManageProduct = ({ product, brands }) => {
   const router = useRouter();
-
   const [isEditing, setisEditing] = useState(product ? true : false);
   const [name, setname] = useState(product?.name);
   const [description, setdescription] = useState(product?.description);
@@ -29,10 +28,21 @@ const ManageProduct = ({ product, categories }) => {
   const [confirmModalOpen, setconfirmModalOpen] = useState(false);
   const [discount, setdiscount] = useState(product ? product.discount : 0);
   const [quantity, setquantity] = useState(product ? product.quantity : 0);
-  const [category, setcategory] = useState(
-    product ? product.category : categories[0]
-  );
   const [apiCalled, setapiCalled] = useState(false);
+
+  const [activeBrand, setactiveBrand] = useState(
+    product
+      ? brands.find((obj) => obj.brand.value == product.category.brand).brand
+      : null
+  );
+
+  const [activeCategory, setactiveCategory] = useState(
+    product
+      ? brands
+          .find((obj) => obj.brand.value == product.category.brand)
+          .categories.find((cat) => cat.value == product.category._id)
+      : null
+  );
 
   const { setAlert } = useAlert();
 
@@ -64,7 +74,7 @@ const ManageProduct = ({ product, categories }) => {
       quantity > 0 &&
       price &&
       discount >= 0 &&
-      category &&
+      activeCategory &&
       images.length > 0
     ) {
       setapiCalled(true);
@@ -74,7 +84,7 @@ const ManageProduct = ({ product, categories }) => {
       formData.append("quantity", quantity);
       formData.append("discount", discount);
       formData.append("price", price);
-      formData.append("category", category.value);
+      formData.append("category", activeCategory.value);
       await Promise.all(
         images.map(async (img) => {
           if (img instanceof File) {
@@ -117,6 +127,20 @@ const ManageProduct = ({ product, categories }) => {
       setAlert("Fill all fields", "danger");
     }
   };
+
+  useEffect(() => {
+    if (activeBrand && activeCategory) {
+      if (
+        !brands
+          .find((obj) => obj.brand.value == activeBrand.value)
+          .categories.find((cat) => cat.value == activeCategory.value)
+      ) {
+        setactiveCategory(null);
+      }
+    } else {
+      setactiveCategory(null);
+    }
+  }, [activeBrand]);
 
   return (
     <div>
@@ -245,15 +269,30 @@ const ManageProduct = ({ product, categories }) => {
           </div>
         </div>
         <div className="flex flex-col gap-2 mt-5">
-          <label className="text-sm font-inter font-semibold">Category</label>
+          <label className="text-sm font-inter font-semibold">Brand</label>
           <SelectInput
-            active={category}
-            setactive={setcategory}
-            options={categories}
+            active={activeBrand}
+            setactive={setactiveBrand}
+            options={brands.map((obj) => obj.brand)}
             className={"!p-3 !bg-gray-1"}
             dropdownClassName={"relative !top-1"}
           />
         </div>
+        {activeBrand && (
+          <div className="flex flex-col gap-2 mt-5">
+            <label className="text-sm font-inter font-semibold">Category</label>
+            <SelectInput
+              active={activeCategory}
+              setactive={setactiveCategory}
+              options={
+                brands.find((obj) => obj.brand.value == activeBrand.value)
+                  .categories
+              }
+              className={"!p-3 !bg-gray-1"}
+              dropdownClassName={"relative !top-1"}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

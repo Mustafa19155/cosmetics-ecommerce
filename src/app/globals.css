@@ -136,6 +136,9 @@
 .skiptranslate.goog-te-gadget {
   font-size: 0;
 }
+.skiptranslate.goog-te-gadget select {
+  background: transparent;
+}
 /* google translate end */
 
 .brand-video-wrapper > div {

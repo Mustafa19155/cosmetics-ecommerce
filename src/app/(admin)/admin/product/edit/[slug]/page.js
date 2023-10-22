@@ -1,12 +1,9 @@
 import React from "react";
 import ManageProduct from "@/components/admin/product/ManageProduct";
-import { getAllAdminCategories, getAllCategories } from "@/api/categories";
-import { cookies, headers } from "next/headers";
+import { headers } from "next/headers";
 import { getSingleProduct } from "@/api/products";
-import { getAdminReviews } from "@/api/reviews";
 import ProductReviews from "@/components/admin/product/ProductReviews";
-import Reviews from "@/components/Product/Reviews";
-import PinkButton from "@/components/buttons/PinkButton";
+import { getAllUserBrands } from "@/api/brands";
 
 const Page = async () => {
   const headersList = headers();
@@ -17,10 +14,19 @@ const Page = async () => {
     id,
   });
 
-  const categories = (await getAllAdminCategories()).map((cat) => {
+  const brands = (await getAllUserBrands()).map((obj) => {
     return {
-      name: `${cat.name} (${cat.brand?.name})`,
-      value: cat._id,
+      ...obj,
+      brand: {
+        name: obj.brand.name,
+        value: obj.brand._id,
+      },
+      categories: obj.categories.map((cat) => {
+        return {
+          name: cat.name,
+          value: cat._id,
+        };
+      }),
     };
   });
 
@@ -31,7 +37,7 @@ const Page = async () => {
           ...data,
           category: { ...data.category, value: data.category?._id },
         }}
-        categories={categories}
+        brands={brands}
       />
 
       <ProductReviews id={id} />
