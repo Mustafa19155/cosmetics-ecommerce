@@ -14,7 +14,8 @@ const ProductCard = ({ product }) => {
   const { wishlist, setwishlist } = useContext(AuthContext);
   // const [isFavourite, setisFavourite] = useState(false);
 
-  const handleToggleWishlist = () => {
+  const handleToggleWishlist = (e) => {
+    e.stopPropagation();
     checkFav()
       ? setwishlist(wishlist.filter((pro) => pro._id != product._id))
       : setwishlist([...wishlist, product]);

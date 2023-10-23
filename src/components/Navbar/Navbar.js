@@ -156,7 +156,7 @@ export default function Navbar() {
                           router.push(`/products?name=${searchValue}`);
                         });
                       }}
-                      placeholder={"nar's foundation"}
+                      placeholder={"Search"}
                       className={"pl-8 h-[35px]"}
                     />
                   )}
@@ -250,7 +250,14 @@ export default function Navbar() {
               </svg>
               {showSearchbar && (
                 <PrimaryInput
-                  placeholder={"nar's foundation"}
+                  value={searchValue}
+                  changeHandler={(e) => setsearchValue(e.target.value)}
+                  keyDownHandler={(e) => {
+                    handleEnterKeyPress(e, () => {
+                      router.push(`/products?name=${searchValue}`);
+                    });
+                  }}
+                  placeholder={"Search"}
                   className={"pl-8 h-[35px]"}
                 />
               )}

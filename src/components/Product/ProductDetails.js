@@ -12,7 +12,7 @@ const ProductDetails = ({ product }) => {
         <div className="mt-8">
           <div className="flex justify-between pb-6 border-b-4 border-primary items-center w-full">
             <p className="px-2 text-2xl font-bold">Product Information</p>
-            <svg
+            {/* <svg
               width="15"
               height="3"
               viewBox="0 0 15 3"
@@ -25,7 +25,7 @@ const ProductDetails = ({ product }) => {
                 d="M13.7264 2.7751H1.27363C0.568889 2.7751 0 2.2039 0 1.5001C0 0.796298 0.568889 0.225098 1.27363 0.225098H13.7264C14.4294 0.225098 15 0.796298 15 1.5001C15 2.2039 14.4294 2.7751 13.7264 2.7751Z"
                 fill="#000"
               />
-            </svg>
+            </svg> */}
           </div>
 
           <p className="px-2 py-6">{product.description}</p>

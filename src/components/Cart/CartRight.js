@@ -22,12 +22,11 @@ const CartRight = () => {
       total += item.quantity * item.product.price;
       disPer += item.product.discount;
       disAm +=
-        item.quantity *
-        (item.product.price - item.product.discountedPrice).toFixed(1);
+        item.quantity * (item.product.price - item.product.discountedPrice);
     });
     setoriginalTotal(total);
     setdiscountPercent(
-      (disPer / (cart.items.length > 0 ? cart.items.length : 1)).toFixed(1)
+      (disPer / (cart.items.length > 0 ? cart.items.length : 1)).toFixed(0)
     );
     setdiscountAmount(disAm);
     // }

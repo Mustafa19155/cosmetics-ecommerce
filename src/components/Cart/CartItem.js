@@ -20,6 +20,7 @@ const CartItem = ({ item, index }) => {
     if (item.quantity < item.product.quantity) {
       const cartCopy = { ...cart };
       cartCopy.items[index].quantity += 1;
+
       cartCopy.total += item.product.discountedPrice;
       setcart(cartCopy);
     }

@@ -10,7 +10,7 @@ const Categories = () => {
 
   return (
     <div>
-      <p className="text-3xl font-bold text-center">Categories</p>
+      <p className="text-3xl font-bold text-center">Brands</p>
       <div className="flex justify-center sm:justify-between flex-wrap px-5 md:px-10 xl:px-20 mt-8 w-[90%] mx-auto">
         {brands.slice(0, 4).map((cat) => (
           <div
@@ -19,7 +19,7 @@ const Categories = () => {
           >
             <img
               src={cat.brand.image}
-              className="w-full h-[9vw] min-h-[170px]"
+              className="w-full h-[5vw] min-h-[160px] object-cover"
             />
             <p className="text-xl mt-2 font-semibold">{cat.brand.name}</p>
           </div>

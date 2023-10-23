@@ -14,9 +14,12 @@ const Page = async () => {
   return (
     <div className="my-16">
       <div>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-center">
           <div className="w-full h-[300px]">
-            <img src={data.brand?.image} className="object-cover h-full" />
+            <img
+              src={data.brand?.image}
+              className="object-cover h-full mx-auto"
+            />
           </div>
           {/* <p className="text-4xl font-bold">{data.brand.name}</p> */}
         </div>
