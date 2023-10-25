@@ -27,7 +27,7 @@ export default function Page() {
     setapiCalled(true);
     loginAdmin({ email, password })
       .then(async (res) => {
-        await setCookie({ cookieName: "jwt", cookieValue: res.jwt });
+        // await setCookie({ cookieName: "jwt", cookieValue: res.jwt });
         getAdmin()
           .then((res) => {
             setapiCalled(false);

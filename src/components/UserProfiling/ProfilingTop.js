@@ -154,7 +154,7 @@ const ProfilingTop = () => {
             )}
           </div>
           <PinkButton
-            text={"Rateu Us"}
+            text={"Rate Us"}
             icon={WhiteArrow}
             className={"justify-between flex-row-reverse px-8"}
           />
@@ -164,12 +164,14 @@ const ProfilingTop = () => {
             icon={WhiteArrow}
             className={"justify-between flex-row-reverse px-8"}
           />
-          <PinkButton
-            text={"Change Password"}
-            icon={WhiteArrow}
-            className={"justify-between flex-row-reverse px-8"}
-            clickHandler={() => router.push("/profileResetPassword")}
-          />
+          {currentUser?.source != "google" && (
+            <PinkButton
+              text={"Change Password"}
+              icon={WhiteArrow}
+              className={"justify-between flex-row-reverse px-8"}
+              clickHandler={() => router.push("/profileResetPassword")}
+            />
+          )}
           <PinkButton
             text={"Logout"}
             icon={WhiteArrow}

@@ -37,6 +37,9 @@ export default function Page() {
   };
 
   useEffect(() => {
+    if (currentUser?.source == "google") {
+      router.replace("/");
+    }
     setemail(currentUser?.email);
   }, [currentUser]);
 

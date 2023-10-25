@@ -6,6 +6,7 @@ import BestSellersTable from "@/components/admin/Tables/BestSellersTable";
 import YearlyReport from "@/components/admin/dashboard/YearlyReport";
 import MainStats from "@/components/admin/dashboard/MainStats";
 import { redirect } from "next/navigation";
+import { getDashboardStats } from "@/api/dashboard";
 
 const getOrders = async () => {
   return [
@@ -98,138 +99,66 @@ const getOrders = async () => {
 
 const getTopProsData = async () => {
   return [
-    { name: "Product 1", sales: 830 },
-    { name: "Product 2", sales: 550 },
-    { name: "Product 3", sales: 755 },
+    { name: "Product 1", totalPrice: 830 },
+    { name: "Product 2", totalPrice: 550 },
+    { name: "Product 3", totalPrice: 755 },
   ];
-};
-
-const getBestSellers = async () => {
-  return [
-    {
-      image: BestSellerImg,
-      name: "Product Name",
-      price: 22.2,
-      sold: 20,
-      profit: 1800.2,
-    },
-    {
-      image: BestSellerImg,
-      name: "Product Name",
-      price: 22.2,
-      sold: 20,
-      profit: 1800.2,
-    },
-    {
-      image: BestSellerImg,
-      name: "Product Name",
-      price: 22.2,
-      sold: 20,
-      profit: 1800.2,
-    },
-    {
-      image: BestSellerImg,
-      name: "Product Name",
-      price: 22.2,
-      sold: 20,
-      profit: 1800.2,
-    },
-  ];
-};
-
-const getYearlyReport = async () => {
-  return [
-    {
-      month: "January",
-      sales: 500,
-    },
-    {
-      month: "February",
-      sales: 550,
-    },
-    {
-      month: "March",
-      sales: 600,
-    },
-    {
-      month: "April",
-      sales: 400,
-    },
-    {
-      month: "May",
-      sales: 300,
-    },
-    {
-      month: "June",
-      sales: 400,
-    },
-    {
-      month: "July",
-      sales: 800,
-    },
-    {
-      month: "August",
-      sales: 300,
-    },
-    {
-      month: "September",
-      sales: 330,
-    },
-    {
-      month: "October",
-      sales: 290,
-    },
-    {
-      month: "November",
-      sales: 900,
-    },
-    {
-      month: "December",
-      sales: 500,
-    },
-  ];
-};
-
-const getMainStats = async () => {
-  return {
-    earnings: {
-      value: 744,
-      profit: 25,
-    },
-    productsSold: {
-      value: 800,
-      profit: -25,
-    },
-    users: {
-      value: 25,
-      profit: 49,
-    },
-    ordersInQueue: {
-      value: 10,
-      profit: 10,
-    },
-  };
 };
 
 const Page = async () => {
   const orders = await getOrders();
-  const topPros = await getTopProsData();
-  const bestSellers = await getBestSellers();
-  const yearlyReport = await getYearlyReport();
-  const mainData = await getMainStats();
 
   const colors = ["#EA5455", "#7367F0", "#FF9F43"];
 
-  const totalSales = topPros.reduce((acc, currVal) => acc + currVal.sales, 0);
+  const data = await getDashboardStats();
+
+  const adjustedData = [
+    { month: "January", totalRevenue: 0 },
+    { month: "February", totalRevenue: 0 },
+    { month: "March", totalRevenue: 0 },
+    { month: "April", totalRevenue: 0 },
+    { month: "May", totalRevenue: 0 },
+    { month: "June", totalRevenue: 0 },
+    { month: "July", totalRevenue: 0 },
+    { month: "August", totalRevenue: 0 },
+    { month: "September", totalRevenue: 0 },
+    { month: "October", totalRevenue: 0 },
+    { month: "November", totalRevenue: 0 },
+    { month: "December", totalRevenue: 0 },
+  ];
+
+  data.graph.forEach((entry) => {
+    const monthIndex = entry._id - 1;
+    if (monthIndex >= 0 && monthIndex < adjustedData.length) {
+      adjustedData[monthIndex].totalRevenue = entry.totalRevenue;
+    }
+  });
+
+  const topPros = data.pieChartData.map((da) => {
+    return {
+      name: da._doc.name,
+      totalPrice: da.totalPrice,
+    };
+  });
+
+  const totalSales = topPros.reduce(
+    (acc, currVal) => acc + currVal.totalPrice,
+    0
+  );
 
   return (
     <div className="bg-white">
       <p className="font-bold text-3xl mb-8">Dashboard</p>
-      <MainStats data={mainData} />
+      <MainStats
+        totalUsers={data.users}
+        ordersInQueue={data.ordersInQueu}
+        totalEarnings={data.totalRevenue}
+        totalProductsSold={data.totalProductsSold}
+      />
       <div className="bg-white shadow-dashboard-card rounded-lg p-10 my-10 hidden sm:block">
         <p className="font-bold text-2xl mb-8">Yearly Revenue Report</p>
         <div className="flex items-center">
-          <YearlyReport data={yearlyReport} />
+          <YearlyReport data={adjustedData} />
         </div>
       </div>
 
@@ -245,10 +174,10 @@ const Page = async () => {
                     className={`h-2 w-2 rounded-full`}
                     style={{ background: colors[index] }}
                   />
-                  <p className="text-secondary">{pro.name}</p>
-                  <p>${pro.sales}</p>
+                  <p className="text-secondary truncate w-[80px]">{pro.name}</p>
+                  <p>${pro.totalPrice}</p>
                   <p className="text-secondary">
-                    {((pro.sales / totalSales) * 100).toFixed(1)}%
+                    {((pro.totalPrice / totalSales) * 100).toFixed(1)}%
                   </p>
                 </div>
               ))}
@@ -257,7 +186,7 @@ const Page = async () => {
         </div>
         <div className="bg-white shadow-dashboard-card rounded-lg p-5 w-full xl:w-[49.5%] max-w-[calc(100vw_-_90px)] mt-8 lg:mt-0">
           <p className="font-bold text-lg mb-5">Bestsellers</p>
-          <BestSellersTable data={bestSellers} />
+          <BestSellersTable data={data.products} />
         </div>
       </div>
       <LatestOrders orders={orders} />

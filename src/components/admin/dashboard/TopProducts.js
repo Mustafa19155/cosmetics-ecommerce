@@ -13,7 +13,7 @@ const TopProducts = ({ data, colors }) => {
   return (
     <PieChart width={240} height={240}>
       <Pie
-        dataKey="sales"
+        dataKey="totalPrice"
         isAnimationActive={false}
         data={data}
         cx="50%"

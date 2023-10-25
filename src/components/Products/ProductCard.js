@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Stars from "../Stars";
 import { AuthContext } from "@/contexts/userContext";
+import Link from "next/link";
 
 const ProductCard = ({ product }) => {
   const router = useRouter();
@@ -30,9 +31,9 @@ const ProductCard = ({ product }) => {
   };
 
   return (
-    <div
+    <Link
+      href={`/product/${product._id}`}
       className="w-[90%] sm:w-[48%] lg:w-[23.5%] mt-10 relative cursor-pointer"
-      onClick={() => router.push(`/product/${product._id}`)}
     >
       {product.discount > 0 && (
         <div className="absolute top-0 right-0 bg-primary w-[50%] px-3 py-2 text-center min-w-fit z-20">
@@ -64,7 +65,7 @@ const ProductCard = ({ product }) => {
         </div>
         <PinkButton text={"Buy Now"} />
       </div>
-    </div>
+    </Link>
   );
 };
 

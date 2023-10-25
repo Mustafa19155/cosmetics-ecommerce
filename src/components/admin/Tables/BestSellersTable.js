@@ -14,9 +14,9 @@ const BestSellersTable = ({ data }) => {
             <th className="p-3" scope="col">
               Sold
             </th>
-            <th className="p-3 rounded-tr-lg" scope="col">
+            {/* <th className="p-3 rounded-tr-lg" scope="col">
               Profit
-            </th>
+            </th> */}
           </tr>
         </thead>
         <tbody className="text-gray-3">
@@ -26,14 +26,14 @@ const BestSellersTable = ({ data }) => {
                 <td className="px-3 py-1">
                   <div className="flex items-center gap-3">
                     <div className="h-[40px] w-[40px] rounded-full bg-gray-1 p-1 overflow-hidden flex justify-center items-center">
-                      {item.image && <Image src={item.image} />}
+                      {item.images.length > 0 && <img src={item.images[0]} />}
                     </div>
                     <p>{item.name}</p>
                   </div>
                 </td>
                 <td class="px-3 py-1">${item.price}</td>
                 <td class="px-3 py-1">{item.sold}</td>
-                <td class="px-3 py-1">${item.profit}</td>
+                {/* <td class="px-3 py-1">${item.profit}</td> */}
               </tr>
             );
           })}

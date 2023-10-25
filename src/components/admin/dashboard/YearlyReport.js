@@ -107,7 +107,7 @@ const YearlyReport = ({ data }) => {
       />
 
       <Bar
-        dataKey="sales"
+        dataKey="totalRevenue"
         radius={15}
         // background={{
         //   fill: "rgba(202, 200, 200, 0.2)",
