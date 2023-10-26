@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BackIcon from "@/assets/icons/back.svg";
 import Image from "next/image";
 import TransparentButton from "@/components/buttons/TransparentButton";
@@ -24,12 +24,14 @@ const ManageOffer = ({ offer, brands }) => {
   const [confirmModalOpen, setconfirmModalOpen] = useState(false);
   const [brand, setbrand] = useState("");
   const [starting_date, setstarting_date] = useState(
-    offer ? moment(offer.starting).format("MM / DD / YYYY") : ""
-    // : moment(Date.now()).format("DD / MM / YYYY")
+    offer
+      ? moment(offer.starting).format("MMM DD, YYYY")
+      : moment(Date.now()).format("MMM DD, YYYY")
   );
   const [ending_date, setending_date] = useState(
-    offer ? moment(offer.ending).format("MM / DD / YYYY") : ""
-    // : moment(Date.now()).format("DD /MM / YYYY")
+    offer
+      ? moment(offer.ending).format("MMM DD, YYYY")
+      : moment(Date.now()).format("MMM DD, YYYY")
   );
   const [discount, setdiscount] = useState(offer?.discount);
   const [apiCalled, setapiCalled] = useState(false);
@@ -85,9 +87,12 @@ const ManageOffer = ({ offer, brands }) => {
           data: formData,
         })
           .then((res) => {
+            setapiCalled(false);
             setAlert("Offer Added Successfully", "success");
+            router.push("/admin/offers");
           })
           .catch((err) => {
+            setapiCalled(false);
             setAlert(err, "danger");
           });
       } else {
@@ -95,6 +100,7 @@ const ManageOffer = ({ offer, brands }) => {
           .then((res) => {
             setapiCalled(false);
             setAlert("Offer Updated Successfully", "success");
+            router.push("/admin/offers");
           })
           .catch((err) => {
             setapiCalled(false);
@@ -105,6 +111,18 @@ const ManageOffer = ({ offer, brands }) => {
       setAlert("Fill all fields first", "danger");
     }
   };
+
+  useEffect(() => {
+    if (offer && offer.brand) {
+      const foundBrand = brands.find((bran) => bran._id == offer.brand);
+      setbrand({
+        name: foundBrand.name,
+        value: foundBrand._id,
+      });
+    } else {
+      setbrand({ name: "All Brands", value: "" });
+    }
+  }, []);
 
   return (
     <div>
@@ -158,7 +176,7 @@ const ManageOffer = ({ offer, brands }) => {
           <ReactDatePicker
             value={starting_date}
             onChange={(e) => {
-              setstarting_date(moment(e).format("MM / DD / YYYY"));
+              setstarting_date(moment(e).format("MMM DD, YYYY"));
             }}
             className={`h-full w-full outline-none bg-gray-1 shadow-custom-1 py-2 px-2 rounded-md flex gap-2 items-center`}
           />
@@ -170,7 +188,7 @@ const ManageOffer = ({ offer, brands }) => {
           <ReactDatePicker
             value={ending_date}
             onChange={(e) => {
-              setending_date(moment(e).format("MM / DD / YYYY"));
+              setending_date(moment(e).format("MMM DD, YYYY"));
             }}
             className={`h-full w-full outline-none bg-gray-1 shadow-custom-1 py-2 px-2 rounded-md flex gap-2 items-center`}
           />
