@@ -4,12 +4,9 @@ import { headers } from "next/headers";
 import { getSingleOffer } from "@/api/offers";
 import { getBrands } from "@/api/brands";
 
-const Page = async () => {
-  const headersList = headers();
-  const activePath = headersList.get("x-invoke-path");
-
+const Page = async ({ params }) => {
   const data = await getSingleOffer({
-    id: activePath.split("/")[activePath.split("/").length - 1],
+    id: params.slug,
   });
 
   const brands = await getBrands();

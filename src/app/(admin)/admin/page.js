@@ -8,106 +8,7 @@ import MainStats from "@/components/admin/dashboard/MainStats";
 import { redirect } from "next/navigation";
 import { getDashboardStats } from "@/api/dashboard";
 
-const getOrders = async () => {
-  return [
-    {
-      _id: 1,
-      price: 11.7,
-      date: Date.now(),
-      username: "David",
-      status: "pending",
-    },
-    {
-      _id: 1,
-      price: 11.7,
-      date: Date.now(),
-      username: "David",
-      status: "pending",
-    },
-    {
-      _id: 1,
-      price: 11.7,
-      date: Date.now(),
-      username: "David",
-      status: "pending",
-    },
-    {
-      _id: 1,
-      price: 11.7,
-      date: Date.now(),
-      username: "David",
-      status: "pending",
-    },
-    {
-      _id: 1,
-      price: 11.7,
-      date: Date.now(),
-      username: "David",
-      status: "pending",
-    },
-    {
-      _id: 1,
-      price: 11.7,
-      date: Date.now(),
-      username: "David",
-      status: "pending",
-    },
-    {
-      _id: 1,
-      price: 11.7,
-      date: Date.now(),
-      username: "David",
-      status: "pending",
-    },
-    {
-      _id: 1,
-      price: 11.7,
-      date: Date.now(),
-      username: "David",
-      status: "pending",
-    },
-    {
-      _id: 1,
-      price: 11.7,
-      date: Date.now(),
-      username: "David",
-      status: "pending",
-    },
-    {
-      _id: 1,
-      price: 11.7,
-      date: Date.now(),
-      username: "David",
-      status: "pending",
-    },
-    {
-      _id: 1,
-      price: 11.7,
-      date: Date.now(),
-      username: "David",
-      status: "pending",
-    },
-    {
-      _id: 1,
-      price: 11.7,
-      date: Date.now(),
-      username: "David",
-      status: "pending",
-    },
-  ];
-};
-
-const getTopProsData = async () => {
-  return [
-    { name: "Product 1", totalPrice: 830 },
-    { name: "Product 2", totalPrice: 550 },
-    { name: "Product 3", totalPrice: 755 },
-  ];
-};
-
 const Page = async () => {
-  const orders = await getOrders();
-
   const colors = ["#EA5455", "#7367F0", "#FF9F43"];
 
   const data = await getDashboardStats();
@@ -189,7 +90,7 @@ const Page = async () => {
           <BestSellersTable data={data.products} />
         </div>
       </div>
-      <LatestOrders orders={orders} />
+      <LatestOrders />
     </div>
   );
 };

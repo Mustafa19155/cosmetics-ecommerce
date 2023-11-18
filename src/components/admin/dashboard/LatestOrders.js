@@ -1,7 +1,5 @@
 "use client";
 import React from "react";
-import TableWrapper from "../Tables/TableWrapper";
-import OrdersTable from "../Tables/OrdersTable";
 import OrdersWrapper from "../order/OrdersWrapper";
 
 const LatestOrders = () => {

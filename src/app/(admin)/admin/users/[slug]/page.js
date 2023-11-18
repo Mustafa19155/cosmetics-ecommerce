@@ -8,12 +8,9 @@ import { getSingleUser, updateUserFromAdmin } from "@/api/users";
 import { redirect } from "next/navigation";
 import UserWrapper from "@/components/admin/users/UserWrapper";
 
-const Page = async () => {
-  const headersList = headers();
-  const activePath = headersList.get("x-invoke-path");
-
+const Page = async ({ params }) => {
   const user = await getSingleUser({
-    id: activePath.split("/")[activePath.split("/").length - 1],
+    id: params.slug,
   });
 
   return (

@@ -1,6 +1,4 @@
 import React from "react";
-import ProductDetailImg from "../../../../assets/images/product-detail.png";
-import UserImg from "../../../../assets/images/home/testimonial.png";
 import ProductTop from "@/components/Product/ProductTop";
 import ProductDetails from "@/components/Product/ProductDetails";
 import AddReview from "@/components/Product/AddReview";
@@ -11,10 +9,8 @@ import { getReviewsOfProduct } from "@/api/reviews";
 import { recalculateDiscount } from "@/actions/recalculateDiscount";
 import { getUserOffers } from "@/api/offers";
 
-const Page = async () => {
-  const headersList = headers();
-  const activePath = headersList.get("x-invoke-path");
-  const id = activePath.split("/")[activePath.split("/").length - 1];
+const Page = async ({ params, searchParams }) => {
+  const id = params.slug;
   const offers = await getUserOffers();
   const product = recalculateDiscount({
     products: [

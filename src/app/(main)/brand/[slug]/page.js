@@ -4,11 +4,8 @@ import { headers } from "next/headers";
 import Link from "next/link";
 import React from "react";
 
-const Page = async () => {
-  const headersList = headers();
-  const activePath = headersList.get("x-invoke-path");
-  const id = activePath.split("/")[activePath.split("/").length - 1];
-
+const Page = async ({ params }) => {
+  const id = params.slug;
   const data = await getUserSingleBrand({ id });
 
   return (

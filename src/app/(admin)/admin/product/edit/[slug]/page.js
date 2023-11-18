@@ -5,11 +5,8 @@ import { getSingleProduct } from "@/api/products";
 import ProductReviews from "@/components/admin/product/ProductReviews";
 import { getAllUserBrands } from "@/api/brands";
 
-const Page = async () => {
-  const headersList = headers();
-  const activePath = headersList.get("x-invoke-path");
-
-  const id = activePath.split("/")[activePath.split("/").length - 1];
+const Page = async ({ params }) => {
+  const id = params.slug;
   const data = await getSingleProduct({
     id,
   });
