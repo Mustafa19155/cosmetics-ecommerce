@@ -56,7 +56,7 @@ const OrdersTable = ({ mainPros, setmainPros }) => {
             return (
               <tr class="bg-white border-b border-gray-2 rounded-lg">
                 <td className="px-3 py-4">{item.order_id}</td>
-                <td class="px-3 py-4">${item.total}</td>
+                <td class="px-3 py-4">€{item.total}</td>
                 <td class="px-3 py-4">
                   <p className="sm:max-w-[300px] md:max-w-[150px] lg:max-w-[400px] truncate line-clamp-3 whitespace-normal">
                     {moment(item.createdAt).format("MMM, D, YYYY")}

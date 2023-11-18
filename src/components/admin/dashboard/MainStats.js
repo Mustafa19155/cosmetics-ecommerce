@@ -1,8 +1,4 @@
 import React from "react";
-import OrangeChart from "@/assets/icons/dashboard-charts/chart1.svg";
-import RedChart from "@/assets/icons/dashboard-charts/chart2.svg";
-import GreenChart from "@/assets/icons/dashboard-charts/chart3.svg";
-import Image from "next/image";
 
 const MainStats = ({
   totalEarnings,
@@ -16,7 +12,7 @@ const MainStats = ({
         <div className="shadow-dashboard-card flex p-6 rounded-lg w-full md:w-[49.5%] xl:w-[24.5%] justify-between">
           <div className="flex flex-col justify-end gap-3">
             <p className="text-sm text-secondary">Total Earning</p>
-            <p className="text-2xl font-bold">${totalEarnings}</p>
+            <p className="text-2xl font-bold">€{totalEarnings}</p>
           </div>
           {/* <div className="flex flex-col items-end justify-end gap-3">
             <p
@@ -45,7 +41,7 @@ const MainStats = ({
         <div className="shadow-dashboard-card flex p-6 rounded-lg w-full md:w-[49.5%] xl:w-[24.5%] justify-between">
           <div className="flex flex-col justify-end gap-3">
             <p className="text-sm text-secondary">Total Products Sold</p>
-            <p className="text-2xl font-bold">${totalProductsSold}</p>
+            <p className="text-2xl font-bold">€{totalProductsSold}</p>
           </div>
           {/* <div className="flex flex-col items-end justify-end gap-3">
             <p
@@ -103,7 +99,7 @@ const MainStats = ({
         <div className="shadow-dashboard-card flex p-6 rounded-lg w-full md:w-[49.5%] xl:w-[24.5%] justify-between">
           <div className="flex flex-col justify-end gap-3">
             <p className="text-sm text-secondary">Orders in queue</p>
-            <p className="text-2xl font-bold">${ordersInQueue}</p>
+            <p className="text-2xl font-bold">€{ordersInQueue}</p>
           </div>
           {/* <div className="flex flex-col items-end justify-end gap-3">
             <p

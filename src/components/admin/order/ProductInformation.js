@@ -29,14 +29,14 @@ const ProductInformation = ({ order }) => {
                       </div>
                     </td>
                     <td class="py-4 px-8">{item.quantity}</td>
-                    <td class="text-lg font-bold pb-6 px-1">${item.price}</td>
+                    <td class="text-lg font-bold pb-6 px-1">€{item.price}</td>
                   </tr>
                 );
               })}
               <tr>
                 <td className="text-xl font-bold p-2">Grand Total</td>
                 <td></td>
-                <td className="text-xl font-bold p-2">${order.total}</td>
+                <td className="text-xl font-bold p-2">€{order.total}</td>
               </tr>
             </tbody>
           </table>

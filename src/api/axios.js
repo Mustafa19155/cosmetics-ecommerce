@@ -14,28 +14,25 @@ axiosClient.defaults.headers = {
 
 axiosClient.defaults.withCredentials = true;
 
-axiosClient.interceptors.request.use(
-  async (config) => {
-    try {
-      if (typeof window == "undefined") {
-        if (config.url.includes("admin")) {
-          const token = await getCookie({ cookieName: "jwt" });
-          // if (token.value == "") {
-          //   return redirect("/adminLogin");
-          // }
-          axiosClient.defaults.headers = {
-            ...axiosClient.defaults.headers,
-            Cookie: `jwt=${token.value}`,
-          };
-        }
-      }
-    } catch (err) {}
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
+// axiosClient.interceptors.request.use(
+//   async (config) => {
+//     try {
+//       if (typeof window == "undefined") {
+//         if (config.url.includes("admin")) {
+//           const token = await getCookie({ cookieName: "jwt" });
+//           axiosClient.defaults.headers = {
+//             ...axiosClient.defaults.headers,
+//             Cookie: `jwt=${token.value}`,
+//           };
+//         }
+//       }
+//     } catch (err) {}
+//     return config;
+//   },
+//   (error) => {
+//     return Promise.reject(error);
+//   }
+// );
 
 axiosClient.interceptors.response.use(
   function (response) {
@@ -57,10 +54,6 @@ axiosClient.interceptors.response.use(
           } else {
             window.location.href = "/login";
           }
-        } else {
-          try {
-            redirect("/adminLogin");
-          } catch (err) {}
         }
       }
     }
