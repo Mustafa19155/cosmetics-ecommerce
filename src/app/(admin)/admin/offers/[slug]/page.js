@@ -1,20 +1,31 @@
+"use client";
 import ManageOffer from "@/components/admin/offers/ManageOffer";
-import React from "react";
-import { headers } from "next/headers";
+import React, { useEffect, useState } from "react";
 import { getSingleOffer } from "@/api/offers";
 import { getBrands } from "@/api/brands";
 
-const Page = async ({ params }) => {
-  const data = await getSingleOffer({
-    id: params.slug,
-  });
+const Page = ({ params }) => {
+  const [data, setdata] = useState(null);
+  const [brands, setbrands] = useState(null);
 
-  const brands = await getBrands();
+  const getData = async () => {
+    setdata(
+      await getSingleOffer({
+        id: params.slug,
+      })
+    );
+  };
+  const handleGetBrands = async () => {
+    setbrands(await getBrands());
+  };
+
+  useEffect(() => {
+    getData();
+    handleGetBrands();
+  }, []);
 
   return (
-    <div>
-      <ManageOffer offer={data} brands={brands} />
-    </div>
+    <div>{data && brands && <ManageOffer offer={data} brands={brands} />}</div>
   );
 };
 

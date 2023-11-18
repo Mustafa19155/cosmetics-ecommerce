@@ -1,43 +1,63 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import ManageProduct from "@/components/admin/product/ManageProduct";
-import { headers } from "next/headers";
 import { getSingleProduct } from "@/api/products";
 import ProductReviews from "@/components/admin/product/ProductReviews";
 import { getAllUserBrands } from "@/api/brands";
 
-const Page = async ({ params }) => {
+const Page = ({ params }) => {
   const id = params.slug;
-  const data = await getSingleProduct({
-    id,
-  });
 
-  const brands = (await getAllUserBrands()).map((obj) => {
-    return {
-      ...obj,
-      brand: {
-        name: obj.brand.name,
-        value: obj.brand._id,
-      },
-      categories: obj.categories.map((cat) => {
+  const [data, setdata] = useState(null);
+  const [brands, setbrands] = useState(null);
+
+  const getData = async () => {
+    setdata(
+      await getSingleProduct({
+        id,
+      })
+    );
+  };
+  const handleGetBrands = async () => {
+    setbrands(
+      (await getAllUserBrands()).map((obj) => {
         return {
-          name: cat.name,
-          value: cat._id,
+          ...obj,
+          brand: {
+            name: obj.brand.name,
+            value: obj.brand._id,
+          },
+          categories: obj.categories.map((cat) => {
+            return {
+              name: cat.name,
+              value: cat._id,
+            };
+          }),
         };
-      }),
-    };
-  });
+      })
+    );
+  };
+
+  useEffect(() => {
+    getData();
+    handleGetBrands();
+  }, []);
 
   return (
     <div>
-      <ManageProduct
-        product={{
-          ...data,
-          category: { ...data.category, value: data.category?._id },
-        }}
-        brands={brands}
-      />
+      {data && brands && (
+        <>
+          <ManageProduct
+            product={{
+              ...data,
+              category: { ...data.category, value: data.category?._id },
+            }}
+            brands={brands}
+          />
 
-      <ProductReviews id={id} />
+          <ProductReviews id={id} />
+        </>
+      )}
     </div>
   );
 };

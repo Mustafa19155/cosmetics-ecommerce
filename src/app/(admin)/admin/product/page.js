@@ -1,7 +1,6 @@
 "use client";
 import ProductWrapper from "@/components/admin/product/ProductWrapper";
 import React, { useEffect, useState } from "react";
-import ProductImg from "../../../../assets/images/product-detail.png";
 import { getAdminBrands } from "@/api/brands";
 import { getAdminCategories } from "@/api/categories";
 import { getAdminProducts } from "@/api/products";

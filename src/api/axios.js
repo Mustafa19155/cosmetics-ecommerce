@@ -21,7 +21,7 @@ axiosClient.interceptors.request.use(
         if (config.url.includes("admin")) {
           const token = await getCookie({ cookieName: "jwt" });
           // if (token.value == "") {
-          // return redirect("/adminLogin");
+          //   return redirect("/adminLogin");
           // }
           axiosClient.defaults.headers = {
             ...axiosClient.defaults.headers,
@@ -57,14 +57,11 @@ axiosClient.interceptors.response.use(
           } else {
             window.location.href = "/login";
           }
+        } else {
+          try {
+            redirect("/adminLogin");
+          } catch (err) {}
         }
-        //  else {
-        //   try {
-        //     redirect("/login");
-        //   } catch (err) {
-        //     redirect("/login");
-        //   }
-        // }
       }
     }
 
