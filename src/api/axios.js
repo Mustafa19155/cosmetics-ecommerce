@@ -14,25 +14,33 @@ axiosClient.defaults.headers = {
 
 axiosClient.defaults.withCredentials = true;
 
-// axiosClient.interceptors.request.use(
-//   async (config) => {
-//     try {
-//       if (typeof window == "undefined") {
-//         if (config.url.includes("admin")) {
-//           const token = await getCookie({ cookieName: "jwt" });
-//           axiosClient.defaults.headers = {
-//             ...axiosClient.defaults.headers,
-//             Cookie: `jwt=${token.value}`,
-//           };
-//         }
-//       }
-//     } catch (err) {}
-//     return config;
-//   },
-//   (error) => {
-//     return Promise.reject(error);
-//   }
-// );
+axiosClient.interceptors.request.use(
+  async (config) => {
+    try {
+      // if (typeof window.location == undefined) {
+      const token = await getCookie({ cookieName: "token" });
+      config.headers.Authorization = `Bearer ${token.value}`;
+      //   // axiosClient.defaults.headers.Authorization = `Bearer ${token.value}`;
+      //   // axiosClient.defaults.headers = {
+      //   //   ...axiosClient.defaults.headers,
+      //   //   Authorization: `Bearer ${token.value}`,
+      //   // };
+      // } else {
+      // const token = localStorage.getItem("token");
+      // config.headers.Authorization = `Bearer ${token}`;
+      // axiosClient.defaults.headers.Authorization = `Bearer ${token}`;
+      // axiosClient.defaults.headers = {
+      //   ...axiosClient.defaults.headers,
+      //   Authorization: `Bearer ${token}`,
+      // };
+      // }
+    } catch (err) {}
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 axiosClient.interceptors.response.use(
   function (response) {
@@ -45,12 +53,9 @@ axiosClient.interceptors.response.use(
         error.response.config.url != "/users/login" &&
         error.response.config.url != "/users/user"
       ) {
-        // await deleteCookie({ cookieName: "jwt" });
-        // await setCookie({ cookieName: "jwt", cookieValue: null });
-        // Redirect({ to: "/login" });
         if (typeof window != "undefined") {
           if (error.response.config.url.includes("/admin")) {
-            window.location.href = "/adminLogin";
+            // window.location.href = "/adminLogin";
           } else {
             window.location.href = "/login";
           }

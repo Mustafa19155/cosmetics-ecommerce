@@ -1,17 +1,15 @@
 "use client";
 
 import PinkButton from "@/components/buttons/PinkButton";
-import TransparentButton from "@/components/buttons/TransparentButton";
 import React, { useContext, useEffect, useState } from "react";
-import GoogleIcon from "../../assets/icons/google.svg";
-import Link from "next/link";
 import LoginMainImg from "../../assets/images/login.png";
 import PrimaryInput from "@/components/Inputs/PrimaryInput";
 import { useRouter } from "next/navigation";
 import { getAdmin, getUser, loginAdmin, loginUser } from "@/api/user";
 import { AuthContext } from "@/contexts/userContext";
 import useAlert from "@/hooks/useAlert";
-import { deleteCookie, setCookie } from "@/actions/serverActions";
+import { setCookie } from "@/actions/serverActions";
+import { axiosClient } from "@/api/axios";
 
 export default function Page() {
   const router = useRouter();
@@ -20,14 +18,16 @@ export default function Page() {
   const { setAlert } = useAlert();
   const [password, setpassword] = useState("");
   const [apiCalled, setapiCalled] = useState(false);
+  const [loading, setloading] = useState(true);
 
   const { setUser } = useContext(AuthContext);
 
   const handleLogin = () => {
     setapiCalled(true);
     loginAdmin({ email, password })
-      .then(async (res) => {
-        // await setCookie({ cookieName: "jwt", cookieValue: res.jwt });
+      .then((res) => {
+        setCookie({ cookieName: "token", cookieValue: res.token });
+        // localStorage.setItem("token", res.token);
         getAdmin()
           .then((res) => {
             setapiCalled(false);
@@ -43,6 +43,18 @@ export default function Page() {
         setAlert(err, "danger");
       });
   };
+
+  useEffect(() => {
+    getAdmin()
+      .then((res) => {
+        window.location = "/admin";
+      })
+      .catch((err) => {
+        setloading(false);
+      });
+  }, []);
+
+  if (loading) return null;
 
   return (
     <div className="flex h-screen">

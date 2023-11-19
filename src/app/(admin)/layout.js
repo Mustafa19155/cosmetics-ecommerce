@@ -3,20 +3,26 @@ import { getAdmin } from "@/api/user";
 import Navbar from "@/components/admin/Navbar";
 import Sidebar from "@/components/admin/Sidebar";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 import { useEffect } from "react";
 
 export default function RootLayout({ children }) {
   const pathname = usePathname();
+  const [loading, setloading] = useState(true);
   // const headersList = headers();
   // const activePath = headersList.get("x-invoke-path");
 
   useEffect(() => {
     getAdmin()
-      .then((res) => {})
+      .then((res) => {
+        setloading(false);
+      })
       .catch((err) => {
         window.location = "/adminLogin";
       });
   }, []);
+
+  if (loading) return null;
 
   return (
     <div className="overflow-x-hidden relative !top-0">

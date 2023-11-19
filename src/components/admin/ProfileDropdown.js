@@ -18,7 +18,7 @@ const ProfileDropdown = ({ show, setshow }) => {
       name: "Logout",
       value: "logout",
       clickHandler: async () => {
-        await deleteCookie({ cookieName: "jwt" });
+        await deleteCookie({ cookieName: "token" });
         router.push("/adminLogin");
       },
     },

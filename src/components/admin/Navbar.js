@@ -23,10 +23,10 @@ const Navbar = () => {
         <div className="shadow-admin-navbar w-[calc(100vw_-_40px)] sm:w-[calc(100vw_-_260px)] flex justify-between p-4 bg-white fixed z-30">
           <div className="flex items-center gap-2">
             <p className="font-bold text-2xl">Hello Admin</p>
-            <div className="relative">
+            {/* <div className="relative">
               <p className="h-[9px] w-[9px] rounded-full bg-primary top-0 z-10 absolute left-3" />
               <Image src={NotificationIcon} />
-            </div>
+            </div> */}
           </div>
           <div className="relative">
             <ProfileDropdown show={showDropdown} setshow={setshowDropdown} />
