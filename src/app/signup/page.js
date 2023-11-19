@@ -2,7 +2,7 @@
 
 import PinkButton from "@/components/buttons/PinkButton";
 import TransparentButton from "@/components/buttons/TransparentButton";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import GoogleIcon from "../../assets/icons/google.svg";
 import Link from "next/link";
 import LoginMainImg from "../../assets/images/login.png";
@@ -10,17 +10,21 @@ import PrimaryInput from "@/components/Inputs/PrimaryInput";
 import { useRouter } from "next/navigation";
 import { registerUser } from "@/api/user";
 import useAlert from "@/hooks/useAlert";
+import { AuthContext } from "@/contexts/userContext";
 
 export default function Page() {
   const router = useRouter();
 
   const { setAlert } = useAlert();
 
+  const { currentUser } = useContext(AuthContext);
+
   const [name, setname] = useState("");
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [confirmPassword, setconfirmPassword] = useState();
   const [apiCalled, setapiCalled] = useState(false);
+  const [loading, setloading] = useState(true);
 
   const handleRegister = () => {
     if (email && password && name)
@@ -42,6 +46,16 @@ export default function Page() {
         setAlert("Passwords Donot Match", "danger");
       }
   };
+
+  useEffect(() => {
+    if (currentUser) {
+      router.push("/");
+    } else {
+      setloading(false);
+    }
+  }, []);
+
+  if (loading) return null;
 
   return (
     <div className="flex h-screen">

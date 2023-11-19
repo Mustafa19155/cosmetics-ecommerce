@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { logout, updateUser } from "@/api/user";
 import { AuthContext } from "@/contexts/userContext";
 import PrimaryInput from "../Inputs/PrimaryInput";
+import { deleteCookie } from "@/actions/serverActions";
 
 const ProfilingTop = () => {
   const router = useRouter();
@@ -18,7 +19,8 @@ const ProfilingTop = () => {
 
   const handleLogout = () => {
     logout()
-      .then((res) => {
+      .then(async (res) => {
+        await deleteCookie({ cookieName: "token" });
         setUser(null);
         router.push("/login");
       })
@@ -29,7 +31,6 @@ const ProfilingTop = () => {
   const [email, setemail] = useState("");
   const [image, setimage] = useState("");
   const [apiCalled, setapiCalled] = useState(false);
-  const [loading, setloading] = useState(true);
 
   const [isEditing, setisEditing] = useState(false);
 
@@ -68,7 +69,6 @@ const ProfilingTop = () => {
   };
 
   useEffect(() => {
-    setloading(false);
     if (currentUser) {
       setname(currentUser.name);
       setemail(currentUser.email);
@@ -78,108 +78,101 @@ const ProfilingTop = () => {
 
   return (
     <div>
-      {loading ? (
-        ""
-      ) : (
-        <div className="shadow-cart-wrapper border-[rgba(251,107,144,0.2)] border p-6 flex flex-col gap-5 items-center w-[95%] sm:w-[70%] mx-auto">
-          <div className="flex flex-col gap-1 items-center">
-            <label
-              for="file"
-              className={`${isEditing ? "cursor-pointer" : ""}`}
-            >
-              <img
-                src={
-                  image
-                    ? image instanceof File
-                      ? URL.createObjectURL(image)
-                      : image
-                    : ProfileImg.src
+      <div className="shadow-cart-wrapper border-[rgba(251,107,144,0.2)] border p-6 flex flex-col gap-5 items-center w-[95%] sm:w-[70%] mx-auto">
+        <div className="flex flex-col gap-1 items-center">
+          <label for="file" className={`${isEditing ? "cursor-pointer" : ""}`}>
+            <img
+              src={
+                image
+                  ? image instanceof File
+                    ? URL.createObjectURL(image)
+                    : image
+                  : ProfileImg.src
+              }
+              className="h-[167px] w-[167px] rounded-full"
+            />
+
+            <input
+              disabled={!isEditing}
+              type="file"
+              id="file"
+              name="file"
+              className="hidden"
+              onChange={(e) => {
+                if (e.target.files.length > 0) {
+                  setimage(e.target.files[0]);
                 }
-                className="h-[167px] w-[167px] rounded-full"
-              />
+              }}
+            />
+          </label>
 
-              <input
-                disabled={!isEditing}
-                type="file"
-                id="file"
-                name="file"
-                className="hidden"
-                onChange={(e) => {
-                  if (e.target.files.length > 0) {
-                    setimage(e.target.files[0]);
-                  }
-                }}
-              />
-            </label>
-
-            <div className="flex items-center justify-center gap-2 relative mb-2 w-full">
-              {isEditing ? (
-                <PrimaryInput
-                  textCenter={true}
-                  disabled={!isEditing}
-                  className={`${isEditing ? "" : "bg-white shadow-none"}`}
-                  value={name}
-                  changeHandler={(e) => setname(e.target.value)}
-                />
-              ) : (
-                <p>{name}</p>
-              )}
-              <Image
-                src={EditIcon}
-                className="h-[16px] w-[16px] cursor-pointer absolute right-0"
-                onClick={() => setisEditing(!isEditing)}
-              />
-            </div>
+          <div className="flex items-center justify-center gap-2 relative mb-2 w-full">
             {isEditing ? (
               <PrimaryInput
                 textCenter={true}
                 disabled={!isEditing}
                 className={`${isEditing ? "" : "bg-white shadow-none"}`}
-                value={email}
-                changeHandler={(e) => setemail(e.target.value)}
+                value={name}
+                changeHandler={(e) => setname(e.target.value)}
               />
             ) : (
-              <p>{email}</p>
+              <p>{name}</p>
             )}
-            <div className="flex items-center gap-1">
-              <Image src={DollarIcon} />
-              <p>{currentUser?.coins} points</p>
-            </div>
-            {isEditing && (
-              <PinkButton
-                text={"Save"}
-                clickHandler={handleUpdateProfile}
-                disabled={apiCalled}
-              />
-            )}
+            <Image
+              src={EditIcon}
+              className="h-[16px] w-[16px] cursor-pointer absolute right-0"
+              onClick={() => setisEditing(!isEditing)}
+            />
           </div>
-          <PinkButton
-            text={"Rate Us"}
-            icon={WhiteArrow}
-            className={"justify-between flex-row-reverse px-8"}
-          />
-          <PinkButton
-            clickHandler={() => router.push("/wishlist")}
-            text={"Favourites"}
-            icon={WhiteArrow}
-            className={"justify-between flex-row-reverse px-8"}
-          />
-          {currentUser?.source != "google" && (
+          {isEditing ? (
+            <PrimaryInput
+              textCenter={true}
+              disabled={!isEditing}
+              className={`${isEditing ? "" : "bg-white shadow-none"}`}
+              value={email}
+              changeHandler={(e) => setemail(e.target.value)}
+            />
+          ) : (
+            <p>{email}</p>
+          )}
+          <div className="flex items-center gap-1">
+            <Image src={DollarIcon} />
+            <p>{currentUser?.coins} points</p>
+          </div>
+          {isEditing && (
             <PinkButton
-              text={"Change Password"}
-              icon={WhiteArrow}
-              className={"justify-between flex-row-reverse px-8"}
-              clickHandler={() => router.push("/profileResetPassword")}
+              text={"Save"}
+              clickHandler={handleUpdateProfile}
+              disabled={apiCalled}
             />
           )}
+        </div>
+        <PinkButton
+          text={"Rate Us"}
+          icon={WhiteArrow}
+          className={"justify-between flex-row-reverse px-8"}
+        />
+        <PinkButton
+          clickHandler={() => router.push("/wishlist")}
+          text={"Favourites"}
+          icon={WhiteArrow}
+          className={"justify-between flex-row-reverse px-8"}
+        />
+        {currentUser?.source != "google" && (
           <PinkButton
-            text={"Logout"}
+            text={"Change Password"}
             icon={WhiteArrow}
             className={"justify-between flex-row-reverse px-8"}
-            clickHandler={handleLogout}
+            clickHandler={() => router.push("/profileResetPassword")}
           />
-        </div>
-      )}
+        )}
+        <PinkButton
+          text={"Logout"}
+          icon={WhiteArrow}
+          className={"justify-between flex-row-reverse px-8"}
+          clickHandler={handleLogout}
+        />
+      </div>
     </div>
   );
 };

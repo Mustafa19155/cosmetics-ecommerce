@@ -1,5 +1,7 @@
+import { getUser } from "@/api/user";
 import EarnCoins from "@/components/UserProfiling/EarnCoins";
 import ProfilingTop from "@/components/UserProfiling/ProfilingTop";
+import { redirect } from "next/navigation";
 import React from "react";
 
 const Page = () => {

@@ -2,7 +2,7 @@
 
 import PinkButton from "@/components/buttons/PinkButton";
 import TransparentButton from "@/components/buttons/TransparentButton";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import GoogleIcon from "../../assets/icons/google.svg";
 import Link from "next/link";
 import LoginMainImg from "../../assets/images/login.png";
@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { getUser, loginUser } from "@/api/user";
 import { AuthContext } from "@/contexts/userContext";
 import useAlert from "@/hooks/useAlert";
+import { setCookie } from "@/actions/serverActions";
 
 export default function Page() {
   const router = useRouter();
@@ -19,14 +20,15 @@ export default function Page() {
   const { setAlert } = useAlert();
   const [password, setpassword] = useState("");
   const [apiCalled, setapiCalled] = useState(false);
+  const [loading, setloading] = useState(true);
 
-  const { setUser } = useContext(AuthContext);
+  const { currentUser, setUser } = useContext(AuthContext);
 
   const handleLogin = () => {
     setapiCalled(true);
     loginUser({ email, password })
-      .then((res) => {
-        router.push("/");
+      .then(async (res) => {
+        await setCookie({ cookieName: "token", cookieValue: res.token });
         getUser()
           .then((resp) => {
             setUser(resp.user);
@@ -42,6 +44,16 @@ export default function Page() {
         setAlert(err, "danger");
       });
   };
+
+  useEffect(() => {
+    if (currentUser) {
+      router.push("/");
+    } else {
+      setloading(false);
+    }
+  }, []);
+
+  if (loading) return null;
 
   return (
     <div className="flex h-screen">

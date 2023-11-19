@@ -10,7 +10,6 @@ import { recalculateDiscount } from "@/actions/recalculateDiscount";
 import { getRandomReviews } from "@/api/reviews";
 
 export default async function Home() {
-  // const latestProducts = (await getLatestProducts()).slice(0, 4);
   const offers = await getUserOffers();
 
   const latestProducts = recalculateDiscount({

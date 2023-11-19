@@ -4,11 +4,10 @@ import Footer from "@/components/Footer";
 import WhatsappIcon from "@/components/WhatsappIcon";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "@/contexts/userContext";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { getUser } from "@/api/user";
 import { validateCart } from "@/api/cart";
 import { loadStripe } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
 import OffersContextProvider from "@/contexts/OffersConext";
 import { recalculateDiscount } from "@/actions/recalculateDiscount";
 import { getUserOffers } from "@/api/offers";
@@ -16,10 +15,9 @@ import { createPayment } from "@/api/payment";
 import { deleteCookie, setCookie } from "@/actions/serverActions";
 import BrandsContextProvider from "@/contexts/brandsContext";
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_PUBLISHABLE_KEY);
-
 export default function RootLayout({ children }) {
-  const router = useRouter();
+  const searchParams = useSearchParams();
+
   const {
     currentUser,
     setUser,
@@ -46,7 +44,7 @@ export default function RootLayout({ children }) {
         setUser(res.user);
       })
       .catch(async (err) => {
-        await deleteCookie({ cookieName: "jwt" });
+        await deleteCookie({ cookieName: "token" });
         setUser(null);
       });
 
@@ -87,65 +85,28 @@ export default function RootLayout({ children }) {
   }, [offers]);
 
   useEffect(() => {
+    const token = searchParams.get("token");
+    if (token) {
+      setCookie({ cookieName: "token", cookieValue: token });
+    }
+
     handleGetOffers();
   }, []);
 
-  const [clientSecret, setClientSecret] = useState("");
-
-  useEffect(() => {
-    createPayment({ amount: 10 })
-      .then((res) => {
-        setpaymentIntentId(res.id);
-        setClientSecret(res.clientSecret);
-      })
-      .catch((err) => {});
-  }, []);
-
-  // const options = {
-  //   mode: "payment",
-  //   amount: 1099,
-  //   currency: "eur",
-  //   appearance: {
-  //     theme: "stripe",
-  //   },
-  // };
-
-  const appearance = {
-    theme: "stripe",
-  };
-  const options = {
-    clientSecret,
-    appearance,
-  };
-
   return (
-    // <html lang="en">
-    //   <head>
-    //     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    //     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    //     <link
-    //       href="https://fonts.googleapis.com/css2?family=Manrope&display=swap"
-    //       rel="stylesheet"
-    //     ></link>
-    //   </head>
     <>
-      {clientSecret && (
-        <Elements stripe={stripePromise} options={options}>
-          <OffersContextProvider>
-            <BrandsContextProvider>
-              <div className="overflow-x-hidden relative !top-0">
-                <WhatsappIcon />
-                <Navbar />
-                <div className="container mx-auto relative top-[75px]">
-                  <div className="mb-[150px]">{children}</div>
-                </div>
-                <Footer />
-              </div>
-            </BrandsContextProvider>
-          </OffersContextProvider>
-        </Elements>
-      )}
+      <OffersContextProvider>
+        <BrandsContextProvider>
+          <div className="overflow-x-hidden relative !top-0">
+            <WhatsappIcon />
+            <Navbar />
+            <div className="container mx-auto relative top-[75px]">
+              <div className="mb-[150px]">{children}</div>
+            </div>
+            <Footer />
+          </div>
+        </BrandsContextProvider>
+      </OffersContextProvider>
     </>
-    // </html>
   );
 }

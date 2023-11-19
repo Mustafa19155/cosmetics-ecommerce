@@ -22,7 +22,7 @@ const TrendingProducts = ({ products }) => {
       <p className="text-secondary text-lg text-center">
         Discover Our Top Picks!
       </p>
-      <div className="mt-8 w-full justify-center sm:justify-start flex flex-wrap gap-[4%] lg:gap-[2%]">
+      <div className="mt-8 w-full justify-center sm:justify-start flex flex-wrap gap-[4%] lg:gap-[2%] items-stretch">
         {products.map((product) => (
           <ProductCard product={product} />
         ))}

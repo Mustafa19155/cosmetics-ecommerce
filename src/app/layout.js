@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import AuthContextProvider from "@/contexts/userContext";
 import AlertContextProvider from "@/contexts/alertContext";
 import AlertPopup from "@/components/AlertPopup";
+import StripeLayout from "@/components/StripeLayout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,8 +30,12 @@ export default function RootLayout({ children }) {
       </head>
       <AlertContextProvider>
         <AuthContextProvider>
-          <AlertPopup />
-          <body className="overflow-x-hidden relative !top-0">{children}</body>
+          <body className="overflow-x-hidden relative !top-0">
+            <StripeLayout>
+              <AlertPopup />
+              {children}
+            </StripeLayout>
+          </body>
         </AuthContextProvider>
       </AlertContextProvider>
     </html>
