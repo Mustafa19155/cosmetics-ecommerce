@@ -11,6 +11,7 @@ import { AuthContext } from "@/contexts/userContext";
 import handleEnterKeyPress from "@/utils/handleEnterKeyPress";
 import GoogleTranslate from "../GoogleTranslate";
 import ProductsDropdown from "./ProductsDropdown";
+import HeadLine from "./HeadLine";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -65,10 +66,20 @@ export default function Navbar() {
 
   return (
     <>
+      <HeadLine />
       <div
-        className={`fixed w-full top-0 z-50 duration-100 ${
+        className={`fixed w-full z-50 duration-100 ${
           screenTop == 0 ? "" : "shadow-custom-1 bg-white"
         }`}
+        style={
+          screenTop == 0
+            ? {
+                top: "25px",
+              }
+            : {
+                top: 0,
+              }
+        }
       >
         <div
           className={`flex justify-between sticky py-3 z-10 px-5 items-center whitespace-nowrap container mx-auto ${

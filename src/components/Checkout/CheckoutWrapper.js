@@ -124,8 +124,14 @@ const CheckoutWrapper = () => {
 
   const [deliveryFee, setdeliveryFee] = useState(0);
 
+  const [originalAmount, setoriginalAmount] = useState(cart.total);
+
   useEffect(() => {
-    deliveryMethod == "pickup" ? setdeliveryFee(0) : setdeliveryFee(15);
+    originalAmount >= 25
+      ? setdeliveryFee(0)
+      : deliveryMethod == "pickup"
+      ? setdeliveryFee(0)
+      : setdeliveryFee(15);
   }, [deliveryMethod]);
 
   const handleCreateOrder = async () => {
@@ -134,7 +140,8 @@ const CheckoutWrapper = () => {
     }
     const data = {
       method: deliveryMethod,
-      delivery_charges: deliveryMethod == "online" ? 15 : 0,
+      delivery_charges:
+        originalAmount >= 25 ? 0 : deliveryMethod == "online" ? 15 : 0,
     };
     if (deliveryMethod == "online") {
       let flag = true;
@@ -224,7 +231,12 @@ const CheckoutWrapper = () => {
     setdeliveryMethod(name);
     setcart({
       ...cart,
-      total: name == "online" ? cart.total + 15 : cart.total - 15,
+      total:
+        originalAmount >= 25
+          ? cart.total
+          : name == "online"
+          ? cart.total + 15
+          : cart.total - 15,
     });
   };
 
@@ -426,42 +438,6 @@ const CheckoutWrapper = () => {
                     {paymentMethod == "card" && (
                       <>
                         <PaymentElement className="border-none p-5" />
-                        {/* <div className="border-t border-primary p-5">
-                        <div className="flex flex-col gap-8">
-                          <PrimaryInput
-                            type="number"
-                            placeholder="Card Number"
-                            value={cardNo}
-                            changeHandler={(e) => {
-                              setcardNo(e.target.value);
-                            }}
-                          />
-                          <PrimaryInput
-                            type="text"
-                            placeholder="Name on Card"
-                            value={nameOnCard}
-                            changeHandler={(e) => {
-                              setnameOnCard(e.target.value);
-                            }}
-                          />
-                          <PrimaryInput
-                            type="text"
-                            placeholder="Expiration date (dd/mm/yy)"
-                            value={expiry}
-                            changeHandler={(e) => {
-                              setexpiry(e.target.value);
-                            }}
-                          />
-                          <PrimaryInput
-                            type="text"
-                            placeholder="CVV"
-                            value={cvv}
-                            changeHandler={(e) => {
-                              setcvv(e.target.value);
-                            }}
-                          />
-                        </div>
-                      </div> */}
                       </>
                     )}
                   </div>
