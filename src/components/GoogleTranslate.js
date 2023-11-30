@@ -16,6 +16,7 @@ const GoogleTranslate = () => {
   }, []);
 
   const googleTranslateElementInit = () => {
+    setCookie("googtrans", "/en/es", 1);
     new window.google.translate.TranslateElement(
       {
         pageLanguage: "auto",
@@ -26,6 +27,12 @@ const GoogleTranslate = () => {
       "google_translate_element"
     );
   };
+
+  function setCookie(key, value, expiry) {
+    var expires = new Date();
+    expires.setTime(expires.getTime() + expiry * 24 * 60 * 60 * 1000);
+    document.cookie = key + "=" + value + ";expires=" + expires.toUTCString();
+  }
 
   return (
     <>
