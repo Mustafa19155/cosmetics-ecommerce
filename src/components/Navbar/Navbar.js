@@ -172,7 +172,7 @@ export default function Navbar() {
                     />
                   )}
                 </div>
-                <Link href={"/userProfiling"}>
+                <Link href={currentUser ? "/userProfiling" : "/login"}>
                   <svg
                     width="20"
                     height="20"
@@ -365,7 +365,7 @@ export default function Navbar() {
                     {screenWidth < 992 && <GoogleTranslate />}
                   </div>
                   <Link
-                    href={"/userProfiling"}
+                    href={currentUser ? "/userProfiling" : "/login"}
                     className={`hover:text-primary duration-75 ${
                       pathname == "/userProfiling" ? "text-primary" : ""
                     }`}

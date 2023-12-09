@@ -114,7 +114,7 @@ export default function Page() {
             <TransparentButton
               clickHandler={() =>
                 router.push(
-                  `${process.env.NEXT_PUBLIC_BASE_URL}/users/auth/google`
+                  `${process.env.NEXT_PUBLIC_BASE_URL}users/auth/google`
                 )
               }
               text={"Continue with Google"}

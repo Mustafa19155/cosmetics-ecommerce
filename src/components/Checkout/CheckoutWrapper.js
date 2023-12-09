@@ -107,7 +107,7 @@ const CheckoutWrapper = () => {
     }
   }, [value]);
 
-  const [paymentMethod, setpaymentMethod] = useState("cash");
+  const [paymentMethod, setpaymentMethod] = useState("card");
 
   // payment
   const [cardNo, setcardNo] = useState("");
@@ -411,7 +411,7 @@ const CheckoutWrapper = () => {
                 <div className="flex flex-col gap-4 px-5 py-9 border border-[rgba(251,107,144,0.2)] rounded-lg">
                   <p className="text-xl font-bold">Select payment methods</p>
                   <div className="border border-[rgba(251,107,144,0.3)] rounded-lg">
-                    <div className="flex items-center gap-3 p-5">
+                    {/* <div className="flex items-center gap-3 p-5">
                       <input
                         type="radio"
                         className="!accent-black cursor-pointer"
@@ -419,7 +419,7 @@ const CheckoutWrapper = () => {
                         onChange={() => setpaymentMethod("cash")}
                       />
                       <label>Cash on Delievery</label>
-                    </div>
+                    </div> */}
                     <div className="flex items-center justify-between px-5 pb-5">
                       <div className="flex gap-3">
                         <input

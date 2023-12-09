@@ -1,8 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
-import { SelectPicker } from "rsuite";
-import { getCookie, hasCookie, setCookie } from "cookies-next";
-import Dropdown from "./Dropdowns/Dropdown";
+import { useEffect } from "react";
 
 const GoogleTranslate = () => {
   useEffect(() => {
@@ -54,7 +51,7 @@ const GoogleTranslate = () => {
       <div
         // className="flex flex-row-reverse items-center gap-2"
         id="google_translate_element"
-        className="absolute left-5 w-14 overflow-hidden"
+        className="absolute left-5 w-20 overflow-hidden"
       />
       <svg
         width="12"

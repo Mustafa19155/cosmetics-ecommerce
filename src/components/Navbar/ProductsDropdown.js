@@ -53,7 +53,7 @@ const ProductsDropdown = ({ screenWidth }) => {
             }}
           >
             <Link href={`/brand/${opt.brand._id}`}>
-              <p className="font-bold text-xl hover:text-primary">
+              <p className="font-bold text-xl hover:text-primary notranslate">
                 {opt.brand.name}
               </p>
             </Link>

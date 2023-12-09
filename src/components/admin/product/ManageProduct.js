@@ -88,7 +88,7 @@ const ManageProduct = ({ product, brands }) => {
       await Promise.all(
         images.map(async (img) => {
           if (img instanceof File) {
-            formData.append("images", img);
+            formData.append("images", img, { mode: "no-cors" });
           } else {
             const response = await fetch(img);
             const data = await response.blob();
