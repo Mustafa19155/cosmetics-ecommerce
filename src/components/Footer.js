@@ -68,9 +68,9 @@ const Footer = () => {
           <div className="w-[100%] sm:w-[60%] lg:w-[37%] mb-4 sm:mb-16">
             <p className="text-2xl font-semibold mb-2">About Us</p>
             <p className="sm:pr-16 md:pr-32 lg:pr-10 xl:pr-32">
-              At Your E-commerce Business Name, we are passionate about
-              delivering the best shopping experience to our customers. With a
-              commitment to quality, convenience, and innovation .
+            Aliyaa Beauty: Where top brands meet diverse styles.
+             Effortless elegance, exceptional service, and a celebration of individual beauty. 
+             Your go-to destination for all things glamorous.
             </p>
           </div>
           <div className="w-[100%] sm:w-[40%] lg:mb-0 lg:w-[21%]  mb-4 sm:mb-0">
