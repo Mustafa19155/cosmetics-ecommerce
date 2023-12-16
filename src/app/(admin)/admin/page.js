@@ -39,8 +39,8 @@ const Page = () => {
   }, []);
 
   useEffect(() => {
-    console.log(data);
     if (data) {
+      console.log(data);
       const adjustedDataCopy = [...adjustedData];
       data.graph.forEach((entry) => {
         const monthIndex = entry._id - 1;
@@ -70,7 +70,7 @@ const Page = () => {
 
   return (
     <div>
-      {data && topPros && totalSales && (
+      {data && topPros && (
         <>
           <div className="bg-white">
             <p className="font-bold text-3xl mb-8">Dashboard</p>

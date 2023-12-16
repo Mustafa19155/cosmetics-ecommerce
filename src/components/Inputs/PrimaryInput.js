@@ -21,6 +21,7 @@ export default function PrimaryInput({
     >
       {icon && <Image src={icon} className="h-[20px] w-[20px]" />}
       <input
+        onWheel={(e) => console.log(e.target.blur())}
         onKeyDown={keyDownHandler}
         disabled={disabled ? disabled : false}
         name={name}

@@ -204,7 +204,7 @@ const ManageProduct = ({ product, brands }) => {
             className={"!p-3"}
             value={price}
             changeHandler={(e) => {
-              if (e.target.value > 0) setprice(e.target.value);
+              if (e.target.value >= 0) setprice(e.target.value);
             }}
             placeholder={"Price"}
             type={"number"}
@@ -260,7 +260,18 @@ const ManageProduct = ({ product, brands }) => {
               onClick={handleDecrement}
               className="cursor-pointer"
             />
-            <p className="font-bold w-[30px] text-center">{quantity}</p>
+            <PrimaryInput
+              className={"shadow-none w-[40px] !px-0"}
+              type={"number"}
+              value={quantity}
+              changeHandler={(e) => {
+                if (quantity >= 0) {
+                  setquantity(e.target.value);
+                }
+              }}
+            >
+              {quantity}
+            </PrimaryInput>
             <Image
               src={PlusIcon}
               onClick={handleIncrement}
