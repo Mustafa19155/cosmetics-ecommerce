@@ -23,14 +23,12 @@ const AboutTop = () => {
           <p className="text-xl font-bold">Our Shop</p>
         </div>
         <p className="lg:pr-10 xl:pr-48">
-          At Treasure Haven, we're more than just a store; we're your shopping
-          sanctuary. Discover a world of extraordinary products and exceptional
-          service that will make every visit memorable.At Treasure Haven, we're
-          more than just a store; we're your shopping sanctuary. Discover a
-          world of extraordinary products and exceptional service that will make
-          every visit memorable.At Treasure Haven, we're more than just a store;
-          we're your shopping sanctuary. Discover a world of extraordinary
-          products and At Treasure Haven, we're more than just a store;
+        Welcome to Aliyaa Beauty, your ultimate beauty hub where convenience meets elegance. Dive into a world of top-notch brands 
+        and diverse categories, from skincare essentials to makeup must-haves, carefully curated to make your beauty routine 
+        effortless and stylish. Experience exceptional service with each visit, as we strive to make your time with us truly 
+        memorable. At Aliyaa Beauty, we celebrate individuality with a wide array of categories catering to everyone,
+         ensuring there's something for every unique style. Join us on this beauty adventure and explore the magic that 
+         lies within Aliyaa Beauty your go-to destination for all things beautiful.
         </p>
         <div className="flex gap-5">
           <Link
