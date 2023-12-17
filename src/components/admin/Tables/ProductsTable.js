@@ -124,7 +124,7 @@ const ProductsTable = ({ mainPros, setmainPros }) => {
                   <td class="px-3 py-4">
                     {item.quantity > 0 ? "In Stock" : "Out of Stock"}
                   </td>
-                  <td class="px-3 py-4">€{item.price}</td>
+                  <td class="px-3 py-4 notranslate">€{item.price}</td>
                   <td class="px-3 py-4">
                     <div className="flex items-center gap-4">
                       <Image

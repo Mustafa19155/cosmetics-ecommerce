@@ -4,16 +4,17 @@ import BackIcon from "@/assets/icons/back.svg";
 import Link from "next/link";
 import Image from "next/image";
 import SelectInput from "@/components/Inputs/SelectInput";
-import { completeOrder } from "@/api/order";
+import { cancelOrder, completeOrder } from "@/api/order";
 import ConfirmModal from "@/components/Modals/ConfirmModal";
 import PinkButton from "@/components/buttons/PinkButton";
 
 const OrderTop = ({ order }) => {
   const [apiCalled, setapiCalled] = useState(false);
+
   const statusOptions = [
     { name: "Pending", value: "pending" },
-    // { name: "In Progress", value: "inprogress" },
     { name: "Completed", value: "completed" },
+    { name: "Cancelled", value: "cancelled" },
   ];
 
   const [confirmModalOpen, setconfirmModalOpen] = useState(false);
@@ -33,14 +34,31 @@ const OrderTop = ({ order }) => {
       });
   };
 
+  const handleCancelOrder = () => {
+    setapiCalled(true);
+    cancelOrder({ id: order._id })
+      .then((res) => {
+        window.location.reload();
+      })
+      .catch((err) => {
+        setapiCalled(false);
+      });
+  };
+
   return (
     <div className="flex gap-5 lg:gap-0 flex-col lg:flex-row lg:items-center justify-between">
       <ConfirmModal
-        description={"Are you sure you want to complete this order?"}
+        description={`Are you sure you want to ${
+          currStatus.value == "completed" ? "complete" : "cancel"
+        } this order?`}
         onclose={() => {
           setconfirmModalOpen(false);
         }}
-        onconfirm={handleCompleteOrder}
+        onconfirm={
+          currStatus.value == "completed"
+            ? handleCompleteOrder
+            : handleCancelOrder
+        }
         open={confirmModalOpen}
       />
       <div className="flex items-center gap-4">
@@ -50,16 +68,18 @@ const OrderTop = ({ order }) => {
         <p className="font-bold text-3xl">Order Details</p>
       </div>
       <div className="flex gap-3 items-center flex-wrap">
-        {currStatus.value == "completed" && order.status != "completed" && (
-          <PinkButton
-            disabled={apiCalled}
-            text={"Update Status"}
-            className={"px-8 !w-fit"}
-            clickHandler={() => setconfirmModalOpen(true)}
-          />
-        )}
+        {(currStatus.value == "completed" || currStatus.value == "cancelled") &&
+          order.status != "completed" &&
+          order.status != "cancelled" && (
+            <PinkButton
+              disabled={apiCalled}
+              text={"Update Status"}
+              className={"px-8 !w-fit"}
+              clickHandler={() => setconfirmModalOpen(true)}
+            />
+          )}
         <SelectInput
-          disabled={order.status == "completed"}
+          disabled={order.status == "completed" || order.status == "cancelled"}
           active={currStatus}
           setactive={(st) => {
             setcurrStatus(st);

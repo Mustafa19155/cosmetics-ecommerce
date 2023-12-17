@@ -51,7 +51,8 @@ axiosClient.interceptors.response.use(
     if (error.response?.status == 401) {
       if (
         error.response.config.url != "/users/login" &&
-        error.response.config.url != "/users/user"
+        error.response.config.url != "/users/user" &&
+        error.response.config.url != "/admin/admin"
       ) {
         if (typeof window != "undefined") {
           if (error.response.config.url.includes("/admin")) {

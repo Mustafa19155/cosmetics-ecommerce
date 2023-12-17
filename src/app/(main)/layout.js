@@ -86,6 +86,7 @@ export default function RootLayout({ children }) {
 
   useEffect(() => {
     const token = searchParams.get("token");
+
     if (token) {
       setCookie({ cookieName: "token", cookieValue: token });
     }

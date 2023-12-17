@@ -61,6 +61,7 @@ const CheckoutWrapper = () => {
   const [value, setValue] = useState("");
   const [isValid, setIsValid] = useState(null);
   const [email, setemail] = useState("");
+  const [country, setcountry] = useState(Country.getAllCountries()[0].isoCode);
 
   const [formData, setFormData] = useState({
     username: null,
@@ -76,44 +77,40 @@ const CheckoutWrapper = () => {
       [e.target.name]: e.target.value,
     });
   };
-
   useEffect(() => {
-    if (value) {
-      setIsValid(false);
+    // if (value) {
+    //   setIsValid(false);
 
-      if (value.length > 0) {
-        if (isValidPhoneNumber(value)) {
-          setIsValid(true);
+    // if (value.length > 0) {
+    // if (isValidPhoneNumber(value)) {
+    // setIsValid(true);
 
-          let countryName = parsePhoneNumber(value);
-          if (countryName) {
-            let country = Country.getCountryByCode(countryName.country);
-            if (country) {
-              let state = State.getStatesOfCountry(countryName.country);
-              let city = City.getCitiesOfState(
-                countryName.country,
-                state[0].isoCode
-              );
-              setFormData({
-                ...formData,
-                country: country.name,
-                state: state[0].isoCode,
-                city: city[0].name,
-              });
-            }
-          }
+    // let countryName = parsePhoneNumber(value);
+    let countryName = country;
+    if (countryName) {
+      let mainCountry = Country.getCountryByCode(countryName).isoCode;
+
+      if (mainCountry) {
+        let state = State.getStatesOfCountry(countryName);
+        let city;
+        if (state.length > 0) {
+          city = City.getCitiesOfState(countryName, state[0].isoCode);
         }
+        setFormData({
+          ...formData,
+          country: Country.getAllCountries().find((c) => c.isoCode == country)
+            .name,
+          state: state.length > 0 ? state[0].isoCode : "",
+          city: city && city.length > 0 ? city[0].name : "",
+        });
       }
+      // }
     }
-  }, [value]);
+    // }
+    // }
+  }, [country]);
 
   const [paymentMethod, setpaymentMethod] = useState("card");
-
-  // payment
-  const [cardNo, setcardNo] = useState("");
-  const [nameOnCard, setnameOnCard] = useState("");
-  const [expiry, setexpiry] = useState("");
-  const [cvv, setcvv] = useState("");
 
   //remember my info
   const [saveInfo, setsaveInfo] = useState(false);
@@ -150,7 +147,7 @@ const CheckoutWrapper = () => {
           flag = false;
         }
       }
-      if (!flag || !isValid) {
+      if (!flag) {
         return setAlert("Please fill all delivery details", "danger");
       }
       data.name = formData.username;
@@ -160,17 +157,9 @@ const CheckoutWrapper = () => {
       data.city = formData.city;
       data.address = formData.address;
       data.number = value;
+      data.state = formData.state;
     }
     data.payment_method = paymentMethod;
-    // if (paymentMethod == "card") {
-    //   if (!cardNo || !nameOnCard || !cvv || !expiry) {
-    //     return setAlert("Invalid Card Details", "danger");
-    //   }
-    //   data.card_number = cardNo;
-    //   data.card_name = nameOnCard;
-    //   data.card_cvv = cvv;
-    //   data.card_date = expiry;
-    // }
     if (currentUser) {
       data.user = currentUser._id;
     }
@@ -202,7 +191,7 @@ const CheckoutWrapper = () => {
       if (submitError) {
         return;
       }
-
+      setapiCalled(true);
       await stripe.confirmPayment({
         elements,
         confirmParams: {
@@ -211,7 +200,6 @@ const CheckoutWrapper = () => {
         redirect: "if_required",
       });
     }
-    setapiCalled(true);
     createOrder({ data })
       .then((res) => {
         setapiCalled(false);
@@ -333,6 +321,30 @@ const CheckoutWrapper = () => {
                         />
                       </div>
                       <div className="flex flex-col gap-2">
+                        <label className="font-semibold text-sm">Country</label>
+                        <select
+                          name="country"
+                          className="bg-gray-1 shadow-custom-1 py-2 outline-none px-2  rounded-md"
+                          id="country"
+                          // disabled
+                          value={country}
+                          onChange={(e) => {
+                            setcountry(e.target.value);
+                            changeHandler(e);
+                          }}
+                        >
+                          {Country.getAllCountries().map(
+                            (country, val, index) => {
+                              return (
+                                <option key={val} value={country.isoCode}>
+                                  {country.name}
+                                </option>
+                              );
+                            }
+                          )}
+                        </select>
+                      </div>
+                      <div className="flex flex-col gap-2">
                         <label className="font-semibold text-sm">State</label>
                         <select
                           name="state"
@@ -340,7 +352,16 @@ const CheckoutWrapper = () => {
                           className="bg-gray-1 shadow-custom-1 py-2 outline-none px-2  rounded-md"
                           id="city"
                         >
-                          {isValid && value ? (
+                          {State.getStatesOfCountry(country).map(
+                            (state, index) => {
+                              return (
+                                <option key={index} value={state.isoCode}>
+                                  {state.name}
+                                </option>
+                              );
+                            }
+                          )}
+                          {/* {isValid && value ? (
                             value.length > 0 && isValidPhoneNumber(value) ? (
                               State.getStatesOfCountry(
                                 parsePhoneNumber(value).country
@@ -354,7 +375,7 @@ const CheckoutWrapper = () => {
                             ) : null
                           ) : (
                             <option value={""}>State</option>
-                          )}
+                          )} */}
                         </select>
                       </div>
                       <div className="flex flex-col gap-2">
@@ -366,7 +387,16 @@ const CheckoutWrapper = () => {
                           className="bg-gray-1 shadow-custom-1 py-2 outline-none px-2  rounded-md"
                           id="city"
                         >
-                          {isValid && value ? (
+                          {City.getCitiesOfState(country, formData.state).map(
+                            (city, index) => {
+                              return (
+                                <option key={index} value={city.name}>
+                                  {city.name}
+                                </option>
+                              );
+                            }
+                          )}
+                          {/* {isValid && value ? (
                             value.length > 0 && isValidPhoneNumber(value) ? (
                               City.getCitiesOfState(
                                 parsePhoneNumber(value).country,
@@ -381,28 +411,7 @@ const CheckoutWrapper = () => {
                             ) : null
                           ) : (
                             <option value={""}>City</option>
-                          )}
-                        </select>
-                      </div>
-                      <div className="flex flex-col gap-2">
-                        <label className="font-semibold text-sm">Country</label>
-                        <select
-                          name="country"
-                          className="bg-gray-1 shadow-custom-1 py-2 outline-none px-2  rounded-md"
-                          id="country"
-                          disabled
-                          value={formData.country}
-                          onChange={changeHandler}
-                        >
-                          {Country.getAllCountries().map(
-                            (country, val, index) => {
-                              return (
-                                <option key={val} value={country.name}>
-                                  {country.name}
-                                </option>
-                              );
-                            }
-                          )}
+                          )} */}
                         </select>
                       </div>
                     </div>
@@ -411,15 +420,6 @@ const CheckoutWrapper = () => {
                 <div className="flex flex-col gap-4 px-5 py-9 border border-[rgba(251,107,144,0.2)] rounded-lg">
                   <p className="text-xl font-bold">Select payment methods</p>
                   <div className="border border-[rgba(251,107,144,0.3)] rounded-lg">
-                    {/* <div className="flex items-center gap-3 p-5">
-                      <input
-                        type="radio"
-                        className="!accent-black cursor-pointer"
-                        checked={paymentMethod == "cash"}
-                        onChange={() => setpaymentMethod("cash")}
-                      />
-                      <label>Cash on Delievery</label>
-                    </div> */}
                     <div className="flex items-center justify-between px-5 pb-5">
                       <div className="flex gap-3">
                         <input
@@ -474,7 +474,9 @@ const CheckoutWrapper = () => {
                           <p className="font-bold max-w-[120px] sm:max-w-[300px] md:max-w-[150px] lg:max-w-[280px] truncate line-clamp-2 whitespace-normal">
                             {item.product.name}
                           </p>
-                          <p>€{item.product.discountedPrice}</p>
+                          <p className="notranslate">
+                            €{item.product.discountedPrice}
+                          </p>
                         </div>
                         <p className="text-secondary text-sm truncate whitespace-normal line-clamp-2">
                           {item.product.description}
@@ -487,19 +489,23 @@ const CheckoutWrapper = () => {
               </div>
               <div className="flex justify-between items-center">
                 <p className="font-bold">SubTotal</p>
-                <p className="font-bold">€{originalTotal}</p>
+                <p className="font-bold notranslate">
+                  €{originalTotal.toFixed(2)}
+                </p>
               </div>
               <div className="flex justify-between items-center">
                 <p className="font-bold">Discount</p>
-                <p className="text-secondary">€{discountAmount}</p>
+                <p className="text-secondary notranslate">
+                  €{discountAmount.toFixed(2)}
+                </p>
               </div>
               <div className="flex justify-between items-center">
                 <p className="font-bold">Delivery fee</p>
-                <p className="text-secondary">€{deliveryFee}</p>
+                <p className="text-secondary notranslate">€{deliveryFee}</p>
               </div>
               <div className="flex justify-between items-center text-xl font-bold">
                 <p>Grand Total</p>
-                <p>€{data.total}</p>
+                <p className="notranslate">€{data.total.toFixed(2)}</p>
               </div>
               <div>
                 <TransparentButton

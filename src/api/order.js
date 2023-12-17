@@ -59,3 +59,15 @@ export const completeOrder = async ({ id }) => {
     throw err.response?.data?.message;
   }
 };
+
+export const cancelOrder = async ({ id }) => {
+  try {
+    const res = await axiosClient.patch(
+      `admin/order/edit/${id}?cancelled=${true}`
+    );
+
+    return res;
+  } catch (err) {
+    throw err.response?.data?.message;
+  }
+};

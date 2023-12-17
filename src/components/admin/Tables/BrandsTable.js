@@ -56,7 +56,7 @@ const CategoryTable = ({ mainPros, setmainPros }) => {
         window.location.reload();
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 

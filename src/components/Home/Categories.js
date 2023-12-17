@@ -17,11 +17,12 @@ const Categories = () => {
             className="w-[85%] sm:w-[44%] lg:w-[22%] text-center cursor-pointer mt-10"
             onClick={() => router.push(`/brand/${cat.brand._id}`)}
           >
-            <img
-              src={cat.brand.image}
-              className="w-full h-[5vw] min-h-[160px] object-cover"
-            />
-            <p className="text-xl mt-2 font-semibold">{cat.brand.name}</p>
+            <div className="h-[5vw] min-h-[160px] flex justify-center items-center mb-4">
+              <img src={cat.brand.image} className="max-w-auto" />
+            </div>
+            <p className="text-xl mt-2 font-semibold notranslate">
+              {cat.brand.name}
+            </p>
           </div>
         ))}
       </div>

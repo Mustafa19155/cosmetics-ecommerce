@@ -46,7 +46,7 @@ const SubCategoryTable = ({ mainPros, setmainPros }) => {
   };
 
   const handleDelete = () => {
-    deleteCategory({ id: activeModalData._id })
+    deleteCategory({ id: activeModalData.data._id })
       .then((res) => {
         window.location.reload();
       })
@@ -59,7 +59,7 @@ const SubCategoryTable = ({ mainPros, setmainPros }) => {
         window.location.reload();
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 

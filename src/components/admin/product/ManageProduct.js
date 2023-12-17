@@ -68,63 +68,73 @@ const ManageProduct = ({ product, brands }) => {
   };
 
   const handleAddProduct = async () => {
-    if (
-      name &&
-      description &&
-      quantity > 0 &&
-      price &&
-      discount >= 0 &&
-      activeCategory &&
-      images.length > 0
-    ) {
-      setapiCalled(true);
-      const formData = new FormData();
-      formData.append("name", name);
-      formData.append("description", description);
-      formData.append("quantity", quantity);
-      formData.append("discount", discount);
-      formData.append("price", price);
-      formData.append("category", activeCategory.value);
-      await Promise.all(
-        images.map(async (img) => {
-          if (img instanceof File) {
-            formData.append("images", img, { mode: "no-cors" });
-          } else {
-            const response = await fetch(img);
-            const data = await response.blob();
-            const fileName = "updatedImage";
-            formData.append(
-              "images",
-              new File([data], fileName, {
-                type: data.type,
-              })
-            );
-          }
-        })
-      );
-      if (isEditing) {
-        editProduct({ data: formData, id: product._id })
-          .then((res) => {
-            setapiCalled(false);
-            setAlert("Product Updated Successfully", "success");
+    try {
+      if (
+        name &&
+        description &&
+        quantity > 0 &&
+        price &&
+        discount >= 0 &&
+        activeCategory &&
+        images.length > 0
+      ) {
+        setapiCalled(true);
+        const formData = new FormData();
+        formData.append("name", name);
+        formData.append("description", description);
+        formData.append("quantity", quantity);
+        formData.append("discount", discount);
+        formData.append("price", price);
+        formData.append("category", activeCategory.value);
+        await Promise.all(
+          images.map(async (img) => {
+            if (img instanceof File) {
+              formData.append("images", img);
+            } else {
+              const response = await fetch(
+                "https://aliyaabeauty.s3.eu-north-1.amazonaws.com/1702471255719-updatedImage"
+              );
+
+              const data = await response.blob();
+              const fileName = "updatedImage";
+              formData.append(
+                "images",
+                new File([data], fileName, {
+                  type: data.type,
+                })
+              );
+            }
           })
-          .catch((err) => {
-            setapiCalled(false);
-            setAlert(err, "danger");
-          });
+        );
+        if (isEditing) {
+          editProduct({ data: formData, id: product._id })
+            .then((res) => {
+              setapiCalled(false);
+              setAlert("Product Updated Successfully", "success");
+              router.push("/admin/product");
+            })
+            .catch((err) => {
+              setapiCalled(false);
+              setAlert(err, "danger");
+            });
+        } else {
+          addProduct({ data: formData })
+            .then((res) => {
+              setapiCalled(false);
+              setAlert("Product Added Successfully", "success");
+              router.push("/admin/product");
+            })
+            .catch((err) => {
+              setapiCalled(false);
+              setAlert(err, "danger");
+            });
+        }
       } else {
-        addProduct({ data: formData })
-          .then((res) => {
-            setapiCalled(false);
-            setAlert("Product Added Successfully", "success");
-          })
-          .catch((err) => {
-            setapiCalled(false);
-            setAlert(err, "danger");
-          });
+        setAlert("Fill all fields", "danger");
       }
-    } else {
-      setAlert("Fill all fields", "danger");
+    } catch (err) {
+      console.log(err);
+      setapiCalled(false);
     }
   };
 

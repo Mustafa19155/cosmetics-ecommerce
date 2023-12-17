@@ -9,6 +9,7 @@ const SelectInput = ({
   setactive,
   placeholder,
   disabled,
+  notranslate,
 }) => {
   const [showDropdown, setshowDropdown] = useState(false);
 
@@ -23,7 +24,7 @@ const SelectInput = ({
         }}
       >
         <p
-          className={`whitespace-nowrap ${
+          className={`whitespace-nowrap ${notranslate ? "notranslate" : ""} ${
             active && !disabled ? "" : "text-gray-500"
           }`}
         >
@@ -48,6 +49,7 @@ const SelectInput = ({
         show={showDropdown}
         setshow={setshowDropdown}
         setactive={setactive}
+        notranslate={notranslate}
       />
     </div>
   );

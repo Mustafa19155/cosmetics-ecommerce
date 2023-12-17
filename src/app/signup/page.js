@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { registerUser } from "@/api/user";
 import useAlert from "@/hooks/useAlert";
 import { AuthContext } from "@/contexts/userContext";
+import EyeIcon from "@/assets/icons/eye.svg";
 
 export default function Page() {
   const router = useRouter();
@@ -25,6 +26,8 @@ export default function Page() {
   const [confirmPassword, setconfirmPassword] = useState();
   const [apiCalled, setapiCalled] = useState(false);
   const [loading, setloading] = useState(true);
+  const [showPass, setshowPass] = useState(false);
+  const [showConfirmPass, setshowConfirmPass] = useState(false);
 
   const handleRegister = () => {
     if (email && password && name)
@@ -90,25 +93,39 @@ export default function Page() {
             </div>
             <div className="flex flex-col gap-2">
               <label>Password</label>
-              <PrimaryInput
-                type="password"
-                placeholder="******"
-                value={password}
-                changeHandler={(e) => {
-                  setpassword(e.target.value);
-                }}
-              />
+              <div className="relative">
+                <PrimaryInput
+                  type={showPass ? "text" : "password"}
+                  placeholder="******"
+                  value={password}
+                  changeHandler={(e) => {
+                    setpassword(e.target.value);
+                  }}
+                />
+                <img
+                  onClick={() => setshowPass(!showPass)}
+                  src={EyeIcon.src}
+                  className="absolute h-5 w-5 top-2 right-3 cursor-pointer"
+                />
+              </div>
             </div>
             <div className="flex flex-col gap-2">
               <label>Confirm Password</label>
-              <PrimaryInput
-                type="password"
-                placeholder="*******"
-                value={confirmPassword}
-                changeHandler={(e) => {
-                  setconfirmPassword(e.target.value);
-                }}
-              />
+              <div className="relative">
+                <PrimaryInput
+                  type={showConfirmPass ? "text" : "password"}
+                  placeholder="*******"
+                  value={confirmPassword}
+                  changeHandler={(e) => {
+                    setconfirmPassword(e.target.value);
+                  }}
+                />
+                <img
+                  onClick={() => setshowConfirmPass(!showConfirmPass)}
+                  src={EyeIcon.src}
+                  className="absolute h-5 w-5 top-2 right-3 cursor-pointer"
+                />
+              </div>
             </div>
             <PinkButton text={"REGISTER"} clickHandler={handleRegister} />
             <TransparentButton

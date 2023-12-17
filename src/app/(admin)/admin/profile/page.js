@@ -26,7 +26,7 @@ const Page = () => {
           .catch((err) => {});
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 

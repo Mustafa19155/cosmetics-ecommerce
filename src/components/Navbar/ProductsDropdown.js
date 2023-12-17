@@ -53,17 +53,22 @@ const ProductsDropdown = ({ screenWidth }) => {
             }}
           >
             <Link href={`/brand/${opt.brand._id}`}>
-              <p className="font-bold text-xl hover:text-primary notranslate">
+              <p className="font-bold text-xl hover:text-primary notranslate break-all">
                 {opt.brand.name}
               </p>
             </Link>
             <div>
               {opt.categories.map((cat) => (
                 <Link
-                  href={`/products?category=${cat.name}`}
+                  href={`/products?category=${cat.name.replace(
+                    "&",
+                    "replaceand"
+                  )}`}
                   className="hover:text-primary"
                 >
-                  <p>{cat.name}</p>
+                  <p className="notranslate break-all whitespace-normal">
+                    {cat.name}
+                  </p>
                 </Link>
               ))}
             </div>

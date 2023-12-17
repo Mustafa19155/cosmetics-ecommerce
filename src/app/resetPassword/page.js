@@ -19,10 +19,8 @@ export default function Page() {
         />
       ) : currentStep == 2 ? (
         <Step2 email={email} setstep={setcurrentStep} />
-      ) : currentStep == 3 ? (
-        <Step3 />
       ) : (
-        <Step4 />
+        <Step3 />
       )}
       <div
         className="w-[50%] h-full hidden md:block"

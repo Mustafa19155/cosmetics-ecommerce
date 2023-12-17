@@ -74,12 +74,14 @@ const CategoryModal = ({ open, onclose, category, onconfirm }) => {
               class={`cursor-pointer`}
             >
               {image ? (
-                <img
-                  src={
-                    image instanceof File ? URL.createObjectURL(image) : image
-                  }
-                  className="h-[200px] w-[350px] object-fit"
-                />
+                <div className="h-[200px] w-[350px] flex justify-center items-center overflow-hidden">
+                  <img
+                    src={
+                      image instanceof File ? URL.createObjectURL(image) : image
+                    }
+                    className="max-h-full max-w-auto"
+                  />
+                </div>
               ) : (
                 <div class="flex gap-3 border-dashed border-primary border w-[350px] p-12 justify-center">
                   <p className="font-bold text-lg">+ Add Photo</p>

@@ -18,7 +18,7 @@ const StripeLayout = ({ children }) => {
         setClientSecret(res.clientSecret);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   }, []);
 

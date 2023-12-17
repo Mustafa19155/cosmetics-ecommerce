@@ -23,7 +23,7 @@ const SubCategoryModal = ({ open, onclose, subcategory, onconfirm }) => {
         setbrands(res);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
   const handleAddCategory = () => {
@@ -81,12 +81,14 @@ const SubCategoryModal = ({ open, onclose, subcategory, onconfirm }) => {
               class={`cursor-pointer`}
             >
               {image ? (
-                <img
-                  src={
-                    image instanceof File ? URL.createObjectURL(image) : image
-                  }
-                  className="h-[200px] w-[200px] object-cover"
-                />
+                <div className="h-[200px] w-[200px] flex justify-center items-center">
+                  <img
+                    src={
+                      image instanceof File ? URL.createObjectURL(image) : image
+                    }
+                    className="max-h-full max-w-auto"
+                  />
+                </div>
               ) : (
                 <div class="flex gap-3 border-dashed border-primary border w-fit p-12">
                   <p className="font-bold text-lg">+ Add Photo</p>

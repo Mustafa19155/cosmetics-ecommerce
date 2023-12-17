@@ -12,11 +12,8 @@ const Page = async ({ params }) => {
     <div className="my-16">
       <div>
         <div className="flex items-center justify-center">
-          <div className="w-full h-[300px]">
-            <img
-              src={data.brand?.image}
-              className="object-cover h-full mx-auto"
-            />
+          <div className="w-full h-[300px] flex justify-center items-center">
+            <img src={data.brand?.image} className="max-w-auto" />
           </div>
           {/* <p className="text-4xl font-bold">{data.brand.name}</p> */}
         </div>
@@ -43,7 +40,9 @@ const Page = async ({ params }) => {
                   src={cat.image}
                   className="w-full h-[9vw] min-h-[170px] object-contain"
                 />
-                <p className="text-xl mt-4 font-semibold">{cat.name}</p>
+                <p className="text-xl mt-4 font-semibold notranslate">
+                  {cat.name}
+                </p>
               </Link>
             ))}
           </div>

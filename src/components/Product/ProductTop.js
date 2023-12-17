@@ -8,6 +8,7 @@ import MinusIcon from "../../assets/icons/minus.svg";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { AuthContext } from "@/contexts/userContext";
+import PrimaryInput from "../Inputs/PrimaryInput";
 
 const ProductTop = ({ product }) => {
   const router = useRouter();
@@ -64,21 +65,23 @@ const ProductTop = ({ product }) => {
         <div>
           <div className="flex items-end gap-3">
             <p className="font-bold text-3xl">{product.name}</p>
-            <p className="text-sm text-primary">
+            <p className="text-sm text-primary whitespace-nowrap">
               {product.quantity > 0
                 ? "Available in stock"
                 : "Not Available in stock"}
             </p>
           </div>
-
-          <p className="text-secondary text-lg">
-            {product.description.split(" ").slice(0, 10).join(" ")}
-          </p>
         </div>
         <p>{product.desc}</p>
         <div className="flex items-center gap-3">
-          <p className="text-3xl font-bold">€{product.discountedPrice}</p>
-          <p className="line-through text-secondary">€{product.price}</p>
+          <p className="text-3xl font-bold notranslate">
+            €{product.discountedPrice}
+          </p>
+          {product.discount > 0 && (
+            <p className="line-through text-secondary notranslate">
+              €{product.price}
+            </p>
+          )}
         </div>
         <div className="flex gap-8 text-lg items-center px-4 py-2 border-primary border w-fit">
           <Image
@@ -86,7 +89,19 @@ const ProductTop = ({ product }) => {
             onClick={handleDecrement}
             className="cursor-pointer"
           />
-          <p className="font-bold w-[25px] text-center">{quantity}</p>
+          <PrimaryInput
+            textCenter={true}
+            type={"number"}
+            className="w-[40px] px-0"
+            value={quantity}
+            changeHandler={(e) => {
+              if (e.target.value >= 0 && e.target.value < product.quantity) {
+                setquantity(parseInt(e.target.value));
+              }
+            }}
+          >
+            {quantity}
+          </PrimaryInput>
           <Image
             src={PlusIcon}
             onClick={handleIncrement}

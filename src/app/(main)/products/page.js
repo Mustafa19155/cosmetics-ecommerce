@@ -20,6 +20,7 @@ const Page = async ({ params, searchParams }) => {
       allOffers: offers,
     });
   } else if (searchParams.category) {
+    searchParams.category = searchParams.category.replace("replaceand", "&");
     data = recalculateDiscount({
       products: await getProductsByCategory({ name: searchParams.category }),
       allOffers: offers,
@@ -27,7 +28,6 @@ const Page = async ({ params, searchParams }) => {
   } else {
     redirect("/");
   }
-
   return (
     <div className="my-16">
       <div className="text-center">

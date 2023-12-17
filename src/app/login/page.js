@@ -12,6 +12,7 @@ import { getUser, loginUser } from "@/api/user";
 import { AuthContext } from "@/contexts/userContext";
 import useAlert from "@/hooks/useAlert";
 import { setCookie } from "@/actions/serverActions";
+import EyeIcon from "@/assets/icons/eye.svg";
 
 export default function Page() {
   const router = useRouter();
@@ -21,6 +22,7 @@ export default function Page() {
   const [password, setpassword] = useState("");
   const [apiCalled, setapiCalled] = useState(false);
   const [loading, setloading] = useState(true);
+  const [showPas, setshowPas] = useState(false);
 
   const { currentUser, setUser } = useContext(AuthContext);
 
@@ -77,14 +79,21 @@ export default function Page() {
             </div>
             <div className="flex flex-col gap-2">
               <label>Password</label>
-              <PrimaryInput
-                type="password"
-                placeholder="******"
-                value={password}
-                changeHandler={(e) => {
-                  setpassword(e.target.value);
-                }}
-              />
+              <div className="relative">
+                <PrimaryInput
+                  type={showPas ? "text" : "password"}
+                  placeholder="******"
+                  value={password}
+                  changeHandler={(e) => {
+                    setpassword(e.target.value);
+                  }}
+                />
+                <img
+                  onClick={() => setshowPas(!showPas)}
+                  src={EyeIcon.src}
+                  className="absolute h-5 w-5 top-2 right-3 cursor-pointer"
+                />
+              </div>
               <Link href={"/resetPassword"}>
                 <p className="text-sm text-end mt-1 underline">
                   Forgot Password
@@ -100,7 +109,7 @@ export default function Page() {
             <TransparentButton
               clickHandler={() =>
                 router.push(
-                  `${process.env.NEXT_PUBLIC_BASE_URL}users/auth/google`
+                  `${process.env.NEXT_PUBLIC_BASE_URL}/users/auth/google`
                 )
               }
               text={"Continue with Google"}

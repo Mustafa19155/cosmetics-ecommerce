@@ -8,6 +8,7 @@ const Dropdown = ({
   className,
   handleClick,
   setactive,
+  notranslate,
 }) => {
   const ref = useRef(null);
 
@@ -29,7 +30,7 @@ const Dropdown = ({
             setactive(opt);
           }}
         >
-          <p>{opt.name}</p>
+          <p className={`${notranslate ? "notranslate" : ""}`}>{opt.name}</p>
         </div>
       ))}
     </div>

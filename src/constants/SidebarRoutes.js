@@ -1,6 +1,6 @@
 export default [
   {
-    name: "dasboard",
+    name: "dashboard",
     link: "/admin",
     icon: (
       <svg
