@@ -66,7 +66,7 @@ const ProductsDropdown = ({ screenWidth }) => {
                   )}`}
                   className="hover:text-primary"
                 >
-                  <p className="notranslate break-all whitespace-normal">
+                  <p className="notranslate break-all whitespace-normal notranslate">
                     {cat.name}
                   </p>
                 </Link>

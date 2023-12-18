@@ -117,7 +117,7 @@ const ProductsTable = ({ mainPros, setmainPros }) => {
                     />
                   </td>
                   <td class="px-3 py-4">
-                    <p className="sm:max-w-[300px] md:max-w-[150px] lg:max-w-[400px] truncate line-clamp-3 whitespace-normal">
+                    <p className="sm:max-w-[300px] md:max-w-[150px] lg:max-w-[400px] truncate line-clamp-3 whitespace-normal notranslate">
                       {item.name}
                     </p>
                   </td>

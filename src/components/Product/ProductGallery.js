@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
+import ReactImageMagnify from "react-image-magnify";
 
 const ProductGallery = ({ images }) => {
   const selectedRef = Array.from({ length: images.length }, () => useRef(null));
@@ -38,11 +39,26 @@ const ProductGallery = ({ images }) => {
 
   return (
     <>
-      <div className="overflow-hidden">
-        <img
+      <div className="flex justify-center overflow-hidden">
+        <ReactImageMagnify
+          {...{
+            className: "main-image",
+            smallImage: {
+              alt: "",
+              isFluidWidth: true,
+              src: images[selectedImageIndex],
+            },
+            largeImage: {
+              src: images[selectedImageIndex],
+              width: 1200,
+              height: 1800,
+            },
+          }}
+        />
+        {/* <img
           src={images[selectedImageIndex]}
           className="h-[400px] object-contain mx-auto"
-        />
+        /> */}
       </div>
       <div className="flex items-center gap-3 justify-between">
         <div

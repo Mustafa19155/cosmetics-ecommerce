@@ -13,7 +13,7 @@ const Page = async ({ params }) => {
       <div>
         <div className="flex items-center justify-center">
           <div className="w-full h-[300px] flex justify-center items-center">
-            <img src={data.brand?.image} className="max-w-auto" />
+            <img src={data.brand?.image} className="max-w-auto max-h-full" />
           </div>
           {/* <p className="text-4xl font-bold">{data.brand.name}</p> */}
         </div>
@@ -33,7 +33,10 @@ const Page = async ({ params }) => {
           <div className="flex justify-center sm:justify-start flex-wrap mt-8 w-full">
             {data.categories.map((cat) => (
               <Link
-                href={`/products/?category=${cat.name}`}
+                href={`/products/?category=${cat.name.replace(
+                  "&",
+                  "replaceand"
+                )}`}
                 className="w-[85%] sm:w-[44%] lg:w-[28%] text-center mt-10"
               >
                 <img

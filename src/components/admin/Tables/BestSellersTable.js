@@ -28,7 +28,7 @@ const BestSellersTable = ({ data }) => {
                     <div className="h-[40px] w-[40px] rounded-full bg-gray-1 p-1 overflow-hidden flex justify-center items-center">
                       {item.images.length > 0 && <img src={item.images[0]} />}
                     </div>
-                    <p>{item.name}</p>
+                    <p className="notranslate">{item.name}</p>
                   </div>
                 </td>
                 <td class="px-3 py-1 notranslate">€{item.price}</td>

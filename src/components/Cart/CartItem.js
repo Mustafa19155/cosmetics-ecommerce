@@ -42,7 +42,7 @@ const CartItem = ({ item, index }) => {
           )}
         </div>
         <div className="flex flex-col justify-center overflow-hidden">
-          <p className="text-lg font-bold max-w-[120px] sm:max-w-[300px] md:max-w-[150px] lg:max-w-[280px] truncate line-clamp-4 whitespace-normal">
+          <p className="text-lg font-bold max-w-[120px] sm:max-w-[300px] md:max-w-[150px] lg:max-w-[280px] truncate line-clamp-4 whitespace-normal notranslate">
             {item.product.name}
           </p>
           <p className="text-secondary truncate line-clamp-2 whitespace-normal max-w-[280px]">

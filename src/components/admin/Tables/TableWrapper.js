@@ -57,8 +57,8 @@ const TableWrapper = ({
       <div className="mt-10 flex justify-between">
         <p className="text-sm items-center">
           Showing {currentPage * itemsPerPage - (itemsPerPage - 1)} to{" "}
-          {currentPage * itemsPerPage > prosCopy.length
-            ? prosCopy.length
+          {currentPage * itemsPerPage > totalData
+            ? totalData
             : currentPage * itemsPerPage}{" "}
           of {totalData} entries
         </p>

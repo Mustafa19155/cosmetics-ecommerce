@@ -44,12 +44,12 @@ const ProductCard = ({ product }) => {
           </div>
         )}
         <div className="relative h-[15vw] min-h-[270px] mb-2 flex justify-center items-center overflow-hidden">
-          <img src={product.images[0]} className="max-w-auto" />
+          <img src={product.images[0]} className="max-w-auto max-h-full" />
         </div>
         <Stars rating={product.review} starColor={"#FDCC0D"} />
         <div className="flex flex-col gap-2 mt-2">
           <div className="flex justify-between">
-            <p className="text-xl font-semibold">{product.name}</p>
+            <p className="text-xl font-semibold notranslate">{product.name}</p>
             <Image
               onClick={handleToggleWishlist}
               src={checkFav() ? HeartFillIcon : HeartIcon}

@@ -32,9 +32,13 @@ const Page = async ({ params, searchParams }) => {
     <div className="my-16">
       <div className="text-center">
         <p className="font-bold  text-3xl">
-          {searchParams.name
-            ? `Showing '${searchParams.name}'`
-            : searchParams.category}
+          {searchParams.name ? (
+            <span className="flex gap-2 justify-center">
+              Showing <span className="notranslate">{searchParams.name}</span>
+            </span>
+          ) : (
+            <span className="notranslate">{searchParams.category}</span>
+          )}
         </p>
         <p className="text-secondary mt-1">
           {searchParams.name

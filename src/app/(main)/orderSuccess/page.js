@@ -102,7 +102,7 @@ const Page = () => {
                     />
                     <div className="flex flex-col justify-center overflow-hidden w-full">
                       <div className="flex justify-between items-center w-full">
-                        <p className="font-bold max-w-[120px] sm:max-w-[300px] md:max-w-[150px] lg:max-w-[280px] truncate line-clamp-2 whitespace-normal">
+                        <p className="font-bold max-w-[120px] sm:max-w-[300px] md:max-w-[150px] lg:max-w-[280px] truncate line-clamp-2 whitespace-normal notranslate">
                           {item.product.name}
                         </p>
                         <p className="notranslate">
