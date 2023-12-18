@@ -61,7 +61,7 @@ const CheckoutWrapper = () => {
   const [value, setValue] = useState("");
   const [isValid, setIsValid] = useState(null);
   const [email, setemail] = useState("");
-  const [country, setcountry] = useState(Country.getAllCountries()[0].isoCode);
+  const [country, setcountry] = useState("ES");
 
   const [formData, setFormData] = useState({
     username: null,
@@ -297,12 +297,14 @@ const CheckoutWrapper = () => {
                         <label className="font-semibold text-sm">
                           Phone Number*
                         </label>
-                        <PhoneInput
+                        <PrimaryInput
                           placeholder="Enter phone number"
                           className="bg-gray-1 shadow-custom-1 py-2 outline-none px-2  rounded-md phone-input"
                           defaultCountry="US"
                           value={value}
-                          onChange={setValue}
+                          changeHandler={(e) => {
+                            setValue(e.target.value);
+                          }}
                         />
                         {isValid == false ? (
                           <small style={{ color: "red" }}>
@@ -336,7 +338,11 @@ const CheckoutWrapper = () => {
                           {Country.getAllCountries().map(
                             (country, val, index) => {
                               return (
-                                <option key={val} value={country.isoCode}>
+                                <option
+                                  key={val}
+                                  value={country.isoCode}
+                                  className="notranslate"
+                                >
                                   {country.name}
                                 </option>
                               );
@@ -355,7 +361,11 @@ const CheckoutWrapper = () => {
                           {State.getStatesOfCountry(country).map(
                             (state, index) => {
                               return (
-                                <option key={index} value={state.isoCode}>
+                                <option
+                                  key={index}
+                                  value={state.isoCode}
+                                  className="notranslate"
+                                >
                                   {state.name}
                                 </option>
                               );
@@ -390,7 +400,11 @@ const CheckoutWrapper = () => {
                           {City.getCitiesOfState(country, formData.state).map(
                             (city, index) => {
                               return (
-                                <option key={index} value={city.name}>
+                                <option
+                                  key={index}
+                                  value={city.name}
+                                  className="notranslate"
+                                >
                                   {city.name}
                                 </option>
                               );
@@ -442,7 +456,7 @@ const CheckoutWrapper = () => {
                     )}
                   </div>
                 </div>
-                <div className="flex flex-col gap-4 px-5 py-9 border border-[rgba(251,107,144,0.2)] rounded-lg">
+                {/* <div className="flex flex-col gap-4 px-5 py-9 border border-[rgba(251,107,144,0.2)] rounded-lg">
                   <p className="text-lg font-bold">Remember my information</p>
                   <div className="flex items-center gap-3">
                     <input
@@ -453,7 +467,7 @@ const CheckoutWrapper = () => {
                     />
                     <label>Save my information for future checkout</label>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

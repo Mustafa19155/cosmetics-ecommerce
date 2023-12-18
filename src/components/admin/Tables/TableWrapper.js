@@ -2,12 +2,13 @@
 import React, { useEffect, useState } from "react";
 import Pagination from "@/components/Pagination";
 import TableSearch from "./TableSearch";
+import { searchAdminProducts, searchProduct } from "@/api/products";
+import _debounce from "lodash/debounce";
 
 const TableWrapper = ({
   mainData,
   products,
   Table,
-  searchCols,
   filterOptions,
   showFilters,
   brands,
@@ -18,6 +19,7 @@ const TableWrapper = ({
   totalData,
   activeFilter,
   setactiveFilter,
+  type,
 }) => {
   const [prosCopy, setprosCopy] = useState([]);
   useEffect(() => {
@@ -26,20 +28,43 @@ const TableWrapper = ({
 
   // search
   const [searchValue, setsearchValue] = useState("");
+  let debounceTimeout;
+
   const filterData = () => {
-    setprosCopy(
-      products.filter((d) =>
-        searchCols.some((key) => {
-          return String(d[key])
-            ?.toLowerCase()
-            .includes(searchValue.toLowerCase());
+    if (searchValue) {
+      searchAdminProducts({ value: searchValue, type })
+        .then((res) => {
+          setprosCopy(res);
         })
-      )
-    );
+        .catch((err) => {});
+    } else {
+      setcurrentPage(1);
+    }
   };
 
   useEffect(() => {
-    filterData();
+    setsearchValue("");
+  }, [type]);
+
+  useEffect(() => {
+    if (searchValue) {
+      const getData = setTimeout(() => {
+        searchAdminProducts({ value: searchValue, type })
+          .then((res) => {
+            setprosCopy(res);
+          })
+          .catch((err) => {});
+      }, 500);
+
+      return () => clearTimeout(getData);
+    } else {
+      setcurrentPage(1);
+    }
+
+    // clearTimeout(debounceTimeout);
+    // debounceTimeout = setTimeout(() => {
+    //   filterData();
+    // }, 2000);
   }, [searchValue]);
 
   return (
@@ -54,20 +79,22 @@ const TableWrapper = ({
       />
 
       <Table brands={brands} mainPros={prosCopy} setmainPros={setprosCopy} />
-      <div className="mt-10 flex justify-between">
-        <p className="text-sm items-center">
-          Showing {currentPage * itemsPerPage - (itemsPerPage - 1)} to{" "}
-          {currentPage * itemsPerPage > totalData
-            ? totalData
-            : currentPage * itemsPerPage}{" "}
-          of {totalData} entries
-        </p>
-        <Pagination
-          currentPage={currentPage}
-          setCurrentPage={setcurrentPage}
-          totalPages={totalPages}
-        />
-      </div>
+      {!searchValue && (
+        <div className="mt-10 flex justify-between">
+          <p className="text-sm items-center">
+            Showing {currentPage * itemsPerPage - (itemsPerPage - 1)} to{" "}
+            {currentPage * itemsPerPage > totalData
+              ? totalData
+              : currentPage * itemsPerPage}{" "}
+            of {totalData} entries
+          </p>
+          <Pagination
+            currentPage={currentPage}
+            setCurrentPage={setcurrentPage}
+            totalPages={totalPages}
+          />
+        </div>
+      )}
     </div>
   );
 };

@@ -86,13 +86,6 @@ const ProductWrapper = ({
       />
 
       <TableWrapper
-        // mainData={
-        //   currentTab == "products"
-        //     ? products
-        //     : currentTab == "brands"
-        //     ? brands
-        //     : subCategories
-        // }
         activeFilter={productFilter}
         setactiveFilter={setproductFilter}
         totalData={
@@ -141,6 +134,13 @@ const ProductWrapper = ({
             : subCategories.perPage
         }
         setcurrentPage={handlePagination}
+        type={
+          currentTab == "products"
+            ? "product"
+            : currentTab == "brands"
+            ? "brand"
+            : "category"
+        }
       />
     </div>
   );

@@ -169,7 +169,7 @@
   background-color: white;
   width: 250% !important;
   overflow: hidden;
-  left: 0% !important;
+  left: -30px !important;
   border: none !important;
 }
 

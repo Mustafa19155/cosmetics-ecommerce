@@ -91,9 +91,7 @@ const ManageProduct = ({ product, brands }) => {
             if (img instanceof File) {
               formData.append("images", img);
             } else {
-              const response = await fetch(
-                "https://aliyaabeauty.s3.eu-north-1.amazonaws.com/1702471255719-updatedImage"
-              );
+              const response = await fetch(img);
 
               const data = await response.blob();
               const fileName = "updatedImage";

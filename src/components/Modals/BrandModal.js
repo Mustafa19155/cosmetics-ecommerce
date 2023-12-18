@@ -21,14 +21,28 @@ const CategoryModal = ({ open, onclose, category, onconfirm }) => {
     seturl(category?.data.url);
   }, [category]);
 
-  const handleAddBrand = () => {
+  const handleAddBrand = async () => {
     if (categoryName && description && image) {
       setapiCalled(true);
       const formData = new FormData();
       formData.append("name", categoryName);
       formData.append("description", description);
       if (url) formData.append("url", url);
-      formData.append("images", image);
+
+      if (image instanceof File) {
+        formData.append("images", image);
+      } else {
+        const response = await fetch(image);
+
+        const data = await response.blob();
+        const fileName = "updatedImage";
+        formData.append(
+          "images",
+          new File([data], fileName, {
+            type: data.type,
+          })
+        );
+      }
       onconfirm({ data: formData });
     } else {
       setAlert("Please fill all fields", "danger");

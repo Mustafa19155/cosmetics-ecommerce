@@ -66,6 +66,7 @@ const OrdersWrapper = () => {
             setcurrentPage={handlePagination}
             activeFilter={orderFilter}
             setactiveFilter={setorderFilter}
+            type={"orders"}
           />
         </>
       )}

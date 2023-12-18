@@ -44,7 +44,7 @@ export default function RootLayout({ children }) {
         setUser(res.user);
       })
       .catch(async (err) => {
-        await deleteCookie({ cookieName: "token" });
+        // await deleteCookie({ cookieName: "token" });
         setUser(null);
       });
 
@@ -88,7 +88,7 @@ export default function RootLayout({ children }) {
     const token = searchParams.get("token");
 
     if (token) {
-      setCookie({ cookieName: "token", cookieValue: token });
+      // setCookie({ cookieName: "token", cookieValue: token });
     }
 
     handleGetOffers();

@@ -26,13 +26,27 @@ const SubCategoryModal = ({ open, onclose, subcategory, onconfirm }) => {
         // console.log(err);
       });
   };
-  const handleAddCategory = () => {
+  const handleAddCategory = async () => {
     if (category && activeBrand && image) {
       setapiCalled(true);
       const formData = new FormData();
       formData.append("name", category);
       formData.append("brand", activeBrand._id);
-      formData.append("images", image);
+      if (image instanceof File) {
+        formData.append("images", image);
+      } else {
+        const response = await fetch(image);
+
+        const data = await response.blob();
+        const fileName = "updatedImage";
+        formData.append(
+          "images",
+          new File([data], fileName, {
+            type: data.type,
+          })
+        );
+      }
+
       onconfirm({ data: formData });
     } else {
       setAlert("Please fill all fields", "danger");

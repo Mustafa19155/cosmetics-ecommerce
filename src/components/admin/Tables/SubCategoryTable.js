@@ -13,7 +13,6 @@ const SubCategoryTable = ({ mainPros, setmainPros }) => {
   const [deleteModalOpen, setdeleteModalOpen] = useState(false);
   const [editModalOpen, seteditModalOpen] = useState(false);
   const [activeModalData, setactiveModalData] = useState(null);
-  const [brands, setbrands] = useState([]);
 
   const handleCheckPro = (index) => {
     setmainPros(

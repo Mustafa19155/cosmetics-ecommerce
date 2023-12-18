@@ -42,6 +42,7 @@ const Page = () => {
             searchCols={["name", "email"]}
             showFilters={false}
             filterOptions={[]}
+            type={"users"}
           />
         </>
       )}
