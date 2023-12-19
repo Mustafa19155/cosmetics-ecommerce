@@ -60,11 +60,6 @@ const TableWrapper = ({
     } else {
       setcurrentPage(1);
     }
-
-    // clearTimeout(debounceTimeout);
-    // debounceTimeout = setTimeout(() => {
-    //   filterData();
-    // }, 2000);
   }, [searchValue]);
 
   return (

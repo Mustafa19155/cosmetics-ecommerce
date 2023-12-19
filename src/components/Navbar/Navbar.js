@@ -354,7 +354,7 @@ export default function Navbar() {
                     Contact Us
                   </Link>
                   <Link
-                    href={"/"}
+                    href={"/about"}
                     className={`hover:text-primary duration-75 ${
                       pathname == "/about" ? "text-primary" : ""
                     }`}

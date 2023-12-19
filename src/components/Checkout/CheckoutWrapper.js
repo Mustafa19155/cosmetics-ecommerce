@@ -128,7 +128,7 @@ const CheckoutWrapper = () => {
       ? setdeliveryFee(0)
       : deliveryMethod == "pickup"
       ? setdeliveryFee(0)
-      : setdeliveryFee(15);
+      : setdeliveryFee(4);
   }, [deliveryMethod]);
 
   const handleCreateOrder = async () => {
@@ -138,7 +138,7 @@ const CheckoutWrapper = () => {
     const data = {
       method: deliveryMethod,
       delivery_charges:
-        originalAmount >= 25 ? 0 : deliveryMethod == "online" ? 15 : 0,
+        originalAmount >= 25 ? 0 : deliveryMethod == "online" ? 4 : 0,
     };
     if (deliveryMethod == "online") {
       let flag = true;
@@ -223,8 +223,8 @@ const CheckoutWrapper = () => {
         originalAmount >= 25
           ? cart.total
           : name == "online"
-          ? cart.total + 15
-          : cart.total - 15,
+          ? cart.total + 4
+          : cart.total - 4,
     });
   };
 

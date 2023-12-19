@@ -12,7 +12,7 @@ import Link from "next/link";
 const ProductCard = ({ product }) => {
   const router = useRouter();
 
-  const { wishlist, setwishlist } = useContext(AuthContext);
+  const { wishlist, setwishlist, setcart } = useContext(AuthContext);
   // const [isFavourite, setisFavourite] = useState(false);
 
   const handleToggleWishlist = (e) => {
@@ -31,8 +31,8 @@ const ProductCard = ({ product }) => {
   };
 
   return (
-    <Link
-      href={`/product/${product._id}`}
+    <div
+      onClick={() => router.push(`/product/${product._id}`)}
       className="w-[90%] sm:w-[48%] lg:w-[23.5%] mt-10 relative cursor-pointer flex flex-col justify-between gap-5"
     >
       <div>
@@ -68,8 +68,18 @@ const ProductCard = ({ product }) => {
           </div>
         </div>
       </div>
-      <PinkButton text={"Buy Now"} />
-    </Link>
+      <PinkButton
+        text={"Buy Now"}
+        clickHandler={(e) => {
+          e.stopPropagation();
+          setcart({
+            total: product.discountedPrice,
+            items: [{ product, quantity: 1 }],
+          });
+          router.push("/checkout");
+        }}
+      />
+    </div>
   );
 };
 
