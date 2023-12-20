@@ -17,6 +17,7 @@ export default function Navbar() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const searcbarRef = useRef(null);
+  const searcbarRef2 = useRef(null);
   const navbarRef = useRef(null);
   const [brands, setbrands] = useState();
 
@@ -28,8 +29,11 @@ export default function Navbar() {
 
   const [showNavDrop, setshowNavDrop] = useState(false);
   const [showSearchbar, setshowSearchbar] = useState(false);
+  const [showSearchbarSm, setshowSearchbarSm] = useState(false);
 
   useClickOutside(navbarRef, () => setshowNavDrop(false));
+  useClickOutside(searcbarRef, () => setshowSearchbar(false));
+  useClickOutside(searcbarRef2, () => setshowSearchbarSm(false));
 
   useEffect(() => {
     setshowSearchbar(false);
@@ -98,7 +102,7 @@ export default function Navbar() {
             <Image
               src={Logo}
               className={`h-[35px] w-auto ${
-                showSearchbar ? "hidden sm:block lg:hidden xl:block" : ""
+                showSearchbarSm ? "hidden sm:block lg:hidden xl:block" : ""
               }`}
             />
           </Link>
@@ -237,10 +241,10 @@ export default function Navbar() {
             className={`flex lg:hidden gap-3 ${showSearchbar ? "mt-1" : ""}`}
           >
             <div
-              ref={searcbarRef}
+              ref={searcbarRef2}
               className={`relative ${showSearchbar ? "top-[-5px]" : ""}`}
               onClick={() => {
-                setshowSearchbar(true);
+                setshowSearchbarSm(true);
               }}
             >
               <svg
@@ -250,7 +254,7 @@ export default function Navbar() {
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
                 className={`cursor-pointer stroke-black hover:stroke-primary mt-1 ${
-                  showSearchbar ? "absolute top-1 left-1" : ""
+                  showSearchbarSm ? "absolute top-1 left-1" : ""
                 } `}
               >
                 <path
@@ -259,7 +263,7 @@ export default function Navbar() {
                   stroke-linejoin="round"
                 />
               </svg>
-              {showSearchbar && (
+              {showSearchbarSm && (
                 <PrimaryInput
                   value={searchValue}
                   changeHandler={(e) => setsearchValue(e.target.value)}

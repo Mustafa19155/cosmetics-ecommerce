@@ -54,12 +54,14 @@ const Testimonials = ({ reviews }) => {
             <div className="w-[90%] bg-primary mx-auto mt-8">
               <div className="p-6 sm:p-12 flex flex-wrap">
                 <div className="w-[100%] md:w-[40%] h-[300px] flex justify-center">
-                  {testimonial.picture && (
-                    <img
-                      src={testimonial.picture}
-                      className="w-full object-contain"
-                    />
-                  )}
+                  {/* {testimonial.picture && ( */}
+                  <img
+                    src={
+                      testimonial.picture ? testimonial.picture : TestImg.src
+                    }
+                    className="w-full object-contain"
+                  />
+                  {/* )} */}
                 </div>
                 <div className="md:w-[60%] text-xl h-[300px] text-white py-8 sm:p-8 xl:p-12 relative text-start flex flex-col gap-2 justify-center">
                   <div>

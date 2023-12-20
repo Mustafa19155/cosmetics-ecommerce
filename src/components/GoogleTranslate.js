@@ -13,7 +13,7 @@ const GoogleTranslate = () => {
   }, []);
 
   const googleTranslateElementInit = () => {
-    // setCookie("googtrans", "/en/es", 1);
+    setCookie("googtrans", "/en/es", 1);
     new window.google.translate.TranslateElement(
       {
         pageLanguage: "auto",

@@ -298,6 +298,7 @@ const CheckoutWrapper = () => {
                           Phone Number*
                         </label>
                         <PrimaryInput
+                          type={"number"}
                           placeholder="Enter phone number"
                           className="bg-gray-1 shadow-custom-1 py-2 outline-none px-2  rounded-md phone-input"
                           defaultCountry="US"
@@ -485,7 +486,7 @@ const CheckoutWrapper = () => {
 
                       <div className="flex flex-col justify-center overflow-hidden w-full">
                         <div className="flex justify-between items-center w-full">
-                          <p className="font-bold max-w-[120px] sm:max-w-[300px] md:max-w-[150px] lg:max-w-[280px] truncate line-clamp-2 whitespace-normal">
+                          <p className="font-bold max-w-[120px] sm:max-w-[300px] md:max-w-[150px] lg:max-w-[280px] truncate line-clamp-2 whitespace-normal notranslate">
                             {item.product.name}
                           </p>
                           <p className="notranslate">
@@ -495,7 +496,7 @@ const CheckoutWrapper = () => {
                         <p className="text-secondary text-sm truncate whitespace-normal line-clamp-2">
                           {item.product.description}
                         </p>
-                        <p className="text-sm">x{item.quantity}</p>
+                        <p className="text-sm notranslate">x{item.quantity}</p>
                       </div>
                     </div>
                   ))}

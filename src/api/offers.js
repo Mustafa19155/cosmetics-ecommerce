@@ -3,6 +3,7 @@ import { axiosClient } from "./axios";
 export const getOffers = async () => {
   try {
     const res = await axiosClient.get("/admin/offers");
+
     return res.data.offers;
   } catch (err) {
     throw err.response?.data?.message;

@@ -64,7 +64,7 @@ const ProductTop = ({ product }) => {
       <div className="md:w-[60%] p-5 flex flex-col gap-8">
         <div>
           <div className="flex items-end gap-3">
-            <p className="font-bold text-3xl">{product.name}</p>
+            <p className="font-bold text-3xl notranslate">{product.name}</p>
             <p className="text-sm text-primary whitespace-nowrap">
               {product.quantity > 0
                 ? "Available in stock"
@@ -92,7 +92,7 @@ const ProductTop = ({ product }) => {
           <PrimaryInput
             textCenter={true}
             type={"number"}
-            className="w-[40px] px-0"
+            className="w-[40px] px-0 shadow-none bg-white"
             value={quantity}
             changeHandler={(e) => {
               if (e.target.value >= 0 && e.target.value < product.quantity) {

@@ -68,9 +68,9 @@ const Footer = () => {
           <div className="w-[100%] sm:w-[60%] lg:w-[37%] mb-4 sm:mb-16">
             <p className="text-2xl font-semibold mb-2">About Us</p>
             <p className="sm:pr-16 md:pr-32 lg:pr-10 xl:pr-32">
-            Aliyaa Beauty: Where top brands meet diverse styles.
-             Effortless elegance, exceptional service, and a celebration of individual beauty. 
-             Your go-to destination for all things glamorous.
+              Aliyaa Beauty: Where top brands meet diverse styles. Effortless
+              elegance, exceptional service, and a celebration of individual
+              beauty. Your go-to destination for all things glamorous.
             </p>
           </div>
           <div className="w-[100%] sm:w-[40%] lg:mb-0 lg:w-[21%]  mb-4 sm:mb-0">
@@ -95,15 +95,6 @@ const Footer = () => {
               >
                 <p>Cart</p>
               </Link>
-              <Link
-                className="hover:text-primary duration-75 w-fit"
-                href={"/products"}
-              >
-                <p>Shop</p>
-              </Link>
-              <Link className="hover:text-primary duration-75" href={"/"} w-fit>
-                <p>Sample Page</p>
-              </Link>
             </div>
           </div>
           <div className="w-[100%] sm:w-[60%] lg:mb-0 lg:w-[21%]  mb-4 sm:mb-0">
@@ -126,19 +117,6 @@ const Footer = () => {
                 href={"/checkout"}
               >
                 <p>Checkout</p>
-              </Link>
-              <Link
-                className="hover:text-primary duration-75"
-                href={"/cart"}
-                w-fit
-              >
-                <p>Cart</p>
-              </Link>
-              <Link
-                className="hover:text-primary duration-75 w-fit"
-                href={"/products"}
-              >
-                <p>Shop</p>
               </Link>
             </div>
           </div>
