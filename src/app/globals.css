@@ -159,7 +159,7 @@
 .main-image {
   height: 400px !important;
   display: flex;
-  width: 100% !important;
+  /* width: 100% !important; */
 }
 .main-image > img {
   width: auto !important;
