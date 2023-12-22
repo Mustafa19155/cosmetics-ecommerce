@@ -25,35 +25,27 @@ const ManageUser = ({ data, onconfirm }) => {
 
   const handleConfirm = async () => {
     if (username && email && image) {
-      setapiCalled(true);
       const formData = new FormData();
 
       formData.append("name", username);
       formData.append("email", email);
 
       if (image instanceof File) {
+        setapiCalled(true);
         formData.append("images", image);
+        onconfirm({ data: formData, id: data._id });
       } else {
-        const response = await fetch(image);
-
-        const imgData = await response.blob();
-
-        const fileName = "updatedImage";
-        formData.append(
-          "images",
-          new File([imgData], fileName, {
-            type: imgData.type,
-          })
-        );
+        return setAlert("Upload updated profile image", "danger");
+        // const response = await fetch(image);
+        // const imgData = await response.blob();
+        // const fileName = "updatedImage";
+        // formData.append(
+        //   "images",
+        //   new File([imgData], fileName, {
+        //     type: imgData.type,
+        //   })
+        // );
       }
-      onconfirm({ data: formData, id: data._id })
-        .then((res) => {
-          setAlert("User successfully updated", "success");
-          setapiCalled(false);
-        })
-        .catch((err) => {
-          setapiCalled(false);
-        });
     }
   };
 
@@ -81,6 +73,7 @@ const ManageUser = ({ data, onconfirm }) => {
               id="file"
               name="file"
               className="hidden"
+              accept="image/*"
               onChange={(e) => {
                 if (e.target.files.length > 0) {
                   setimage(e.target.files[0]);

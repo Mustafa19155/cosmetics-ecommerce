@@ -51,7 +51,7 @@
   display: flex;
   justify-content: center;
   gap: 20px;
-  bottom: 20px;
+  bottom: -40px;
 }
 .carousel-slider {
   overflow: visible !important;

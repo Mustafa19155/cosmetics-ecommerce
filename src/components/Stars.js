@@ -1,6 +1,6 @@
 import React from "react";
 
-const Stars = ({ rating, starColor, textColor }) => {
+const Stars = ({ rating, starColor, textColor, showNumbers }) => {
   return (
     <div className="flex gap-1 items-center">
       {Array.from(Array(5), (e, i) => {
@@ -40,12 +40,15 @@ const Stars = ({ rating, starColor, textColor }) => {
           </div>
         );
       })}
-
-      <p
-        className={`text-xs font-inter text-${textColor ? textColor : "black"}`}
-      >
-        {rating.toFixed(1)}
-      </p>
+      {showNumbers != false && (
+        <p
+          className={`text-xs font-inter text-${
+            textColor ? textColor : "black"
+          }`}
+        >
+          {rating.toFixed(1)}
+        </p>
+      )}
     </div>
   );
 };

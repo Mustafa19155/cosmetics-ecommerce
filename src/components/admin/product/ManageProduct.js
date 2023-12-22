@@ -86,24 +86,28 @@ const ManageProduct = ({ product, brands }) => {
         formData.append("discount", discount);
         formData.append("price", price);
         formData.append("category", activeCategory.value);
+        const prevImgs = [];
         await Promise.all(
           images.map(async (img) => {
             if (img instanceof File) {
               formData.append("images", img);
             } else {
-              const response = await fetch(img);
-
-              const data = await response.blob();
-              const fileName = "updatedImage";
-              formData.append(
-                "images",
-                new File([data], fileName, {
-                  type: data.type,
-                })
-              );
+              prevImgs.push(img);
+              // const response = await fetch(img);
+              // const data = await response.blob();
+              // const fileName = "updatedImage";
+              // formData.append(
+              //   "images",
+              //   new File([data], fileName, {
+              //     type: data.type,
+              //   })
+              // );
             }
           })
         );
+        prevImgs.forEach((value, index) => {
+          formData.append(`imagesArray[${index}]`, value);
+        });
         if (isEditing) {
           editProduct({ data: formData, id: product._id })
             .then((res) => {

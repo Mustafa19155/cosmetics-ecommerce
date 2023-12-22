@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from "react";
 import Stars from "../Stars";
 import DeleteIcon from "@/assets/icons/delete-black.svg";
+import TestImg from "../../assets/icons/profile2.svg";
 
 const Reviews = ({ reviews, deleteHandler }) => {
   return (
@@ -17,9 +18,12 @@ const Reviews = ({ reviews, deleteHandler }) => {
           )}
           <div className="flex flex-col sm:flex-row items-center gap-2">
             <div className="w-[100px]">
-              {review.picture && (
-                <img src={review.picture} className="rounded-full h-[100px]" />
-              )}
+              {/* {review.picture && ( */}
+              <img
+                src={review.picture ? review.picture : TestImg.src}
+                className="rounded-full h-[100px]"
+              />
+              {/* )} */}
             </div>
             <div className="flex flex-col gap-1 w-[80%]">
               <div className="flex gap-2 items-center">

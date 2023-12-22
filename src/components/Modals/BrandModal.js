@@ -32,16 +32,15 @@ const CategoryModal = ({ open, onclose, category, onconfirm }) => {
       if (image instanceof File) {
         formData.append("images", image);
       } else {
-        const response = await fetch(image);
-
-        const data = await response.blob();
-        const fileName = "updatedImage";
-        formData.append(
-          "images",
-          new File([data], fileName, {
-            type: data.type,
-          })
-        );
+        // const response = await fetch(image);
+        // const data = await response.blob();
+        // const fileName = "updatedImage";
+        // formData.append(
+        //   "images",
+        //   new File([data], fileName, {
+        //     type: data.type,
+        //   })
+        // );
       }
       onconfirm({ data: formData });
     } else {

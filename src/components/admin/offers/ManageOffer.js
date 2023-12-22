@@ -15,6 +15,7 @@ import { addOffer, editOffer } from "@/api/offers";
 import useAlert from "@/hooks/useAlert";
 import "react-datepicker/dist/react-datepicker.css";
 import ReactDatePicker from "react-datepicker";
+import axios from "axios";
 
 const ManageOffer = ({ offer, brands }) => {
   const router = useRouter();
@@ -61,6 +62,7 @@ const ManageOffer = ({ offer, brands }) => {
       formData.append("ending_date", ending_date);
       formData.append("ending", moment(ending_date).unix());
       formData.append("discount", discount);
+      const prevImgs = [];
       if (brand && brand._id) formData.append("brand", brand._id);
       formData.append("all", brand && brand._id ? false : true);
       await Promise.all(
@@ -68,20 +70,38 @@ const ManageOffer = ({ offer, brands }) => {
           if (img instanceof File) {
             formData.append("images", img);
           } else {
-            const response = await fetch(img);
-
-            const data = await response.blob();
-
-            const fileName = "updatedImage";
-            formData.append(
-              "images",
-              new File([data], fileName, {
-                type: data.type,
-              })
-            );
+            // formData.append("imagesArray", img);
+            prevImgs.push(img);
+            // axios
+            //   .get(
+            //     "https://aliyaabeauty.s3.eu-north-1.amazonaws.com/1703248593428-1695952922619-field-back.png",
+            //     { headers: { "Content-Type": "application/octet-stream" } }
+            //   )
+            //   .then((res) => {
+            //     console.log(res);
+            //   })
+            //   .catch((err) => {
+            //     console.log(err);
+            //   });
+            // const response = await fetch(
+            //   "https://aliyaabeauty.s3.eu-north-1.amazonaws.com/1703248531257-eye.svg "
+            // );
+            // const data = await response.blob();
+            // const fileName =
+            //   "updatedImage." +
+            //   response.url.split(".")[response.url.split(".").length - 1];
+            // formData.append(
+            //   "images",
+            //   new File([data], fileName, {
+            //     type: data.type,
+            //   })
+            // );
           }
         })
       );
+      prevImgs.forEach((value, index) => {
+        formData.append(`imagesArray[${index}]`, value);
+      });
       if (!isEditing) {
         addOffer({
           data: formData,
