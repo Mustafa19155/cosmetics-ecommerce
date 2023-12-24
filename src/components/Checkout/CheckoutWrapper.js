@@ -273,7 +273,7 @@ const CheckoutWrapper = () => {
                       onChange={() => handleMethodChange("online")}
                     />
                     <label className="font-semibold text-sm">
-                      Online Delievery
+                      Online Delivery
                     </label>
                   </div>
                 </div>

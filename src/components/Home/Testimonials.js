@@ -55,7 +55,13 @@ const Testimonials = ({ reviews }) => {
               result.push(
                 <div key={index} className="flex justify-between">
                   {/* First review */}
-                  <div className="w-[45%] bg-primary mx-auto mt-8 px-4">
+                  <div
+                    className={`${
+                      index + 1 < reviews.length
+                        ? "w-[45%]"
+                        : "w-full sm:w-[45%]"
+                    } bg-primary mx-auto mt-8 px-4`}
+                  >
                     <div className="flex flex-wrap items-center">
                       <div className="w-[100%] md:w-[20%] h-[200px] flex justify-center">
                         <img
@@ -67,7 +73,7 @@ const Testimonials = ({ reviews }) => {
                           className="w-full object-contain"
                         />
                       </div>
-                      <div className="md:w-[60%] text-xl h-[300px] text-white py-8 sm:p-8 xl:p-12 relative text-start flex flex-col gap-2 justify-center">
+                      <div className="md:w-[60%] text-xl md:min-h-[200px] text-white py-8 sm:p-8 xl:p-12 relative text-start flex flex-col gap-2 justify-center">
                         <div>
                           <p>{testimonial.name}</p>
                         </div>
@@ -97,7 +103,7 @@ const Testimonials = ({ reviews }) => {
                             className="w-full object-contain"
                           />
                         </div>
-                        <div className="md:w-[60%] text-xl h-[300px] text-white py-8 sm:p-8 xl:p-12 relative text-start flex flex-col gap-2 justify-center">
+                        <div className="md:w-[60%] text-xl md:min-h-[200px] text-white py-8 sm:p-8 xl:p-12 relative text-start flex flex-col gap-2 justify-center">
                           <div>
                             <p>{reviews[index + 1].name}</p>
                           </div>
@@ -121,7 +127,7 @@ const Testimonials = ({ reviews }) => {
           {/* {reviews.map((testimonial) => (
             <div className="w-[90%] bg-primary mx-auto mt-8">
               <div className="p-6 sm:p-12 flex flex-wrap">
-                <div className="w-[100%] md:w-[40%] h-[300px] flex justify-center">
+                <div className="w-[100%] md:w-[40%] md:min-h-[200px] flex justify-center">
                   <img
                     src={
                       testimonial.picture ? testimonial.picture : TestImg.src
@@ -129,7 +135,7 @@ const Testimonials = ({ reviews }) => {
                     className="w-full object-contain"
                   />
                 </div>
-                <div className="md:w-[60%] text-xl h-[300px] text-white py-8 sm:p-8 xl:p-12 relative text-start flex flex-col gap-2 justify-center">
+                <div className="md:w-[60%] text-xl md:min-h-[200px] text-white py-8 sm:p-8 xl:p-12 relative text-start flex flex-col gap-2 justify-center">
                   <div>
                     <p>{testimonial.name}</p>
                   </div>

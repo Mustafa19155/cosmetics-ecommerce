@@ -10,8 +10,37 @@ import PhoneIcon from "../../../assets/icons/footer/phone.svg";
 import EmailIcon from "../../../assets/icons/email.svg";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
+import useAlert from "@/hooks/useAlert";
+import { send } from "@/api/contact";
 
 const Page = () => {
+  const [apiCalled, setapiCalled] = useState(false);
+  const [name, setname] = useState("");
+  const [email, setemail] = useState("");
+  const [message, setmessage] = useState("");
+
+  const { setAlert } = useAlert();
+
+  const handleSubmit = () => {
+    if (name && email && message) {
+      setapiCalled(true);
+      send({ data: { name, email, message } })
+        .then((res) => {
+          setapiCalled(false);
+          setAlert("Message sent successfully", "success");
+          setname("");
+          setemail("");
+          setmessage("");
+        })
+        .catch((err) => {
+          setapiCalled(false);
+        });
+    } else {
+      setAlert("Please fill all fields", "danger");
+    }
+  };
+
   return (
     <div className="flex justify-center flex-wrap my-16 p-8 md:p-0">
       <div className="md:w-[50%] md:p-8 lg:p-16">
@@ -25,8 +54,10 @@ const Page = () => {
             <PrimaryInput
               type="text"
               placeholder="David John"
-              value={""}
-              changeHandler={() => {}}
+              value={name}
+              changeHandler={(e) => {
+                setname(e.target.value);
+              }}
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -34,8 +65,10 @@ const Page = () => {
             <PrimaryInput
               type="email"
               placeholder="Example@yahoo.com"
-              value={""}
-              changeHandler={() => {}}
+              value={email}
+              changeHandler={(e) => {
+                setemail(e.target.value);
+              }}
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -44,9 +77,17 @@ const Page = () => {
               placeholder=""
               className="resize-none bg-gray-1 shadow-custom-1 p-2 outline-none rounded-md"
               rows={6}
+              value={message}
+              onChange={(e) => {
+                setmessage(e.target.value);
+              }}
             />
           </div>
-          <PinkButton text={"SUBMIT"} />
+          <PinkButton
+            text={apiCalled ? "Loading..." : "SUBMIT"}
+            clickHandler={handleSubmit}
+            disabled={apiCalled}
+          />
         </div>
       </div>
       <div className="bg-primary text-white md:w-[50%] md:mb-8 lg:mb-16 pt-16 pb-10 px-10 rounded-lg hidden md:flex flex-col justify-between">

@@ -54,7 +54,7 @@ const TableWrapper = ({
             setprosCopy(res);
           })
           .catch((err) => {});
-      }, 500);
+      }, 300);
 
       return () => clearTimeout(getData);
     } else {

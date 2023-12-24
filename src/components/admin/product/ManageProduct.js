@@ -105,9 +105,11 @@ const ManageProduct = ({ product, brands }) => {
             }
           })
         );
-        prevImgs.forEach((value, index) => {
-          formData.append(`imagesArray[${index}]`, value);
-        });
+        prevImgs.length > 0
+          ? prevImgs.forEach((value, index) => {
+              formData.append(`imagesArray[${index}]`, value);
+            })
+          : formData.append(`imagesArray`, []);
         if (isEditing) {
           editProduct({ data: formData, id: product._id })
             .then((res) => {

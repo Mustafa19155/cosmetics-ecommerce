@@ -99,9 +99,11 @@ const ManageOffer = ({ offer, brands }) => {
           }
         })
       );
-      prevImgs.forEach((value, index) => {
-        formData.append(`imagesArray[${index}]`, value);
-      });
+      prevImgs.length > 0
+        ? prevImgs.forEach((value, index) => {
+            formData.append(`imagesArray[${index}]`, value);
+          })
+        : formData.append(`imagesArray`, []);
       if (!isEditing) {
         addOffer({
           data: formData,

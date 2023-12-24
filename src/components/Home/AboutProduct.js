@@ -30,11 +30,11 @@ const AboutProduct = () => {
             reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
             pariatur.
           </p>
-          <TransparentButton
+          {/* <TransparentButton
             text={"BUY NOW"}
             className={"bg-white border-0"}
             clickHandler={() => router.push("/products")}
-          />
+          /> */}
         </div>
       </div>
     </div>

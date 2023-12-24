@@ -37,6 +37,7 @@ const OrdersWrapper = () => {
     { name: "All Orders", value: "" },
     { name: "Orders Completed", value: "completed" },
     { name: "Orders Pending", value: "pending" },
+    { name: "Orders Cancelled", value: "cancelled" },
   ];
 
   useEffect(() => {

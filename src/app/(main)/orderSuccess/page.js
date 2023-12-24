@@ -87,7 +87,7 @@ const Page = () => {
             )}
           </div>
           <p className="text-lg font-semibold text-primary text-center py-2">
-            Your order will be delievered in 5 to 7 buisness days
+            Your order will be delivered in 5 to 7 buisness days
           </p>
 
           <div className="flex flex-col gap-3 xl:gap-5">

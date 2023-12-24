@@ -121,11 +121,11 @@ export const searchProduct = async ({ name }) => {
 export const searchAdminProducts = async ({ value, type }) => {
   try {
     const res = await axiosClient.get(`admin/${type}/search?name=${value}`);
-    // if (res.data.brands) {
-    //   return res.data.brands;
-    // } else {
-    return res.data;
-    // }
+    if (res.data.data) {
+      return res.data.data;
+    } else {
+      return res.data;
+    }
   } catch (err) {
     throw err.response?.data?.message;
   }
