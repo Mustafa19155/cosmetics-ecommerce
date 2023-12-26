@@ -31,7 +31,7 @@ const UsersTable = ({ mainPros, setmainPros }) => {
                   <Link href={`/admin/users/${item._id}`}>{item.name}</Link>
                 </td>
                 <td class="px-3 py-4 border-r">{item.email}</td>
-                <td class="px-3 py-4 border-r notranslate">€{item.spent}</td>
+                <td class="px-3 py-4 border-r notranslate">{item.spent}€</td>
                 <td class="px-3 py-4 border-r">{item.coins}</td>
                 <td class="px-3 py-4 border-r">{item.orders}</td>
               </tr>

@@ -31,7 +31,7 @@ const BestSellersTable = ({ data }) => {
                     <p className="notranslate">{item.name}</p>
                   </div>
                 </td>
-                <td class="px-3 py-1 notranslate">€{item.price}</td>
+                <td class="px-3 py-1 notranslate">{item.price}€</td>
                 <td class="px-3 py-1">{item.sold}</td>
               </tr>
             );

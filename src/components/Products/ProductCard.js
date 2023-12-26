@@ -58,11 +58,11 @@ const ProductCard = ({ product }) => {
           </div>
           <div className="flex items-end gap-3">
             <p className="font-semibold notranslate">
-              €{product.discountedPrice}
+              {product.discountedPrice}€
             </p>
             {product.discount > 0 && (
               <p className="text-sm text-gray-500 line-through notranslate">
-                €{product.price}
+                {product.price}€
               </p>
             )}
           </div>

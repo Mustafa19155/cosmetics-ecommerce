@@ -70,7 +70,7 @@ const YTick = (props) => {
 
   return (
     <text x={x - 50} y={y + 20}>
-      €{payload.value}
+      {payload.value}€
     </text>
   );
 };

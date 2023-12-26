@@ -104,7 +104,7 @@ const Page = () => {
                         <p className="text-secondary truncate w-[80px]">
                           {pro.name}
                         </p>
-                        <p className="notranslate">€{pro.totalPrice}</p>
+                        <p className="notranslate">{pro.totalPrice}€</p>
                         <p className="text-secondary">
                           {((pro.totalPrice / totalSales) * 100).toFixed(1)}%
                         </p>

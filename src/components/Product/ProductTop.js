@@ -63,7 +63,7 @@ const ProductTop = ({ product }) => {
       </div>
       <div className="md:w-[60%] p-5 flex flex-col gap-8">
         <div>
-          <div className="flex items-end gap-3">
+          <div className="flex flex-col md:flex-row items-end gap-3">
             <p className="font-bold text-3xl notranslate">{product.name}</p>
             <p className="text-sm text-primary whitespace-nowrap">
               {product.quantity > 0
@@ -75,11 +75,11 @@ const ProductTop = ({ product }) => {
         <p>{product.desc}</p>
         <div className="flex items-center gap-3">
           <p className="text-3xl font-bold notranslate">
-            €{product.discountedPrice}
+            {product.discountedPrice}€
           </p>
           {product.discount > 0 && (
             <p className="line-through text-secondary notranslate">
-              €{product.price}
+              {product.price}€
             </p>
           )}
         </div>
@@ -108,7 +108,7 @@ const ProductTop = ({ product }) => {
             className="cursor-pointer"
           />
         </div>
-        <div className="flex gap-6 sm:pr-20">
+        <div className="flex flex-col sm:flex-row gap-6 sm:pr-20">
           <TransparentButton
             disabled={product.quantity == 0}
             text={"BUY NOW"}

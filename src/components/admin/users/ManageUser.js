@@ -30,22 +30,11 @@ const ManageUser = ({ data, onconfirm }) => {
       formData.append("name", username);
       formData.append("email", email);
 
+      setapiCalled(true);
       if (image instanceof File) {
-        setapiCalled(true);
         formData.append("images", image);
-        onconfirm({ data: formData, id: data._id });
-      } else {
-        return setAlert("Upload updated profile image", "danger");
-        // const response = await fetch(image);
-        // const imgData = await response.blob();
-        // const fileName = "updatedImage";
-        // formData.append(
-        //   "images",
-        //   new File([imgData], fileName, {
-        //     type: imgData.type,
-        //   })
-        // );
       }
+      onconfirm({ data: formData, id: data._id });
     }
   };
 

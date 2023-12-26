@@ -106,7 +106,7 @@ const Page = () => {
                           {item.product.name}
                         </p>
                         <p className="notranslate">
-                          €{item.product.discountedPrice}
+                          {item.product.discountedPrice}€
                         </p>
                       </div>
                       <p className="text-secondary text-sm truncate line-clamp-2 whitespace-normal">
@@ -120,11 +120,11 @@ const Page = () => {
             </div>
             <div className="flex justify-between items-center">
               <p className="font-bold">SubTotal</p>
-              <p className="font-bold notranslate">€{originalTotal}</p>
+              <p className="font-bold notranslate">{originalTotal}€</p>
             </div>
             <div className="flex justify-between items-center">
               <p className="font-bold">Discount</p>
-              <p className="text-secondary notranslate">€{discountAmount}</p>
+              <p className="text-secondary notranslate">{discountAmount}€</p>
             </div>
             <div className="flex justify-between items-center">
               <p className="font-bold">Delivery fee</p>
@@ -136,9 +136,9 @@ const Page = () => {
             <div className="flex justify-between items-center text-xl font-bold">
               <p>Grand Total</p>
               <p className="notranslate">
-                €
                 {deliveryInformation.total -
                   (deliveryInformation?.online ? 15 : 0)}
+                €
               </p>
             </div>
             {deliveryInformation?.method == "online" && (

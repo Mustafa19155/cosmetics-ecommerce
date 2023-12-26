@@ -88,7 +88,7 @@ export default function RootLayout({ children }) {
     const token = searchParams.get("token");
 
     if (token) {
-      // setCookie({ cookieName: "token", cookieValue: token });
+      setCookie({ cookieName: "token", cookieValue: token });
     }
 
     handleGetOffers();

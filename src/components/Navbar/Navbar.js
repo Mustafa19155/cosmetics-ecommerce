@@ -172,7 +172,7 @@ export default function Navbar() {
                         });
                       }}
                       placeholder={"Search"}
-                      className={"pl-8 h-[35px]"}
+                      className={"pl-8 h-[35px] !min-w-[105px]"}
                     />
                   )}
                 </div>

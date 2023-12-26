@@ -27,24 +27,28 @@ export default function Page() {
   const { currentUser, setUser } = useContext(AuthContext);
 
   const handleLogin = () => {
-    setapiCalled(true);
-    loginUser({ email, password })
-      .then(async (res) => {
-        await setCookie({ cookieName: "token", cookieValue: res.token });
-        getUser()
-          .then((resp) => {
-            setUser(resp.user);
-            router.push("/");
-          })
-          .catch((err) => {
-            setapiCalled(false);
-            setAlert(err, "danger");
-          });
-      })
-      .catch((err) => {
-        setapiCalled(false);
-        setAlert(err, "danger");
-      });
+    if (email && password) {
+      setapiCalled(true);
+      loginUser({ email, password })
+        .then(async (res) => {
+          await setCookie({ cookieName: "token", cookieValue: res.token });
+          getUser()
+            .then((resp) => {
+              setUser(resp.user);
+              router.push("/");
+            })
+            .catch((err) => {
+              setapiCalled(false);
+              setAlert(err, "danger");
+            });
+        })
+        .catch((err) => {
+          setapiCalled(false);
+          setAlert(err, "danger");
+        });
+    } else {
+      setAlert("Enter valid email and password", "danger");
+    }
   };
 
   useEffect(() => {

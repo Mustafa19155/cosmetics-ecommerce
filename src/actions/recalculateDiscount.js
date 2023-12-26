@@ -1,6 +1,7 @@
 const { getUserOffers } = require("@/api/offers");
 
 export const recalculateDiscount = ({ products, allOffers }) => {
+  console.log(products);
   let activeOffer = {};
 
   const globalOffers = allOffers.filter((offer) => offer.all == true);

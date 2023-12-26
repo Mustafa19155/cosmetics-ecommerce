@@ -22,7 +22,7 @@ const CategoryModal = ({ open, onclose, category, onconfirm }) => {
   }, [category]);
 
   const handleAddBrand = async () => {
-    if (categoryName && description && image) {
+    if (categoryName && image) {
       setapiCalled(true);
       const formData = new FormData();
       formData.append("name", categoryName);

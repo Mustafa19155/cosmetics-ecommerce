@@ -11,7 +11,8 @@ const UserWrapper = ({ user }) => {
   const handleUpdateUser = async ({ data, id }) => {
     updateUserFromAdmin({ data, id })
       .then((res) => {
-        setAlert("User successfully updated", "success");
+        window.location.reload();
+        // setAlert("User successfully updated", "success");
       })
       .catch((err) => {
         setAlert("Email already eixsts", "danger");

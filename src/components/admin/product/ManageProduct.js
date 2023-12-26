@@ -72,7 +72,7 @@ const ManageProduct = ({ product, brands }) => {
       if (
         name &&
         description &&
-        quantity > 0 &&
+        quantity >= 0 &&
         price &&
         discount >= 0 &&
         activeCategory &&

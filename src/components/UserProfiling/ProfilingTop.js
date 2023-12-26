@@ -44,17 +44,15 @@ const ProfilingTop = () => {
       if (image instanceof File) {
         formData.append("images", image);
       } else {
-        const response = await fetch(image);
-
-        const imgData = await response.blob();
-
-        const fileName = "updatedImage";
-        formData.append(
-          "images",
-          new File([imgData], fileName, {
-            type: imgData.type,
-          })
-        );
+        // const response = await fetch(image);
+        // const imgData = await response.blob();
+        // const fileName = "updatedImage";
+        // formData.append(
+        //   "images",
+        //   new File([imgData], fileName, {
+        //     type: imgData.type,
+        //   })
+        // );
       }
 
       updateUser({ data: formData })
