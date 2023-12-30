@@ -2,35 +2,6 @@
 import { useEffect } from "react";
 
 const GoogleTranslate = () => {
-  useEffect(() => {
-    var addScript = document.createElement("script");
-    addScript.setAttribute(
-      "src",
-      "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
-    );
-    document.body.appendChild(addScript);
-    window.googleTranslateElementInit = googleTranslateElementInit;
-  }, []);
-
-  const googleTranslateElementInit = () => {
-    setCookie("googtrans", "/en/es", 1);
-    new window.google.translate.TranslateElement(
-      {
-        pageLanguage: "auto",
-        autoDisplay: false,
-        // includedLanguages: "ru,en,pl", // If you remove it, by default all google supported language will be included
-        // layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-      },
-      "google_translate_element"
-    );
-  };
-
-  function setCookie(key, value, expiry) {
-    var expires = new Date();
-    expires.setTime(expires.getTime() + expiry * 24 * 60 * 60 * 1000);
-    document.cookie = key + "=" + value + ";expires=" + expires.toUTCString();
-  }
-
   return (
     <>
       <svg
