@@ -277,11 +277,9 @@ const ManageProduct = ({ product, brands }) => {
             <PrimaryInput
               className={"shadow-none w-[40px] !px-0"}
               type={"number"}
-              value={quantity}
+              value={quantity == 0 ? "" : quantity}
               changeHandler={(e) => {
-                if (quantity >= 0) {
-                  setquantity(e.target.value);
-                }
+                if (e.target.value >= 0) setquantity(Number(e.target.value));
               }}
             >
               {quantity}
