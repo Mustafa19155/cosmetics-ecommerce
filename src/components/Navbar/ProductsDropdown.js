@@ -41,19 +41,19 @@ const ProductsDropdown = ({ screenWidth }) => {
     >
       <div
         ref={ref}
-        className={`product-drop cursor-pointer absolute bg-white shadow-dropdown-shadow p-2 rounded-lg top-24 lg:top-[39px] w-full z-20 left-0  min-h-fit max-h-[100vh] overflow-scroll flex flex-wrap ${
+        className={`product-drop cursor-pointer absolute bg-white shadow-dropdown-shadow p-2 rounded-lg top-24 lg:top-[39px] w-full z-20 left-0  min-h-fit max-h-[60vh] overflow-scroll flex flex-wrap ${
           showProductsDropdown ? "block" : "hidden"
         }`}
       >
         {brands.map((opt, index) => (
           <div
-            className="text-secondary p-3 cursor-pointer whitespace-nowrap h-fit w-[25%] min-w-[150px]"
+            className="text-secondary p-3 cursor-pointer whitespace-nowrap h-fit w-[50%] md:w-[25%] min-w-[150px]"
             onClick={() => {
               setshowProductsDropdown(false);
             }}
           >
             <Link href={`/brand/${opt.brand._id}`}>
-              <p className="font-bold text-xl hover:text-primary notranslate break-all">
+              <p className="font-bold text-xl hover:text-primary notranslate break-all line-clamp-1">
                 {opt.brand.name}
               </p>
             </Link>
@@ -66,7 +66,7 @@ const ProductsDropdown = ({ screenWidth }) => {
                   )}`}
                   className="hover:text-primary"
                 >
-                  <p className="notranslate break-all whitespace-normal notranslate">
+                  <p className="notranslate break-all whitespace-normal notranslate line-clamp-1">
                     {cat.name}
                   </p>
                 </Link>

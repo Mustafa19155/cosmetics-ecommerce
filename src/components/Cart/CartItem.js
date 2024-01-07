@@ -73,7 +73,7 @@ const CartItem = ({ item, index }) => {
         </div>
       </td>
       <td class="text-lg font-bold pb-6 notranslate">
-        {item.product.discountedPrice}€
+        {item.product.discountedPrice.toFixed(2)}€
       </td>
     </tr>
   );

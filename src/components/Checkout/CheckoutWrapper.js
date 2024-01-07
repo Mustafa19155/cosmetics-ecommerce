@@ -490,7 +490,7 @@ const CheckoutWrapper = () => {
                             {item.product.name}
                           </p>
                           <p className="notranslate">
-                            {item.product.discountedPrice}€
+                            {item.product.discountedPrice.toFixed(2)}€
                           </p>
                         </div>
                         <p className="text-secondary text-sm truncate whitespace-normal line-clamp-2">
@@ -516,7 +516,9 @@ const CheckoutWrapper = () => {
               </div>
               <div className="flex justify-between items-center">
                 <p className="font-bold">Delivery fee</p>
-                <p className="text-secondary notranslate">{deliveryFee}€</p>
+                <p className="text-secondary notranslate">
+                  {deliveryFee.toFixed(2)}€
+                </p>
               </div>
               <div className="flex justify-between items-center text-xl font-bold">
                 <p>Grand Total</p>

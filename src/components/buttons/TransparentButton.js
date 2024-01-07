@@ -8,13 +8,16 @@ export default function TransparentButton({
   className,
   icon,
   disabled,
+  loading,
 }) {
   return (
     <button
-      disabled={disabled ? disabled : false}
+      disabled={disabled == true || loading == true}
       className={`${
         className ? className : ""
-      } w-full h-[48px] rounded-md border border-primary flex justify-center items-center gap-2 hover:shadow-trans-btn duration-150`}
+      } w-full h-[48px] rounded-md border ${
+        disabled || loading ? "border-gray-3" : "border-primary"
+      } flex justify-center items-center gap-2 hover:shadow-trans-btn duration-150`}
       onClick={clickHandler}
     >
       {icon && <Image src={icon} />}

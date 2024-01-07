@@ -20,7 +20,7 @@ export default async function Home() {
   const reviews = await getRandomReviews();
 
   return (
-    <div className=" relative top-[-74px] ">
+    <div className=" relative top-[-75px] ">
       <SectionOne />
       <div className="flex flex-col gap-20 mt-12">
         <Categories />

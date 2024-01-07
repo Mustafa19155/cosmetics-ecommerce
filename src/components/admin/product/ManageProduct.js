@@ -279,7 +279,8 @@ const ManageProduct = ({ product, brands }) => {
               type={"number"}
               value={quantity == 0 ? "" : quantity}
               changeHandler={(e) => {
-                if (e.target.value >= 0) setquantity(Number(e.target.value));
+                if (e.target.value >= 0)
+                  setquantity(Math.ceil(Number(e.target.value)));
               }}
             >
               {quantity}

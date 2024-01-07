@@ -75,11 +75,11 @@ const ProductTop = ({ product }) => {
         <p>{product.desc}</p>
         <div className="flex items-center gap-3">
           <p className="text-3xl font-bold notranslate">
-            {product.discountedPrice}€
+            {product.discountedPrice.toFixed(2)}€
           </p>
           {product.discount > 0 && (
             <p className="line-through text-secondary notranslate">
-              {product.price}€
+              {product.price.toFixed(2)}€
             </p>
           )}
         </div>
@@ -95,8 +95,11 @@ const ProductTop = ({ product }) => {
             className="w-[40px] px-0 shadow-none bg-white"
             value={quantity}
             changeHandler={(e) => {
-              if (e.target.value >= 0 && e.target.value < product.quantity) {
-                setquantity(parseInt(e.target.value));
+              if (e.target.value > 0) {
+                if (e.target.value < product.quantity)
+                  setquantity(Number(e.target.value));
+              } else {
+                setquantity(1);
               }
             }}
           >
@@ -110,9 +113,9 @@ const ProductTop = ({ product }) => {
         </div>
         <div className="flex flex-col sm:flex-row gap-6 sm:pr-20">
           <TransparentButton
-            disabled={product.quantity == 0}
-            text={"BUY NOW"}
-            className={"text-primary"}
+            loading={product.quantity == 0}
+            text={product.quantity == 0 ? "OUT OF STOCK" : "BUY NOW"}
+            className={`${product.quantity == 0 ? "" : "text-primary"}`}
             clickHandler={() => {
               setcart({
                 total: product.discountedPrice * quantity,
@@ -121,10 +124,12 @@ const ProductTop = ({ product }) => {
               router.push("/checkout");
             }}
           />
+
           <PinkButton
-            disabled={product.quantity == 0}
-            text={"ADD TO CART"}
+            loading={product.quantity == 0}
+            text={product.quantity == 0 ? "OUT OF STOCK" : "ADD TO CART"}
             clickHandler={handleAddToCart}
+            className={product.quantity == 0 ? "opacity-0" : "opacity-100"}
           />
         </div>
       </div>

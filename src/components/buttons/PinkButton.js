@@ -9,14 +9,17 @@ export default function PinkButton({
   icon,
   type,
   disabled,
+  loading,
 }) {
   return (
     <button
-      disabled={disabled ? disabled : false}
+      disabled={disabled == true || loading == true}
       type={type}
       className={`pink-btn ${
         className ? className : ""
-      } w-full h-[48px] rounded-md bg-primary text-white flex justify-center items-center gap-2 hover:shadow-pink-btn duration-150`}
+      } w-full h-[48px] rounded-md ${
+        disabled || loading ? "bg-gray-300" : "bg-primary hover:shadow-pink-btn"
+      } text-white flex justify-center items-center gap-2 duration-150`}
       onClick={clickHandler}
     >
       {icon && <Image src={icon} />}

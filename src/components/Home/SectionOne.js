@@ -1,10 +1,12 @@
 "use client";
 import React, { useState } from "react";
-import MainImg from "../../assets/images/home/section1.png";
+import Img1 from "@/assets/images/home/slider-1.jpg";
+import Img2 from "@/assets/images/home/slider-2.jpg";
+import Img3 from "@/assets/images/home/slider-3.jpg";
 import { Carousel } from "react-responsive-carousel";
 
 const SectionOne = () => {
-  const [images, setimages] = useState([MainImg, MainImg, MainImg]);
+  const [images, setimages] = useState([Img2, Img1, Img3]);
 
   const settings = {
     showArrows: false,
@@ -50,11 +52,11 @@ const SectionOne = () => {
       >
         {images.map((image) => (
           <div
-            className="h-[102vh] lg:h-[100vh] w-[100%] rounded-lg"
+            className="h-[102vh] lg:h-[100vh] w-[100%]"
             style={{
               backgroundImage: `url(${image.src})`,
               backgroundRepeat: "no-repeat",
-              backgroundSize: "cover",
+              backgroundSize: "100% 100%",
               backgroundPosition: "center center",
             }}
           />

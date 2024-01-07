@@ -21,7 +21,7 @@ const Testimonials = ({ reviews }) => {
   };
 
   return (
-    <div className="home-sec-1">
+    <div className="home-sec-1 testimonials">
       <p className="text-3xl font-bold text-center">
         What Our People Has To Say About Us
       </p>

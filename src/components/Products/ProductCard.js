@@ -58,18 +58,19 @@ const ProductCard = ({ product }) => {
           </div>
           <div className="flex items-end gap-3">
             <p className="font-semibold notranslate">
-              {product.discountedPrice}€
+              {product.discountedPrice.toFixed(2)}€
             </p>
             {product.discount > 0 && (
               <p className="text-sm text-gray-500 line-through notranslate">
-                {product.price}€
+                {product.price.toFixed(2)}€
               </p>
             )}
           </div>
         </div>
       </div>
       <PinkButton
-        text={"Buy Now"}
+        loading={product.quantity == 0}
+        text={product.quantity == 0 ? "OUT OF STOCK" : "Buy Now"}
         clickHandler={(e) => {
           e.stopPropagation();
           setcart({
